@@ -1,0 +1,93 @@
+@import url("https://fonts.googleapis.com/css2?family=Jura:wght@300;400;500;600;700&display=swap");
+html {
+  font-size: 16px;
+  font-family: "Jura", sans-serif;
+}
+
+.body {
+  min-height: 100vh;
+  background-color: #8fb14e;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #355829;
+}
+
+a {
+  color: #355829;
+  text-decoration: none;
+}
+ul {
+  list-style-type: none;
+}
+.header {
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  column-gap: 1em;
+}
+.middle-title {
+  font-size: 2em;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  padding: 1em;
+  align-items: center;
+}
+.main {
+  background-color: #567d30;
+  flex-grow: 1;
+}
+.shape-list,
+.color-list,
+.size-list {
+  display: flex;
+  column-gap: 0.5em;
+
+  input[type="checkbox"] {
+    display: none;
+  }
+}
+.shape-label,
+.color-label,
+.size-label {
+  display: block;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+.size-label_middle {
+  img {
+    width: 80%;
+  }
+}
+.size-label_small {
+  img {
+    width: 50%;
+  }
+}
+.color-label_white {
+  background-color: white;
+}
+.color-label_yellow {
+  background-color: yellow;
+}
+.color-label_red {
+  background-color: red;
+}
+.color-label_blue {
+  background-color: blue;
+}
+.color-label_green {
+  background-color: green;
+}
+.favourite-label {
+  cursor: pointer;
+}
