@@ -46,7 +46,7 @@ class Card {
     } else {
       this.favoriteString = "нет";
     }
-    this.element = `<div class="toy-item">
+    this.element = `<div class="toy-item" data-num=${this.num}>
     <h4>${this.name}</h4>
     <img class="toy-image" src=${this.src} alt="toy" />
     <ul>
