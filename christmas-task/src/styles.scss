@@ -135,7 +135,7 @@ section {
   background-color: green;
 }
 
-.favourite-toy-input {
+.favorite-toy-input {
   align-self: flex-start;
 }
 
@@ -152,4 +152,35 @@ label:hover {
   padding: 0.5em;
   border-radius: 0.2em;
   border: 2px solid #567d30;
+}
+.toys-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 2rem;
+  column-gap: 1rem;
+  row-gap: 1rem;
+}
+.toy-item {
+  width: 250px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  position: relative;
+  background-color: #355829;
+  color: white;
+
+  .toy-image {
+    position: absolute;
+    width: 150px;
+    opacity: 0.3;
+    left: 50%;
+  }
+  .star-image {
+    position: absolute;
+    width: 20px;
+    opacity: 0.7;
+    bottom: 1rem;
+    right: 1rem;
+  }
 }
