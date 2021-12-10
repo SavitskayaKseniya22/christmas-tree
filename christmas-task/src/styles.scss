@@ -5,7 +5,6 @@ html {
 }
 
 .body {
-  min-height: 100vh;
   background-color: #8fb14e;
   display: flex;
   flex-direction: column;
@@ -17,17 +16,46 @@ a {
   color: #355829;
   text-decoration: none;
 }
+
 ul {
   list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+label,
+button,
+select,
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
 .header {
   padding: 1em;
-  display: flex;
-  justify-content: center;
-  column-gap: 1em;
+  text-align: center;
 }
+
+.big-title {
+  font-size: 2rem;
+}
+
 .middle-title {
-  font-size: 2em;
+  font-size: 1.5rem;
+}
+
+.small-title {
+  font-size: 1.2rem;
+}
+
+h3,
+h4 {
+  padding: 0;
+  margin: 0;
+  margin-right: auto;
 }
 
 .footer {
@@ -38,25 +66,43 @@ ul {
 }
 .main {
   background-color: #567d30;
-  flex-grow: 1;
+  display: flex;
+}
+.filter {
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+  background-color: #ceb31e;
+  row-gap: 2em;
+}
+section {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+.inner-section {
+  padding: 1em;
 }
 .shape-list,
 .color-list,
 .size-list {
   display: flex;
   column-gap: 0.5em;
+  justify-content: center;
 
   input[type="checkbox"] {
     display: none;
   }
 }
+
 .shape-label,
 .color-label,
 .size-label {
   display: block;
   width: 40px;
   height: 40px;
-  cursor: pointer;
+  opacity: 0.5;
+  transition: 0.3s;
 
   img {
     width: 100%;
@@ -88,6 +134,22 @@ ul {
 .color-label_green {
   background-color: green;
 }
-.favourite-label {
-  cursor: pointer;
+
+.favourite-toy-input {
+  align-self: flex-start;
+}
+
+input[type="checkbox"]:checked ~ label {
+  opacity: 0.9;
+}
+label:hover {
+  opacity: 1;
+}
+
+.reset-filter,
+.search-input,
+.sort-select {
+  padding: 0.5em;
+  border-radius: 0.2em;
+  border: 2px solid #567d30;
 }

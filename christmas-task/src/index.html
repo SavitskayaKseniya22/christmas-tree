@@ -4,135 +4,184 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./assets/favicon.ico" rel="shortcut icon" />
     <title>Christmas</title>
   </head>
   <body class="body">
     <header class="header">
-      <h2 class="middle-title">Игрушки</h2>
+      <h2 class="big-title">Игрушки</h2>
     </header>
     <main class="main">
-      <div>
-        <h3>Избранное</h3>
-        <h3>Сортировать</h3>
-        <select size="1">
-          <option value="">По названию от "А" до "Я"</option>
-          <option value="">По названию от "Я" до "А"</option>
-          <option value="">По количеству по возрастанию</option>
-          <option value="">По количеству по убыванию</option>
-        </select>
-        <h3>Фильтры</h3>
+      <div class="filter">
+        <section>
+          <label for="search">
+            <h3 class="middle-title">Поиск</h3>
+          </label>
 
-        <h4>Форма</h4>
-        <ul class="shape-list">
-          <li>
-            <label class="shape-label" for="round-shape"
-              ><img src="./assets/svg/ball.svg" alt="round-shape-toy"
-            /></label>
-            <input type="checkbox" id="round-shape" />
-          </li>
-          <li>
-            <label class="shape-label" for="bell-shape"
-              ><img src="./assets/svg/bell.svg" alt="bell-shape-toy"
-            /></label>
-            <input type="checkbox" id="bell-shape" />
-          </li>
-          <li>
-            <label class="shape-label" for="cone-shape"
-              ><img src="./assets/svg/cone.svg" alt="cone-shape-toy"
-            /></label>
-            <input type="checkbox" id="cone-shape" />
-          </li>
-          <li>
-            <label class="shape-label" for="snowflake-shape"
-              ><img src="./assets/svg/snowflake.svg" alt="snowflake-shape-toy"
-            /></label>
-            <input type="checkbox" id="snowflake-shape" />
-          </li>
-          <li>
-            <label class="shape-label" for="custom-shape"
-              ><img src="./assets/svg/toy.svg" alt="custom-shape-toy"
-            /></label>
-            <input type="checkbox" id="custom-shape" />
-          </li>
-        </ul>
+          <input
+            type="text"
+            name="search"
+            class="search-input"
+            id="search"
+            placeholder="Поиск"
+            autocomplete="off"
+          />
+        </section>
+        <section>
+          <h3 class="middle-title">Избранное</h3>
+          <span>0</span>
+        </section>
+        <section>
+          <label for="sort-select"
+            ><h3 class="middle-title">Сортировать</h3></label
+          >
+          <select size="1" class="sort-select" id="sort-select">
+            <option value="">По названию от "А" до "Я"</option>
+            <option value="">По названию от "Я" до "А"</option>
+            <option value="">По количеству по возрастанию</option>
+            <option value="">По количеству по убыванию</option>
+          </select>
+        </section>
 
-        <h4>Количество экземпляров</h4>
-        <label for="amount">1</label>
-        <input type="range" name="" id="amount" min="1" max="12" step="1" />
-        <label for="amount">12</label>
-        <h4>Год приобретения</h4>
-        <label for="year-of-manufacture">1940</label>
-        <input
-          type="range"
-          name=""
-          id="year-of-manufacture"
-          min="1940"
-          max="2020"
-          step="20"
-        />
-        <label for="year-of-manufacture">2020</label>
-        <h4>Цвет</h4>
-        <ul class="color-list">
-          <li>
-            <label
-              class="color-label color-label_white"
-              for="white-color"
-            ></label>
-            <input type="checkbox" id="white-color" />
-          </li>
-          <li>
-            <label
-              class="color-label color-label_yellow"
-              for="yellow-color"
-            ></label>
-            <input type="checkbox" id="yellow-color" />
-          </li>
-          <li>
-            <label class="color-label color-label_red" for="red-color"></label>
-            <input type="checkbox" id="red-color" />
-          </li>
-          <li>
-            <label
-              class="color-label color-label_blue"
-              for="blue-color"
-            ></label>
-            <input type="checkbox" id="blue-color" />
-          </li>
-          <li>
-            <label
-              class="color-label color-label_green"
-              for="green-color"
-            ></label>
-            <input type="checkbox" id="green-color" />
-          </li>
-        </ul>
+        <section>
+          <h3 class="middle-title">Фильтры</h3>
 
-        <h4>Размер</h4>
-        <ul class="size-list">
-          <li>
-            <label class="size-label size-label_big" for="big-size"
-              ><img src="./assets/svg/ball.svg" alt="big-size-toy"
-            /></label>
-            <input type="checkbox" id="big-size" />
-          </li>
-          <li>
-            <label class="size-label size-label_middle" for="middle-size"
-              ><img src="./assets/svg/ball.svg" alt="middle-size"
-            /></label>
-            <input type="checkbox" id="middle-size" />
-          </li>
-          <li>
-            <label class="size-label size-label_small" for="small-size"
-              ><img src="./assets/svg/ball.svg" alt="small-size"
-            /></label>
-            <input type="checkbox" id="small-size" />
-          </li>
-        </ul>
+          <section class="inner-section">
+            <h4 class="small-title">Форма</h4>
+            <ul class="shape-list">
+              <li>
+                <input type="checkbox" id="round-shape" />
+                <label class="shape-label" for="round-shape"
+                  ><img src="./assets/svg/ball.svg" alt="round-shape-toy"
+                /></label>
+              </li>
+              <li>
+                <input type="checkbox" id="bell-shape" />
+                <label class="shape-label" for="bell-shape"
+                  ><img src="./assets/svg/bell.svg" alt="bell-shape-toy"
+                /></label>
+              </li>
+              <li>
+                <input type="checkbox" id="cone-shape" />
+                <label class="shape-label" for="cone-shape"
+                  ><img src="./assets/svg/cone.svg" alt="cone-shape-toy"
+                /></label>
+              </li>
+              <li>
+                <input type="checkbox" id="snowflake-shape" />
+                <label class="shape-label" for="snowflake-shape"
+                  ><img
+                    src="./assets/svg/snowflake.svg"
+                    alt="snowflake-shape-toy"
+                /></label>
+              </li>
+              <li>
+                <input type="checkbox" id="custom-shape" />
+                <label class="shape-label" for="custom-shape"
+                  ><img src="./assets/svg/toy.svg" alt="custom-shape-toy"
+                /></label>
+              </li>
+            </ul>
+          </section>
+          <section class="inner-section">
+            <h4 class="small-title">Количество экземпляров</h4>
+            <label for="amount">1</label>
+            <input type="range" name="" id="amount" min="1" max="12" step="1" />
+            <label for="amount">12</label>
+          </section>
 
-        <label class="favourite-label" for="favourite-toy"
-          ><h4>Любимые</h4></label
-        >
-        <input type="checkbox" id="favourite-toy" />
+          <section class="inner-section">
+            <h4 class="small-title">Год приобретения</h4>
+            <label for="year-of-manufacture">1940</label>
+            <input
+              type="range"
+              name=""
+              id="year-of-manufacture"
+              min="1940"
+              max="2020"
+              step="10"
+            />
+            <label for="year-of-manufacture">2020</label>
+          </section>
+          <section class="inner-section">
+            <h4 class="small-title">Цвет</h4>
+            <ul class="color-list">
+              <li>
+                <input type="checkbox" id="white-color" />
+                <label
+                  class="color-label color-label_white"
+                  for="white-color"
+                ></label>
+              </li>
+              <li>
+                <input type="checkbox" id="yellow-color" />
+                <label
+                  class="color-label color-label_yellow"
+                  for="yellow-color"
+                ></label>
+              </li>
+              <li>
+                <input type="checkbox" id="red-color" />
+                <label
+                  class="color-label color-label_red"
+                  for="red-color"
+                ></label>
+              </li>
+              <li>
+                <input type="checkbox" id="blue-color" />
+                <label
+                  class="color-label color-label_blue"
+                  for="blue-color"
+                ></label>
+              </li>
+              <li>
+                <input type="checkbox" id="green-color" />
+                <label
+                  class="color-label color-label_green"
+                  for="green-color"
+                ></label>
+              </li>
+            </ul>
+          </section>
+
+          <section class="inner-section">
+            <h4 class="small-title">Размер</h4>
+            <ul class="size-list">
+              <li>
+                <input type="checkbox" id="big-size" />
+                <label class="size-label size-label_big" for="big-size"
+                  ><img src="./assets/svg/ball.svg" alt="big-size-toy"
+                /></label>
+              </li>
+              <li>
+                <input type="checkbox" id="middle-size" />
+                <label class="size-label size-label_middle" for="middle-size"
+                  ><img src="./assets/svg/ball.svg" alt="middle-size"
+                /></label>
+              </li>
+              <li>
+                <input type="checkbox" id="small-size" />
+                <label class="size-label size-label_small" for="small-size"
+                  ><img src="./assets/svg/ball.svg" alt="small-size"
+                /></label>
+              </li>
+            </ul>
+          </section>
+
+          <section class="inner-section">
+            <label class="favourite-label" for="favourite-toy"
+              ><h4 class="small-title">Любимые игрушки</h4></label
+            >
+            <input
+              type="checkbox"
+              id="favourite-toy"
+              class="favourite-toy-input"
+            />
+          </section>
+          <section class="inner-section">
+            <button class="reset-filter">Сбросить фильтры</button>
+          </section>
+        </section>
       </div>
       <div></div>
     </main>
