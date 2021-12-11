@@ -21,6 +21,8 @@ class Card {
 
   favoriteString: string;
 
+  selection: boolean;
+
   constructor(obj: {
     num: string;
     name: string;
@@ -31,6 +33,7 @@ class Card {
     size: string;
     favorite: boolean;
   }) {
+    this.selection = false;
     this.name = obj.name;
     this.count = obj.count;
     this.year = obj.year;
@@ -38,7 +41,6 @@ class Card {
     this.color = obj.color;
     this.size = obj.size;
     this.favorite = obj.favorite;
-
     this.num = obj.num;
     this.src = `./assets/toys/${this.num}.png`;
     if (this.favorite) {
@@ -46,7 +48,7 @@ class Card {
     } else {
       this.favoriteString = "нет";
     }
-    this.element = `<div class="toy-item" data-num=${this.num}>
+    this.element = `<div class="toy-item" data-num=${this.num} data-selection=${this.selection}>
     <h4>${this.name}</h4>
     <img class="toy-image" src=${this.src} alt="toy" />
     <ul>

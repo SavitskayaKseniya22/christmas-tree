@@ -169,6 +169,7 @@ label:hover {
   position: relative;
   background-color: #355829;
   color: white;
+  cursor: pointer;
 
   .toy-image {
     position: absolute;
@@ -188,4 +189,7 @@ label:hover {
   background-image: url(./assets/svg/star-full.svg);
   background-repeat: no-repeat;
   background-size: contain;
+}
+.selection-warning {
+  color: rgb(170, 34, 34);
 }
