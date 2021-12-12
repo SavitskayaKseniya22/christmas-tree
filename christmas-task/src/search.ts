@@ -1,29 +1,39 @@
-const mainContainer = document.querySelector(".toys-container") as HTMLElement;
 const clearSearch = document.querySelector(
   ".clear-search"
 ) as HTMLButtonElement;
 const searchInput = document.querySelector(".search-input") as HTMLInputElement;
-const toyCollection = Array.from(document.querySelectorAll(".toy-item"));
+const searchWarning = document.querySelector(
+  ".search-warning"
+) as HTMLSpanElement;
+function searchToy(): void {
+  const toyCollection = document.querySelectorAll(".toy-item");
 
-function searchToy(arg: Element[]): void {
-  // alert(searchInput.value);
+  // eslint-disable-next-line no-restricted-syntax
+  for (const item of toyCollection) {
+    item.setAttribute("data-visible", "true");
+    if (
+      !(item.children[0].textContent as string)
+        .toLowerCase()
+        .includes(searchInput.value.toLowerCase())
+    ) {
+      item.setAttribute("data-visible", "false");
 
-  // alert(toyCollection.length);
-
-  const filterToys = arg.filter((word) =>
-    (word.children[0].textContent as string).includes(searchInput.value)
-  );
-
-  (mainContainer as HTMLElement).innerHTML = "";
-  for (let item of filterToys) {
-    mainContainer.append(item);
+      const arr = document.querySelectorAll("[data-visible='false']");
+      if (arr.length === toyCollection.length) {
+        searchWarning.textContent = "Извините, совпадений не обнаружено";
+      } else {
+        searchWarning.textContent = "";
+      }
+    }
   }
 }
 
 clearSearch.addEventListener("click", (e: Event): void => {
   searchInput.value = "";
+  searchWarning.textContent = "";
+  searchToy();
 });
 
 searchInput.addEventListener("input", (e: Event): void => {
-  searchToy(toyCollection);
+  searchToy();
 });

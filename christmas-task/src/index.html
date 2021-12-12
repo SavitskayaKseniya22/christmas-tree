@@ -27,6 +27,7 @@
             autocomplete="off"
             autofocus
           />
+          <span class="search-warning"></span>
           <button class="clear-search">
             <img src="./assets/svg/close.svg" alt="clear search" />
           </button>
@@ -44,10 +45,10 @@
             ><h3 class="middle-title">Сортировать</h3></label
           >
           <select size="1" class="sort-select" id="sort-select">
-            <option value="">По названию от "А" до "Я"</option>
-            <option value="">По названию от "Я" до "А"</option>
-            <option value="">По количеству по возрастанию</option>
-            <option value="">По количеству по убыванию</option>
+            <option value="nameUp">По названию от "А" до "Я"</option>
+            <option value="nameDown">По названию от "Я" до "А"</option>
+            <option value="valueUp">По количеству по возрастанию</option>
+            <option value="valueDown">По количеству по убыванию</option>
           </select>
         </section>
 

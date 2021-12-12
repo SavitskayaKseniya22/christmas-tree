@@ -159,9 +159,11 @@ label:hover {
   padding: 2rem;
   column-gap: 1rem;
   row-gap: 1rem;
+  align-items: flex-start;
+  align-self: flex-start;
 }
 .toy-item {
-  width: 250px;
+  width: 280px;
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -190,7 +192,8 @@ label:hover {
   background-repeat: no-repeat;
   background-size: contain;
 }
-.selection-warning {
+.selection-warning,
+.search-warning {
   color: rgb(170, 34, 34);
 }
 .search-section {
@@ -205,7 +208,7 @@ label:hover {
   background-color: transparent;
   position: absolute;
   right: 1rem;
-  bottom: 0.5rem;
+  top: 0.5rem;
   opacity: 0.5;
   img {
     width: 100%;
@@ -213,4 +216,7 @@ label:hover {
 }
 .clear-search:hover {
   opacity: 1;
+}
+[data-visible="false"] {
+  display: none;
 }

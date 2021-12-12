@@ -1,3 +1,5 @@
+import myStorage from "./index";
+
 class Card {
   name: string;
 
@@ -23,6 +25,8 @@ class Card {
 
   selection: boolean;
 
+  visible: boolean;
+
   constructor(obj: {
     num: string;
     name: string;
@@ -34,6 +38,7 @@ class Card {
     favorite: boolean;
   }) {
     this.selection = false;
+    this.visible = true;
     this.name = obj.name;
     this.count = obj.count;
     this.year = obj.year;
@@ -48,7 +53,7 @@ class Card {
     } else {
       this.favoriteString = "нет";
     }
-    this.element = `<div class="toy-item" data-num=${this.num} data-selection=${this.selection}>
+    this.element = `<div class="toy-item" data-num=${this.num} data-selection=${this.selection} data-visible=${this.visible}>
     <h4>${this.name}</h4>
     <img class="toy-image" src=${this.src} alt="toy" />
     <ul>
@@ -86,4 +91,25 @@ export default function printAllCards(
   for (const item of arr) {
     printCard(new Card(item), container);
   }
+}
+
+export function getAllToys(
+  arr: {
+    num: string;
+    name: string;
+    count: string;
+    year: string;
+    shape: string;
+    color: string;
+    size: string;
+    favorite: boolean;
+  }[]
+) {
+  const collectionData: object[] = [];
+  // eslint-disable-next-line no-restricted-syntax
+  for (const item of arr) {
+    collectionData.push(new Card(item));
+  }
+  myStorage.setItem("allToys", JSON.stringify(collectionData));
+  return collectionData;
 }
