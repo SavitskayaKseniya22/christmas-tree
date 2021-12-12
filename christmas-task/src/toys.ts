@@ -54,15 +54,15 @@ class Card {
       this.favoriteString = "нет";
     }
     this.element = `<div class="toy-item" data-num=${this.num} data-selection=${this.selection} data-visible=${this.visible}>
-    <h4>${this.name}</h4>
+    <h4 class="small-title">${this.name}</h4>
     <img class="toy-image" src=${this.src} alt="toy" />
     <ul>
-      <li>Количество: <span>${this.count}</span></li>
-      <li>Год покупки: <span>${this.year}</span></li>
-      <li>Форма: <span>${this.shape}</span></li>
-      <li>Цвет: <span>${this.color}</span></li>
-      <li>Размер: <span>${this.size}</span></li>
-      <li>Любимая: <span>${this.favoriteString}</span></li>
+      <li>Количество: <span class="count-toy">${this.count}</span></li>
+      <li>Год покупки: <span class="year-toy">${this.year}</span></li>
+      <li>Форма: <span class="shape-toy">${this.shape}</span></li>
+      <li>Цвет: <span class="color-toy">${this.color}</span></li>
+      <li>Размер: <span class="size-toy">${this.size}</span></li>
+      <li>Любимая: <span class="favorite-toy">${this.favoriteString}</span></li>
     </ul>
     <img class="star-image" src="./assets/svg/star-empty.svg" alt="star" />
   </div>`;
