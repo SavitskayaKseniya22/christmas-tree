@@ -1,5 +1,6 @@
 import "./styles.scss";
 import "./normalize.scss";
+import "./search.ts";
 import data from "./data";
 import printAllCards from "./toys";
 import { restoreSelection, selectToy } from "./selection";

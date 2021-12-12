@@ -193,3 +193,24 @@ label:hover {
 .selection-warning {
   color: rgb(170, 34, 34);
 }
+.search-section {
+  position: relative;
+}
+.clear-search {
+  padding: 0;
+  margin: 0;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background-color: transparent;
+  position: absolute;
+  right: 1rem;
+  bottom: 0.5rem;
+  opacity: 0.5;
+  img {
+    width: 100%;
+  }
+}
+.clear-search:hover {
+  opacity: 1;
+}
