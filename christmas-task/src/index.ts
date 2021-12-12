@@ -1,6 +1,7 @@
 import "./styles.scss";
 import "./normalize.scss";
 import "./search.ts";
+import "./filter-form.ts";
 import "./search-order.ts";
 import data from "./data";
 import printAllCards from "./toys";

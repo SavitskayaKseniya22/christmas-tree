@@ -1,6 +1,6 @@
 const sortSelect = document.querySelector(".sort-select") as HTMLSelectElement;
 
-sortSelect.addEventListener("change", (e: Event) => {
+sortSelect.addEventListener("change", (): Element[] => {
   let toyCollection = Array.from(document.querySelectorAll(".toy-item"));
 
   switch (sortSelect.value) {
@@ -14,9 +14,7 @@ sortSelect.addEventListener("change", (e: Event) => {
         }
         return 0;
       });
-
       break;
-
     case "nameDown":
       toyCollection = toyCollection.sort((a: Element, b: Element) => {
         if (
@@ -27,7 +25,6 @@ sortSelect.addEventListener("change", (e: Event) => {
         }
         return 0;
       });
-
       break;
     case "valueUp":
       toyCollection = toyCollection.sort((a: Element, b: Element) => {
@@ -39,9 +36,7 @@ sortSelect.addEventListener("change", (e: Event) => {
         }
         return 0;
       });
-
       break;
-
     case "valueDown":
       toyCollection = toyCollection.sort((a: Element, b: Element) => {
         if (
@@ -52,7 +47,6 @@ sortSelect.addEventListener("change", (e: Event) => {
         }
         return 0;
       });
-
       break;
     default:
       return toyCollection;
@@ -66,4 +60,5 @@ sortSelect.addEventListener("change", (e: Event) => {
   for (const item of toyCollection) {
     mainContainer.append(item);
   }
+  return toyCollection;
 });
