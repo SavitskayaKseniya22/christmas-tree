@@ -49,10 +49,15 @@ const filters = {
     className: ".size-toy",
     variant: { "big-size": false, "middle-size": false, "small-size": false },
   },
+  favorite: {
+    className: ".favorite-toy",
+    variant: false,
+  },
 };
 
 document.addEventListener("click", (e: Event) => {
-  let toyCollection = Array.from(document.querySelectorAll(".toy-item"));
+  const toyCollection = Array.from(document.querySelectorAll(".toy-item"));
+
   const mainContainer = document.querySelector(
     ".toys-container"
   ) as HTMLElement;
@@ -63,12 +68,6 @@ document.addEventListener("click", (e: Event) => {
       ?.getAttribute("for") as string;
     if (!filters.shape.variant[element]) {
       filters.shape.variant[element] = true;
-
-      toyCollection = toyCollection.filter(
-        (item) =>
-          item.querySelector(filters.shape.className)?.textContent ===
-          filters.shape.object[element]
-      );
     } else {
       filters.shape.variant[element] = false;
     }
@@ -91,139 +90,50 @@ document.addEventListener("click", (e: Event) => {
       filters.color.variant[element] = false;
     }
   } else if ((e.target as HTMLElement).closest(".favorite-toy-input")) {
-  }
-  /*
-  for (let i = 0; i < Object.keys(filters).length; i++) {
-    console.log(Object.keys(filters[i]).variant);
-  } */
-  let arr: Element[][] = [];
-  for (const key in filters) {
-    if (filters.hasOwnProperty(key)) {
-      for (const k in filters[key].variant) {
-        if (
-          filters[key].variant.hasOwnProperty(k) &&
-          filters[key].variant[k] === true
-        ) {
-          // console.log(filters[key].variant[k]);
-          arr.push(
-            toyCollection.filter(
-              (item) =>
-                item.querySelector(filters[key].className)?.textContent ===
-                filters[key].object[k]
-            )
-          );
-        }
-      }
-    }
-  }
-  mainContainer.innerHTML = "";
-  let totalArr = new Set(arr.flat());
-  console.log(totalArr);
-  for (let uu of totalArr) {
-    mainContainer.append(uu);
-  }
-});
-
-/*
-document.addEventListener("click", (e: Event) => {
-  let toyCollection = Array.from(document.querySelectorAll(".toy-item"));
-  const mainContainer = document.querySelector(
-    ".toys-container"
-  ) as HTMLElement;
-
-  if ((e.target as HTMLElement).closest(".shape-label")) {
-    // eslint-disable-next-line no-restricted-syntax
-    for (const elem of Object.keys(objShape)) {
-      const element = (e.target as HTMLElement).closest(`[for=${elem}]`);
-      if (element) {
-        if (!filters.shape[elem]) {
-          filters.shape[elem] = true;
-          element.classList.add("active");
-
-          toyCollection = toyCollection.filter(
-            (item) =>
-              item.querySelector(".shape-toy")?.textContent === objShape[elem]
-          );
-
-          mainContainer.innerHTML = "";
-          // eslint-disable-next-line no-restricted-syntax
-          for (const item of toyCollection) {
-            mainContainer.append(item);
-          }
-        } else {
-          filters.shape[elem] = false;
-          element.classList.remove("active");
-        }
-      }
-    }
-  }
-
-  if ((e.target as HTMLElement).closest(".size-label")) {
-    // eslint-disable-next-line no-restricted-syntax
-    for (const elem of Object.keys(objSize)) {
-      const element = (e.target as HTMLElement).closest(`[for=${elem}]`);
-      if (element) {
-        if (!filters.size[elem]) {
-          filters.size[elem] = true;
-          element.classList.add("active");
-          toyCollection = toyCollection.filter(
-            (item) =>
-              item.querySelector(".size-toy")?.textContent === objSize[elem]
-          );
-          mainContainer.innerHTML = "";
-          // eslint-disable-next-line no-restricted-syntax
-          for (const item of toyCollection) {
-            mainContainer.append(item);
-          }
-        } else {
-          filters.size[elem] = false;
-          element.classList.remove("active");
-        }
-      }
-    }
-  }
-
-  if ((e.target as HTMLElement).closest(".color-label")) {
-    // eslint-disable-next-line no-restricted-syntax
-    for (const elem of Object.keys(objColor)) {
-      const element = (e.target as HTMLElement).closest(`[for=${elem}]`);
-      if (element) {
-        if (!filters.color[elem]) {
-          filters.color[elem] = true;
-          element.classList.add("active");
-          toyCollection = toyCollection.filter(
-            (item) =>
-              item.querySelector(".color-toy")?.textContent === objColor[elem]
-          );
-          mainContainer.innerHTML = "";
-          // eslint-disable-next-line no-restricted-syntax
-          for (const item of toyCollection) {
-            mainContainer.append(item);
-          }
-        } else {
-          filters.color[elem] = false;
-          element.classList.remove("active");
-        }
-      }
-    }
-  }
-
-  if ((e.target as HTMLElement).closest(".favorite-toy-input")) {
-    const element = (e.target as HTMLElement).closest(".favorite-toy-input");
-    if (!filters.favorite) {
-      filters.favorite = true;
-      element?.classList.add("active");
-      toyCollection = toyCollection.filter(
-        (item) => item.querySelector(".favorite-toy")?.textContent === "да"
-      );
-      mainContainer.innerHTML = "";
-      // eslint-disable-next-line no-restricted-syntax
-      for (const item of toyCollection) {
-        mainContainer.append(item);
-      }
+    if (!filters.favorite.variant) {
+      filters.favorite.variant = true;
     } else {
-      filters.favorite = false;
-      element?.classList.remove("active");
+      filters.favorite.variant = false;
     }
   }
-}); */
+
+  const arrColor: Element[][] = [];
+
+  for (const key in filters.color.variant) {
+    if (
+      filters.color.variant.hasOwnProperty(key) &&
+      filters.color.variant[key] === true
+    ) {
+      arrColor.push(
+        toyCollection.filter(
+          (item) =>
+            item.querySelector(filters.color.className)?.textContent ===
+            filters.color.object[key]
+        )
+      );
+    }
+  }
+
+  console.log(arrColor.flat());
+
+  const arrShape: Element[][] = [];
+
+  for (const key in filters.shape.variant) {
+    if (
+      filters.shape.variant.hasOwnProperty(key) &&
+      filters.shape.variant[key] === true
+    ) {
+      arrShape.push(
+        toyCollection.filter(
+          (item) =>
+            item.querySelector(filters.shape.className)?.textContent ===
+            filters.shape.object[key]
+        )
+      );
+    }
+  }
+
+  const totalResult = arrShape.flat().concat(arrColor.flat());
+
+  console.log(totalResult);
+});

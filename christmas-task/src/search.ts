@@ -28,12 +28,12 @@ function searchToy(): void {
   }
 }
 
-clearSearch.addEventListener("click", (e: Event): void => {
+clearSearch.addEventListener("click", (): void => {
   searchInput.value = "";
   searchWarning.textContent = "";
   searchToy();
 });
 
-searchInput.addEventListener("input", (e: Event): void => {
+searchInput.addEventListener("input", (): void => {
   searchToy();
 });
