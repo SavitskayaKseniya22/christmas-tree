@@ -1,4 +1,4 @@
-import myStorage from "./index";
+import { myStorage } from "./index";
 
 const selectionCount = document.querySelector(".selection-count") as HTMLSpanElement;
 const selectionRest = document.querySelector(".selection-rest") as HTMLSpanElement;

@@ -1,7 +1,7 @@
 const clearSearch = document.querySelector(".clear-search") as HTMLButtonElement;
 const searchInput = document.querySelector(".search-input") as HTMLInputElement;
 const searchWarning = document.querySelector(".search-warning") as HTMLSpanElement;
-function searchToy(): void {
+function searchToy() {
   const toyCollection = document.querySelectorAll(".toy-item");
 
   for (const item of toyCollection) {
@@ -19,12 +19,12 @@ function searchToy(): void {
   }
 }
 
-clearSearch.addEventListener("click", (): void => {
+clearSearch.addEventListener("click", () => {
   searchInput.value = "";
   searchWarning.textContent = "";
   searchToy();
 });
 
-searchInput.addEventListener("input", (): void => {
+searchInput.addEventListener("input", () => {
   searchToy();
 });

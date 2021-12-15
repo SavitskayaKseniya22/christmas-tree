@@ -158,12 +158,5 @@ document.addEventListener("click", (e: Event) => {
   }
   console.log(tot);
   console.log(num);
-
-  const mainContainerFake = document.querySelector(".toys-containerFake") as HTMLElement;
-  mainContainerFake.innerHTML = "";
-  for (const yy of tot) {
-    mainContainerFake.append(yy);
-  }
-
   console.log(filters);
 });

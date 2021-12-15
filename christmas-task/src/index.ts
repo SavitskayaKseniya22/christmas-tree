@@ -8,11 +8,9 @@ import printAllCards from "./toys";
 
 import { restoreSelection, selectToy } from "./selection";
 
-const myStorage = window.localStorage;
-export default myStorage;
+export const myStorage = window.localStorage;
 
-const mainContainer = document.querySelector(".toys-container") as HTMLElement;
+printAllCards(data);
 
-printAllCards(data, mainContainer);
 restoreSelection();
 selectToy();

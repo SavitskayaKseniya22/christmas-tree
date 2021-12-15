@@ -1,6 +1,8 @@
-import myStorage from "./index";
+import data from "./data";
+const mainContainer = document.querySelector(".toys-container") as HTMLElement;
 
-class Card {
+type Toy = {
+  num: string;
   name: string;
   count: string;
   year: string;
@@ -8,48 +10,34 @@ class Card {
   color: string;
   size: string;
   favorite: boolean;
-  num: string;
+};
+
+class Card {
   src: string;
   element: string;
   favoriteString: string;
   selection: boolean;
   visible: boolean;
+  toyData: Toy;
 
-  constructor(obj: {
-    num: string;
-    name: string;
-    count: string;
-    year: string;
-    shape: string;
-    color: string;
-    size: string;
-    favorite: boolean;
-  }) {
+  constructor(toy: Toy) {
     this.selection = false;
     this.visible = true;
-    this.name = obj.name;
-    this.count = obj.count;
-    this.year = obj.year;
-    this.shape = obj.shape;
-    this.color = obj.color;
-    this.size = obj.size;
-    this.favorite = obj.favorite;
-    this.num = obj.num;
-    this.src = `./assets/toys/${this.num}.png`;
-    if (this.favorite) {
-      this.favoriteString = "да";
-    } else {
-      this.favoriteString = "нет";
-    }
-    this.element = `<div class="toy-item" data-num=${this.num} data-selection=${this.selection} data-visible=${this.visible}>
-    <h4 class="small-title">${this.name}</h4>
-    <img class="toy-image" src=${this.src} alt="toy" />
+    this.toyData = toy;
+    this.toyData.favorite ? this.favoriteString : this.favoriteString;
+  }
+  renderHTML() {
+    return `<div class="toy-item" data-num=${this.toyData.num} data-selection=${this.selection} data-visible=${
+      this.visible
+    }>
+    <h4 class="small-title">${this.toyData.name}</h4>
+    <img class="toy-image" src=${`./assets/toys/${this.toyData.num}.png`} alt="toy" />
     <ul>
-      <li>Количество: <span class="count-toy">${this.count}</span></li>
-      <li>Год покупки: <span class="year-toy">${this.year}</span></li>
-      <li>Форма: <span class="shape-toy">${this.shape}</span></li>
-      <li>Цвет: <span class="color-toy">${this.color}</span></li>
-      <li>Размер: <span class="size-toy">${this.size}</span></li>
+      <li>Количество: <span class="count-toy">${this.toyData.count}</span></li>
+      <li>Год покупки: <span class="year-toy">${this.toyData.year}</span></li>
+      <li>Форма: <span class="shape-toy">${this.toyData.shape}</span></li>
+      <li>Цвет: <span class="color-toy">${this.toyData.color}</span></li>
+      <li>Размер: <span class="size-toy">${this.toyData.size}</span></li>
       <li>Любимая: <span class="favorite-toy">${this.favoriteString}</span></li>
     </ul>
     <img class="star-image" src="./assets/svg/star-empty.svg" alt="star" />
@@ -57,46 +45,13 @@ class Card {
   }
 }
 
-function printCard(obj: { element: string }, container: Element) {
-  // eslint-disable-next-line no-param-reassign
-  container.innerHTML += obj.element;
+export default function printAllCards(toys: Toy[]) {
+  toys.forEach((toy) => (mainContainer.innerHTML += new Card(toy).renderHTML()));
 }
-
-export default function printAllCards(
-  arr: {
-    num: string;
-    name: string;
-    count: string;
-    year: string;
-    shape: string;
-    color: string;
-    size: string;
-    favorite: boolean;
-  }[],
-  container: Element,
-) {
-  for (const item of arr) {
-    printCard(new Card(item), container);
-  }
-}
-
-export function getAllToys(
-  arr: {
-    num: string;
-    name: string;
-    count: string;
-    year: string;
-    shape: string;
-    color: string;
-    size: string;
-    favorite: boolean;
-  }[],
-) {
-  const collectionData: object[] = [];
-  // eslint-disable-next-line no-restricted-syntax
-  for (const item of arr) {
-    collectionData.push(new Card(item));
-  }
+const myStorage = window.localStorage;
+export function getAllToys(toys: Toy[]) {
+  const collectionData: Card[] = [];
+  toys.map((toy) => collectionData.push(new Card(toy)));
   myStorage.setItem("allToys", JSON.stringify(collectionData));
-  return collectionData;
 }
+getAllToys(data);
