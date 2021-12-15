@@ -2,29 +2,17 @@ import myStorage from "./index";
 
 class Card {
   name: string;
-
   count: string;
-
   year: string;
-
   shape: string;
-
   color: string;
-
   size: string;
-
   favorite: boolean;
-
   num: string;
-
   src: string;
-
   element: string;
-
   favoriteString: string;
-
   selection: boolean;
-
   visible: boolean;
 
   constructor(obj: {
@@ -85,9 +73,8 @@ export default function printAllCards(
     size: string;
     favorite: boolean;
   }[],
-  container: Element
+  container: Element,
 ) {
-  // eslint-disable-next-line no-restricted-syntax
   for (const item of arr) {
     printCard(new Card(item), container);
   }
@@ -103,7 +90,7 @@ export function getAllToys(
     color: string;
     size: string;
     favorite: boolean;
-  }[]
+  }[],
 ) {
   const collectionData: object[] = [];
   // eslint-disable-next-line no-restricted-syntax

@@ -1,14 +1,8 @@
 import myStorage from "./index";
 
-const selectionCount = document.querySelector(
-  ".selection-count"
-) as HTMLSpanElement;
-const selectionRest = document.querySelector(
-  ".selection-rest"
-) as HTMLSpanElement;
-const selectionWarning = document.querySelector(
-  ".selection-warning"
-) as HTMLSpanElement;
+const selectionCount = document.querySelector(".selection-count") as HTMLSpanElement;
+const selectionRest = document.querySelector(".selection-rest") as HTMLSpanElement;
+const selectionWarning = document.querySelector(".selection-warning") as HTMLSpanElement;
 
 let selection: string[] = [];
 
@@ -21,15 +15,10 @@ export function restoreSelection(): void {
       selectionWarning.innerHTML = "Извините, все слоты заполнены";
     }
 
-    // eslint-disable-next-line no-restricted-syntax
     for (const elem of selection) {
-      const item = document.querySelector(
-        `[data-num="${elem}"]`
-      ) as HTMLElement;
+      const item = document.querySelector(`[data-num="${elem}"]`) as HTMLElement;
       item.setAttribute("data-selection", "true");
-      (item.querySelector(".star-image") as HTMLImageElement).classList.add(
-        "golden-star-image"
-      );
+      (item.querySelector(".star-image") as HTMLImageElement).classList.add("golden-star-image");
     }
   }
 }
@@ -37,9 +26,7 @@ export function restoreSelection(): void {
 export function selectToy(): void {
   document.addEventListener("click", (e: Event): void => {
     if ((e.target as HTMLElement).closest(".toy-item")) {
-      const containerToy = (e.target as HTMLElement).closest(
-        ".toy-item"
-      ) as HTMLElement;
+      const containerToy = (e.target as HTMLElement).closest(".toy-item") as HTMLElement;
       const img = containerToy.querySelector(".star-image") as HTMLImageElement;
       if (containerToy.getAttribute("data-selection") === "false") {
         if (selection.length < 20) {
@@ -54,9 +41,7 @@ export function selectToy(): void {
         containerToy.setAttribute("data-selection", "false");
         selectionWarning.innerHTML = "";
 
-        selection = selection.filter(
-          (elem) => elem !== containerToy.getAttribute("data-num")
-        );
+        selection = selection.filter((elem) => elem !== containerToy.getAttribute("data-num"));
       }
 
       myStorage.setItem("selection", JSON.stringify(selection));

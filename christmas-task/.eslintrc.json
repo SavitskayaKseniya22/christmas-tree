@@ -4,18 +4,18 @@
         "es2021": true
     },
     "extends": [
-        "airbnb-base",
-        "prettier"
+      "plugin:@typescript-eslint/eslint-recommended", 
+      "plugin:@typescript-eslint/recommended", 
+      "plugin:prettier/recommended",  
+        "prettier" 
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": 13,
         "sourceType": "module"
     },
-    "plugins": [
-        "@typescript-eslint",
-        "prettier"
-    ],
-    "rules": {
-    }
+    "plugins": ["prettier", "@typescript-eslint"], 
+  "rules": { 
+    "@typescript-eslint/no-explicit-any": "error" 
+  } 
 }

@@ -56,34 +56,25 @@ const filters = {
 };
 
 document.addEventListener("click", (e: Event) => {
+  const mainContainer = document.querySelector(".toys-container") as HTMLElement;
   const toyCollection = Array.from(document.querySelectorAll(".toy-item"));
 
-  const mainContainer = document.querySelector(
-    ".toys-container"
-  ) as HTMLElement;
-
   if ((e.target as HTMLElement).closest(".shape-label")) {
-    const element = (e.target as HTMLElement)
-      .closest(".shape-label")
-      ?.getAttribute("for") as string;
+    const element = (e.target as HTMLElement).closest(".shape-label")?.getAttribute("for") as string;
     if (!filters.shape.variant[element]) {
       filters.shape.variant[element] = true;
     } else {
       filters.shape.variant[element] = false;
     }
   } else if ((e.target as HTMLElement).closest(".size-label")) {
-    const element = (e.target as HTMLElement)
-      .closest(".size-label")
-      ?.getAttribute("for") as string;
+    const element = (e.target as HTMLElement).closest(".size-label")?.getAttribute("for") as string;
     if (!filters.size.variant[element]) {
       filters.size.variant[element] = true;
     } else {
       filters.size.variant[element] = false;
     }
   } else if ((e.target as HTMLElement).closest(".color-label")) {
-    const element = (e.target as HTMLElement)
-      .closest(".color-label")
-      ?.getAttribute("for") as string;
+    const element = (e.target as HTMLElement).closest(".color-label")?.getAttribute("for") as string;
     if (!filters.color.variant[element]) {
       filters.color.variant[element] = true;
     } else {
@@ -100,40 +91,79 @@ document.addEventListener("click", (e: Event) => {
   const arrColor: Element[][] = [];
 
   for (const key in filters.color.variant) {
-    if (
-      filters.color.variant.hasOwnProperty(key) &&
-      filters.color.variant[key] === true
-    ) {
+    if (filters.color.variant.hasOwnProperty(key) && filters.color.variant[key] === true) {
       arrColor.push(
         toyCollection.filter(
-          (item) =>
-            item.querySelector(filters.color.className)?.textContent ===
-            filters.color.object[key]
-        )
+          (item) => item.querySelector(filters.color.className)?.textContent === filters.color.object[key],
+        ),
       );
     }
   }
-
-  console.log(arrColor.flat());
 
   const arrShape: Element[][] = [];
 
   for (const key in filters.shape.variant) {
-    if (
-      filters.shape.variant.hasOwnProperty(key) &&
-      filters.shape.variant[key] === true
-    ) {
+    if (filters.shape.variant.hasOwnProperty(key) && filters.shape.variant[key] === true) {
       arrShape.push(
         toyCollection.filter(
-          (item) =>
-            item.querySelector(filters.shape.className)?.textContent ===
-            filters.shape.object[key]
-        )
+          (item) => item.querySelector(filters.shape.className)?.textContent === filters.shape.object[key],
+        ),
       );
     }
   }
+  const arrSize: Element[][] = [];
 
-  const totalResult = arrShape.flat().concat(arrColor.flat());
+  for (const key in filters.size.variant) {
+    if (filters.size.variant.hasOwnProperty(key) && filters.size.variant[key] === true) {
+      arrSize.push(
+        toyCollection.filter(
+          (item) => item.querySelector(filters.size.className)?.textContent === filters.size.object[key],
+        ),
+      );
+    }
+  }
+  let num = 0;
+  if (arrShape.length > 0) {
+    num++;
+  }
+  if (arrColor.length > 0) {
+    num++;
+  }
+  if (arrSize.length > 0) {
+    num++;
+  }
 
-  console.log(totalResult);
+  /* const totalResult = arrShape
+    .flat()
+    .concat(arrColor.flat())
+    .concat(arrSize.flat()); */
+
+  const totalResult: Element[][] = [];
+
+  totalResult.push(arrShape.flat());
+  totalResult.push(arrColor.flat());
+  totalResult.push(arrSize.flat());
+
+  console.log(totalResult.flat());
+
+  const tot: Element[] = [];
+  const totalResultFlat = totalResult.flat();
+  // eslint-disable-next-line no-restricted-syntax
+  console.log(toyCollection.length);
+  for (const el of toyCollection) {
+    const result = totalResultFlat.filter((word) => word === el);
+    if (result.length === num) {
+      tot.push(el);
+    }
+  }
+  console.log(tot);
+  console.log(num);
+
+  const mainContainerFake = document.querySelector(".toys-containerFake") as HTMLElement;
+  mainContainerFake.innerHTML = "";
+  for (const yy of tot) {
+    mainContainerFake.append(yy);
+  }
+
+  console.log(filters);
 });

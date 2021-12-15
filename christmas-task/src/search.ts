@@ -1,21 +1,12 @@
-const clearSearch = document.querySelector(
-  ".clear-search"
-) as HTMLButtonElement;
+const clearSearch = document.querySelector(".clear-search") as HTMLButtonElement;
 const searchInput = document.querySelector(".search-input") as HTMLInputElement;
-const searchWarning = document.querySelector(
-  ".search-warning"
-) as HTMLSpanElement;
+const searchWarning = document.querySelector(".search-warning") as HTMLSpanElement;
 function searchToy(): void {
   const toyCollection = document.querySelectorAll(".toy-item");
 
-  // eslint-disable-next-line no-restricted-syntax
   for (const item of toyCollection) {
     item.setAttribute("data-visible", "true");
-    if (
-      !(item.children[0].textContent as string)
-        .toLowerCase()
-        .includes(searchInput.value.toLowerCase())
-    ) {
+    if (!(item.children[0].textContent as string).toLowerCase().includes(searchInput.value.toLowerCase())) {
       item.setAttribute("data-visible", "false");
 
       const arr = document.querySelectorAll("[data-visible='false']");

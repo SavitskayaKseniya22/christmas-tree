@@ -1,5 +1,5 @@
 import "./styles.scss";
-import "./normalize.scss";
+
 import "./search.ts";
 import "./filter-form.ts";
 import "./search-order.ts";

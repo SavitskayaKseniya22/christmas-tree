@@ -14,6 +14,7 @@ sortSelect.addEventListener("change", (): Element[] => {
         }
         return 0;
       });
+
       break;
     case "nameDown":
       toyCollection = toyCollection.sort((a: Element, b: Element) => {
@@ -28,10 +29,7 @@ sortSelect.addEventListener("change", (): Element[] => {
       break;
     case "valueUp":
       toyCollection = toyCollection.sort((a: Element, b: Element) => {
-        if (
-          Number(a.querySelector(".year-toy")?.textContent) >
-          Number(b.querySelector(".year-toy")?.textContent)
-        ) {
+        if (Number(a.querySelector(".year-toy")?.textContent) > Number(b.querySelector(".year-toy")?.textContent)) {
           return 1;
         }
         return 0;
@@ -39,10 +37,7 @@ sortSelect.addEventListener("change", (): Element[] => {
       break;
     case "valueDown":
       toyCollection = toyCollection.sort((a: Element, b: Element) => {
-        if (
-          Number(a.querySelector(".year-toy")?.textContent) <
-          Number(b.querySelector(".year-toy")?.textContent)
-        ) {
+        if (Number(a.querySelector(".year-toy")?.textContent) < Number(b.querySelector(".year-toy")?.textContent)) {
           return 1;
         }
         return 0;
@@ -52,9 +47,7 @@ sortSelect.addEventListener("change", (): Element[] => {
       return toyCollection;
   }
 
-  const mainContainer = document.querySelector(
-    ".toys-container"
-  ) as HTMLElement;
+  const mainContainer = document.querySelector(".toys-container") as HTMLElement;
   mainContainer.innerHTML = "";
   // eslint-disable-next-line no-restricted-syntax
   for (const item of toyCollection) {
