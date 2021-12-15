@@ -6,41 +6,33 @@ sortSelect.addEventListener("change", (): Element[] => {
   switch (sortSelect.value) {
     case "nameUp":
       toyCollection = toyCollection.sort((a: Element, b: Element) => {
-        if (
+        return Number(
           (a.querySelector(".small-title")?.textContent as string) >
-          (b.querySelector(".small-title")?.textContent as string)
-        ) {
-          return 1;
-        }
-        return 0;
+            (b.querySelector(".small-title")?.textContent as string),
+        );
       });
 
       break;
     case "nameDown":
       toyCollection = toyCollection.sort((a: Element, b: Element) => {
-        if (
+        return Number(
           (a.querySelector(".small-title")?.textContent as string) <
-          (b.querySelector(".small-title")?.textContent as string)
-        ) {
-          return 1;
-        }
-        return 0;
+            (b.querySelector(".small-title")?.textContent as string),
+        );
       });
       break;
     case "valueUp":
       toyCollection = toyCollection.sort((a: Element, b: Element) => {
-        if (Number(a.querySelector(".year-toy")?.textContent) > Number(b.querySelector(".year-toy")?.textContent)) {
-          return 1;
-        }
-        return 0;
+        return Number(
+          Number(a.querySelector(".year-toy")?.textContent) > Number(b.querySelector(".year-toy")?.textContent),
+        );
       });
       break;
     case "valueDown":
       toyCollection = toyCollection.sort((a: Element, b: Element) => {
-        if (Number(a.querySelector(".year-toy")?.textContent) < Number(b.querySelector(".year-toy")?.textContent)) {
-          return 1;
-        }
-        return 0;
+        return Number(
+          Number(a.querySelector(".year-toy")?.textContent) < Number(b.querySelector(".year-toy")?.textContent),
+        );
       });
       break;
     default:
@@ -49,7 +41,6 @@ sortSelect.addEventListener("change", (): Element[] => {
 
   const mainContainer = document.querySelector(".toys-container") as HTMLElement;
   mainContainer.innerHTML = "";
-  // eslint-disable-next-line no-restricted-syntax
   for (const item of toyCollection) {
     mainContainer.append(item);
   }
