@@ -1,30 +1,33 @@
+import { Card } from "./toys";
+import { restoreSelection } from "./selection";
 const clearSearch = document.querySelector(".clear-search") as HTMLButtonElement;
 const searchInput = document.querySelector(".search-input") as HTMLInputElement;
 const searchWarning = document.querySelector(".search-warning") as HTMLSpanElement;
+const mainContainer = document.querySelector(".toys-container") as HTMLElement;
+
+import data from "./data";
+
 function searchToy() {
-  const toyCollection = document.querySelectorAll(".toy-item");
-
-  for (const item of toyCollection) {
-    item.setAttribute("data-visible", "true");
-    if (!(item.children[0].textContent as string).toLowerCase().includes(searchInput.value.toLowerCase())) {
-      item.setAttribute("data-visible", "false");
-
-      const arr = document.querySelectorAll("[data-visible='false']");
-      if (arr.length === toyCollection.length) {
-        searchWarning.textContent = "Извините, совпадений не обнаружено";
-      } else {
-        searchWarning.textContent = "";
-      }
+  mainContainer.innerHTML = "";
+  for (const item of data) {
+    if (item.name.toLowerCase().includes(searchInput.value.toLowerCase())) {
+      mainContainer.innerHTML += new Card(item).renderHTML();
     }
   }
+
+  mainContainer.innerHTML === ""
+    ? (searchWarning.textContent = "Извините, совпадений не обнаружено")
+    : (searchWarning.textContent = "");
 }
 
 clearSearch.addEventListener("click", () => {
   searchInput.value = "";
   searchWarning.textContent = "";
   searchToy();
+  restoreSelection();
 });
 
 searchInput.addEventListener("input", () => {
   searchToy();
+  restoreSelection();
 });

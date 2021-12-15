@@ -6,25 +6,27 @@ const selectionWarning = document.querySelector(".selection-warning") as HTMLSpa
 
 let selection: string[] = [];
 
-export function restoreSelection(): void {
+export function restoreSelection() {
   if (myStorage.getItem("selection")) {
     selection = JSON.parse(myStorage.getItem("selection") as string);
-    selectionCount.innerHTML = String(selection.length);
-    selectionRest.innerHTML = String(20 - selection.length);
+    selectionCount.textContent = String(selection.length);
+    selectionRest.textContent = String(20 - selection.length);
     if (selection.length === 20) {
-      selectionWarning.innerHTML = "Извините, все слоты заполнены";
+      selectionWarning.textContent = "Извините, все слоты заполнены";
     }
 
-    for (const elem of selection) {
-      const item = document.querySelector(`[data-num="${elem}"]`) as HTMLElement;
-      item.setAttribute("data-selection", "true");
-      (item.querySelector(".star-image") as HTMLImageElement).classList.add("golden-star-image");
+    for (const i of selection) {
+      const item = document.querySelector(`[data-num="${i}"]`) as HTMLElement;
+      if (item) {
+        item.setAttribute("data-selection", "true");
+        (item.querySelector(".star-image") as HTMLImageElement).classList.add("golden-star-image");
+      }
     }
   }
 }
 
-export function selectToy(): void {
-  document.addEventListener("click", (e: Event): void => {
+export function selectToy() {
+  document.addEventListener("click", (e: Event) => {
     if ((e.target as HTMLElement).closest(".toy-item")) {
       const containerToy = (e.target as HTMLElement).closest(".toy-item") as HTMLElement;
       const img = containerToy.querySelector(".star-image") as HTMLImageElement;
@@ -34,19 +36,19 @@ export function selectToy(): void {
           containerToy.setAttribute("data-selection", "true");
           selection.push(containerToy.getAttribute("data-num") as string);
         } else {
-          selectionWarning.innerHTML = "Извините, все слоты заполнены";
+          selectionWarning.textContent = "Извините, все слоты заполнены";
         }
       } else {
         img.classList.remove("golden-star-image");
         containerToy.setAttribute("data-selection", "false");
-        selectionWarning.innerHTML = "";
+        selectionWarning.textContent = "";
 
         selection = selection.filter((elem) => elem !== containerToy.getAttribute("data-num"));
       }
 
       myStorage.setItem("selection", JSON.stringify(selection));
-      selectionCount.innerHTML = String(selection.length);
-      selectionRest.innerHTML = String(20 - selection.length);
+      selectionCount.textContent = String(selection.length);
+      selectionRest.textContent = String(20 - selection.length);
     }
   });
 }

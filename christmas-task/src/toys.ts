@@ -12,7 +12,7 @@ type Toy = {
   favorite: boolean;
 };
 
-class Card {
+export class Card {
   src: string;
   element: string;
   favoriteString: string;
@@ -24,7 +24,7 @@ class Card {
     this.selection = false;
     this.visible = true;
     this.toyData = toy;
-    this.toyData.favorite ? this.favoriteString : this.favoriteString;
+    this.toyData.favorite ? (this.favoriteString = "да") : (this.favoriteString = "нет");
   }
   renderHTML() {
     return `<div class="toy-item" data-num=${this.toyData.num} data-selection=${this.selection} data-visible=${
@@ -48,10 +48,12 @@ class Card {
 export default function printAllCards(toys: Toy[]) {
   toys.forEach((toy) => (mainContainer.innerHTML += new Card(toy).renderHTML()));
 }
+/*
 const myStorage = window.localStorage;
 export function getAllToys(toys: Toy[]) {
-  const collectionData: Card[] = [];
+  const collectionData: object[] = [];
   toys.map((toy) => collectionData.push(new Card(toy)));
+  console.log(new Card(data[0]));
   myStorage.setItem("allToys", JSON.stringify(collectionData));
 }
-getAllToys(data);
+getAllToys(data);*/
