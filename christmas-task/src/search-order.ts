@@ -1,11 +1,19 @@
 const sortSelect = document.querySelector(".sort-select") as HTMLSelectElement;
+const myStorage = window.localStorage;
 
-sortSelect.addEventListener("change", (): Element[] => {
-  let toyCollection = Array.from(document.querySelectorAll(".toy-item"));
+export function changeOrder() {
+  const data = Array.from(document.querySelectorAll(".toy-item"));
+  if (!myStorage.getItem("order")) {
+    myStorage.setItem("order", "nameUp");
+  }
+  const value = myStorage.getItem("order");
 
-  switch (sortSelect.value) {
+  const selectedOption = document.querySelector(`[value=${value}]`);
+  selectedOption.setAttribute("selected", "true");
+  let sortedData;
+  switch (value) {
     case "nameUp":
-      toyCollection = toyCollection.sort((a: Element, b: Element) => {
+      sortedData = data.sort((a: Element, b: Element) => {
         return Number(
           (a.querySelector(".small-title")?.textContent as string) >
             (b.querySelector(".small-title")?.textContent as string),
@@ -14,7 +22,7 @@ sortSelect.addEventListener("change", (): Element[] => {
 
       break;
     case "nameDown":
-      toyCollection = toyCollection.sort((a: Element, b: Element) => {
+      sortedData = data.sort((a: Element, b: Element) => {
         return Number(
           (a.querySelector(".small-title")?.textContent as string) <
             (b.querySelector(".small-title")?.textContent as string),
@@ -22,27 +30,32 @@ sortSelect.addEventListener("change", (): Element[] => {
       });
       break;
     case "valueUp":
-      toyCollection = toyCollection.sort((a: Element, b: Element) => {
+      sortedData = data.sort((a: Element, b: Element) => {
         return Number(
           Number(a.querySelector(".year-toy")?.textContent) > Number(b.querySelector(".year-toy")?.textContent),
         );
       });
       break;
     case "valueDown":
-      toyCollection = toyCollection.sort((a: Element, b: Element) => {
+      sortedData = data.sort((a: Element, b: Element) => {
         return Number(
           Number(a.querySelector(".year-toy")?.textContent) < Number(b.querySelector(".year-toy")?.textContent),
         );
       });
       break;
     default:
-      return toyCollection;
+      return sortedData;
   }
 
-  const mainContainer = document.querySelector(".toys-container") as HTMLElement;
+  const mainContainer = document.querySelector(".toys-container");
   mainContainer.innerHTML = "";
-  for (const item of toyCollection) {
+  for (const item of sortedData) {
     mainContainer.append(item);
   }
-  return toyCollection;
+  return sortedData;
+}
+
+sortSelect.addEventListener("change", () => {
+  myStorage.setItem("order", sortSelect.value);
+  changeOrder();
 });
