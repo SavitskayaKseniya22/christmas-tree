@@ -2,84 +2,136 @@ import data from "./data";
 import { Card } from "./toys";
 import printAllCards from "./toys";
 
-const objShape = {
-  "round-shape": "шар",
-  "bell-shape": "колокольчик",
-  "cone-shape": "шишка",
-  "snowflake-shape": "снежинка",
-  "custom-shape": "фигурка",
-};
-
-const objSize = {
-  "big-size": "большой",
-  "middle-size": "средний",
-  "small-size": "малый",
-};
-
-const objColor = {
-  "white-color": "белый",
-  "yellow-color": "желтый",
-  "red-color": "красный",
-  "blue-color": "синий",
-  "green-color": "зелёный",
-};
-
-const filters = {
+const filters: Ifilters = {
   color: {
-    object: objColor,
     className: ".color-toy",
     options: {
-      "white-color": false,
-      "yellow-color": false,
-      "red-color": false,
-      "blue-color": false,
-      "green-color": false,
+      white: {
+        value: false,
+        name: "белый",
+      },
+      yellow: {
+        value: false,
+        name: "желтый",
+      },
+      red: {
+        value: false,
+        name: "красный",
+      },
+      blue: {
+        value: false,
+        name: "синий",
+      },
+      green: {
+        value: false,
+        name: "зелёный",
+      },
     },
   },
   shape: {
-    object: objShape,
     className: ".shape-toy",
     options: {
-      "round-shape": false,
-      "bell-shape": false,
-      "cone-shape": false,
-      "snowflake-shape": false,
-      "custom-shape": false,
+      round: {
+        value: false,
+        name: "шар",
+      },
+      bell: {
+        value: false,
+        name: "колокольчик",
+      },
+      cone: {
+        value: false,
+        name: "шишка",
+      },
+      snowflake: {
+        value: false,
+        name: "снежинка",
+      },
+      custom: {
+        value: false,
+        name: "фигурка",
+      },
     },
   },
 
   size: {
-    object: objSize,
     className: ".size-toy",
-    options: { "big-size": false, "middle-size": false, "small-size": false },
+    options: {
+      big: {
+        value: false,
+        name: "большой",
+      },
+      middle: {
+        value: false,
+        name: "средний",
+      },
+      small: {
+        value: false,
+        name: "малый",
+      },
+    },
   },
   favorite: {
     className: ".favorite-toy",
     options: false,
   },
 };
-let sortingData = data.slice();
-document.addEventListener("click", (e: Event) => {
-  const mainContainer = document.querySelector(".toys-container") as HTMLElement;
 
+interface Ifilters {
+  color: {
+    className: string;
+    options: {
+      [key: string]: {
+        value: boolean;
+        name: string;
+      };
+    };
+  };
+  shape: {
+    className: string;
+    options: {
+      [key: string]: {
+        value: boolean;
+        name: string;
+      };
+    };
+  };
+
+  size: {
+    className: string;
+    options: {
+      [key: string]: {
+        value: boolean;
+        name: string;
+      };
+    };
+  };
+  favorite: {
+    className: string;
+    options: boolean;
+  };
+}
+const mainContainer = document.querySelector(".toys-container");
+document.addEventListener("click", (e: Event) => {
   if ((e.target as HTMLElement).closest(".inner-section label")) {
+    let sortingData = data.slice(); // сюда передать дату
     if ((e.target as HTMLElement).closest(".shape-label")) {
       const attrName = (e.target as HTMLElement).closest(".shape-label").getAttribute("for");
-      filters.shape.options[attrName] = !filters.shape.options[attrName];
+      filters.shape.options[attrName].value = !filters.shape.options[attrName].value;
     } else if ((e.target as HTMLElement).closest(".size-label")) {
       const attrName = (e.target as HTMLElement).closest(".size-label").getAttribute("for");
-      filters.size.options[attrName] = !filters.size.options[attrName];
+      filters.size.options[attrName].value = !filters.size.options[attrName].value;
     } else if ((e.target as HTMLElement).closest(".color-label")) {
       const attrName = (e.target as HTMLElement).closest(".color-label").getAttribute("for");
-      filters.color.options[attrName] = !filters.color.options[attrName];
+      filters.color.options[attrName].value = !filters.color.options[attrName].value;
     } else if ((e.target as HTMLElement).closest(".favorite-toy-input")) {
       filters.favorite.options = !filters.favorite.options;
     }
 
     let result = [];
     for (const option of Object.keys(filters.color.options)) {
-      if (filters.color.options[option]) {
-        result.push(sortingData.filter((item) => item.color === objColor[option]));
+      if (filters.color.options[option].value) {
+        result.push(sortingData.filter((item) => item.color === filters.color.options[option].name));
       }
     }
     result = result.flat();
@@ -88,21 +140,32 @@ document.addEventListener("click", (e: Event) => {
       sortingData = result;
     }
 
+    result = [];
     for (const option of Object.keys(filters.shape.options)) {
-      if (filters.shape.options[option]) {
-        result.push(sortingData.filter((item) => item.shape === objShape[option]));
+      if (filters.shape.options[option].value) {
+        result.push(sortingData.filter((item) => item.shape === filters.shape.options[option].name));
       }
     }
-    console.log(result.flat());
+    result = result.flat();
 
-    if (result.flat().length > 0) {
-      mainContainer.innerHTML = "";
-      for (const item of result.flat()) {
-        mainContainer.innerHTML += new Card(item).renderHTML();
+    if (result.length !== 0) {
+      sortingData = result;
+    }
+
+    result = [];
+    for (const option of Object.keys(filters.size.options)) {
+      if (filters.size.options[option].value) {
+        result.push(sortingData.filter((item) => item.size === filters.size.options[option].name));
       }
-    } else {
-      mainContainer.innerHTML = "";
-      printAllCards(data);
+    }
+    result = result.flat();
+    if (result.length !== 0) {
+      sortingData = result;
+    }
+    console.log(sortingData);
+    mainContainer.innerHTML = "";
+    for (const item of sortingData) {
+      mainContainer.innerHTML += new Card(item).renderHTML();
     }
   }
 });
