@@ -1,4 +1,3 @@
-import data from "./data";
 const mainContainer = document.querySelector(".toys-container") as HTMLElement;
 
 type Toy = {
@@ -48,12 +47,3 @@ export class Card {
 export default function printAllCards(toys: Toy[]) {
   toys.forEach((toy) => (mainContainer.innerHTML += new Card(toy).renderHTML()));
 }
-/*
-const myStorage = window.localStorage;
-export function getAllToys(toys: Toy[]) {
-  const collectionData: object[] = [];
-  toys.map((toy) => collectionData.push(new Card(toy)));
-  console.log(new Card(data[0]));
-  myStorage.setItem("allToys", JSON.stringify(collectionData));
-}
-getAllToys(data);*/
