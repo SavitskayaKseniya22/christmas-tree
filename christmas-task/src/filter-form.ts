@@ -80,9 +80,17 @@ const filtersSource: Ifilters = {
     className: ".favorite-toy",
     options: false,
   },
+  amount: {
+    min: 1,
+    max: 12,
+  },
+  year: {
+    min: 1940,
+    max: 2020,
+  },
 };
 
-interface Ifilters {
+export interface Ifilters {
   color: {
     className: string;
     options: {
@@ -115,18 +123,25 @@ interface Ifilters {
     className: string;
     options: boolean;
   };
+  amount: {
+    min: number;
+    max: number;
+  };
+  year: {
+    min: number;
+    max: number;
+  };
 }
 
 if (!myStorage.getItem("filters")) {
   myStorage.setItem("filters", JSON.stringify(filtersSource));
 }
 
-const filters = JSON.parse(myStorage.getItem("filters"));
 const mainContainer = document.querySelector(".toys-container");
 
 export function filterAll() {
   let filteredData = data.slice();
-
+  const filters = JSON.parse(myStorage.getItem("filters")) as Ifilters;
   // по цвету
   let result = [];
   let isChanged = false;
@@ -180,6 +195,42 @@ export function filterAll() {
     mainContainer.innerHTML = "";
     filteredData = [];
   }
+  //по кол-ву
+
+  result = [];
+  isChanged = false;
+
+  isChanged = true;
+  result.push(
+    filteredData.filter((item) => Number(item.count) >= filters.amount.min && Number(item.count) <= filters.amount.max),
+  );
+
+  result = result.flat();
+  if (result.length !== 0) {
+    filteredData = result;
+  }
+  if (result.length === 0 && isChanged) {
+    mainContainer.innerHTML = "";
+    filteredData = [];
+  }
+  //по году
+
+  result = [];
+  isChanged = false;
+
+  isChanged = true;
+  result.push(
+    filteredData.filter((item) => Number(item.year) >= filters.year.min && Number(item.year) <= filters.year.max),
+  );
+
+  result = result.flat();
+  if (result.length !== 0) {
+    filteredData = result;
+  }
+  if (result.length === 0 && isChanged) {
+    mainContainer.innerHTML = "";
+    filteredData = [];
+  }
 
   //любимые
 
@@ -204,6 +255,7 @@ export function filterAll() {
 
 document.addEventListener("click", (e: Event) => {
   if ((e.target as HTMLElement).closest(".inner-section label")) {
+    const filters = JSON.parse(myStorage.getItem("filters")) as Ifilters;
     if ((e.target as HTMLElement).closest(".shape-label")) {
       const attrName = (e.target as HTMLElement).closest(".shape-label").getAttribute("for");
       filters.shape.options[attrName].value = !filters.shape.options[attrName].value;
@@ -244,4 +296,17 @@ export function getData() {
     readedData = JSON.parse(myStorage.getItem("searchedData"));
   }
   return readedData;
+}
+
+export function ttt() {
+  filterAll();
+
+  changeOrder();
+
+  if (myStorage.getItem("searchedData")) {
+    searchToy();
+  }
+  renderData();
+
+  restoreSelection();
 }
