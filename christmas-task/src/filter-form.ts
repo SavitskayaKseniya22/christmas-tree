@@ -1,5 +1,6 @@
 import data from "./data";
 import { Card } from "./toys";
+import { changeOrder } from "./search-order";
 
 const filtersSource: Ifilters = {
   color: {
@@ -121,24 +122,24 @@ const filters = JSON.parse(myStorage.getItem("filters"));
 const mainContainer = document.querySelector(".toys-container");
 
 export function filterAll() {
-  let sortingData = data.slice(); // сюда передать дату
+  let filteredData = data.slice(); // сюда передать дату
   // по цвету
   let result = [];
   let isChanged = false;
   for (const option of Object.keys(filters.color.options)) {
     if (filters.color.options[option].value) {
       isChanged = true;
-      result.push(sortingData.filter((item) => item.color === filters.color.options[option].name));
+      result.push(filteredData.filter((item) => item.color === filters.color.options[option].name));
     }
   }
   result = result.flat();
 
   if (result.length !== 0) {
-    sortingData = result;
+    filteredData = result;
   }
   if (result.length === 0 && isChanged) {
     mainContainer.innerHTML = "";
-    sortingData = [];
+    filteredData = [];
   }
   // по форме
   result = [];
@@ -146,17 +147,17 @@ export function filterAll() {
   for (const option of Object.keys(filters.shape.options)) {
     if (filters.shape.options[option].value) {
       isChanged = true;
-      result.push(sortingData.filter((item) => item.shape === filters.shape.options[option].name));
+      result.push(filteredData.filter((item) => item.shape === filters.shape.options[option].name));
     }
   }
   result = result.flat();
 
   if (result.length !== 0) {
-    sortingData = result;
+    filteredData = result;
   }
   if (result.length === 0 && isChanged) {
     mainContainer.innerHTML = "";
-    sortingData = [];
+    filteredData = [];
   }
   // по размеру
   result = [];
@@ -164,16 +165,16 @@ export function filterAll() {
   for (const option of Object.keys(filters.size.options)) {
     if (filters.size.options[option].value) {
       isChanged = true;
-      result.push(sortingData.filter((item) => item.size === filters.size.options[option].name));
+      result.push(filteredData.filter((item) => item.size === filters.size.options[option].name));
     }
   }
   result = result.flat();
   if (result.length !== 0) {
-    sortingData = result;
+    filteredData = result;
   }
   if (result.length === 0 && isChanged) {
     mainContainer.innerHTML = "";
-    sortingData = [];
+    filteredData = [];
   }
 
   //любимые
@@ -183,24 +184,20 @@ export function filterAll() {
 
   if (filters.favorite.options) {
     isChanged = true;
-    result.push(sortingData.filter((item) => item.favorite === filters.favorite.options));
+    result.push(filteredData.filter((item) => item.favorite === filters.favorite.options));
   }
 
   result = result.flat();
   if (result.length !== 0) {
-    sortingData = result;
+    filteredData = result;
   }
   if (result.length === 0 && isChanged) {
     mainContainer.innerHTML = "";
     alert(1111);
-    sortingData = [];
+    filteredData = [];
   }
 
-  //рендер результата
-  mainContainer.innerHTML = "";
-  for (const item of sortingData) {
-    mainContainer.innerHTML += new Card(item).renderHTML();
-  }
+  myStorage.setItem("data", JSON.stringify(filteredData));
 }
 
 document.addEventListener("click", (e: Event) => {
@@ -220,5 +217,16 @@ document.addEventListener("click", (e: Event) => {
     }
     myStorage.setItem("filters", JSON.stringify(filters));
     filterAll();
+    changeOrder();
+    renderData();
   }
 });
+
+export function renderData() {
+  const readedData = JSON.parse(myStorage.getItem("data"));
+
+  mainContainer.innerHTML = "";
+  for (const item of readedData) {
+    mainContainer.innerHTML += new Card(item).renderHTML();
+  }
+}

@@ -1,6 +1,6 @@
 const mainContainer = document.querySelector(".toys-container") as HTMLElement;
 
-type Toy = {
+export type Toy = {
   num: string;
   name: string;
   count: string;
