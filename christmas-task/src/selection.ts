@@ -25,30 +25,28 @@ export function restoreSelection() {
   }
 }
 
-export function selectToy() {
-  document.addEventListener("click", (e: Event) => {
-    if ((e.target as HTMLElement).closest(".toy-item")) {
-      const containerToy = (e.target as HTMLElement).closest(".toy-item") as HTMLElement;
-      const img = containerToy.querySelector(".star-image") as HTMLImageElement;
-      if (containerToy.getAttribute("data-selection") === "false") {
-        if (selection.length < 20) {
-          img.classList.add("golden-star-image");
-          containerToy.setAttribute("data-selection", "true");
-          selection.push(containerToy.getAttribute("data-num") as string);
-        } else {
-          selectionWarning.textContent = "Извините, все слоты заполнены";
-        }
+document.addEventListener("click", (e: Event) => {
+  if ((e.target as HTMLElement).closest(".toy-item")) {
+    const containerToy = (e.target as HTMLElement).closest(".toy-item") as HTMLElement;
+    const img = containerToy.querySelector(".star-image") as HTMLImageElement;
+    if (containerToy.getAttribute("data-selection") === "false") {
+      if (selection.length < 20) {
+        img.classList.add("golden-star-image");
+        containerToy.setAttribute("data-selection", "true");
+        selection.push(containerToy.getAttribute("data-num") as string);
       } else {
-        img.classList.remove("golden-star-image");
-        containerToy.setAttribute("data-selection", "false");
-        selectionWarning.textContent = "";
-
-        selection = selection.filter((elem) => elem !== containerToy.getAttribute("data-num"));
+        selectionWarning.textContent = "Извините, все слоты заполнены";
       }
+    } else {
+      img.classList.remove("golden-star-image");
+      containerToy.setAttribute("data-selection", "false");
+      selectionWarning.textContent = "";
 
-      myStorage.setItem("selection", JSON.stringify(selection));
-      selectionCount.textContent = String(selection.length);
-      selectionRest.textContent = String(20 - selection.length);
+      selection = selection.filter((elem) => elem !== containerToy.getAttribute("data-num"));
     }
-  });
-}
+
+    myStorage.setItem("selection", JSON.stringify(selection));
+    selectionCount.textContent = String(selection.length);
+    selectionRest.textContent = String(20 - selection.length);
+  }
+});

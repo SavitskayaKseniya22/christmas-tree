@@ -83,6 +83,7 @@ section {
 }
 .inner-section {
   padding: 1em;
+  row-gap: 1em;
 }
 .shape-list,
 .color-list,
@@ -220,4 +221,32 @@ label:hover {
 }
 [data-visible="false"] {
   display: none;
+}
+
+div.noUi-horizontal {
+  height: 10px;
+  font-size: 0.9rem;
+}
+.noUi-base {
+  background-color: #8fb14e;
+}
+.noUi-horizontal div.noUi-handle {
+  height: 20px;
+  width: 30px;
+}
+div.noUi-handle::before,
+div.noUi-handle::after {
+  display: none;
+}
+div.noUi-connect {
+  background-color: #567d30;
+}
+div.noUi-touch-area {
+  cursor: grab;
+}
+.noUi-horizontal div.noUi-tooltip {
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  border-radius: 0;
+  bottom: -200%;
 }

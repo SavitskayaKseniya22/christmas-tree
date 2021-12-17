@@ -1,7 +1,8 @@
 import { Toy } from "./toys";
 import { renderData } from "./filter-form";
+import { myStorage } from "./index";
+import { searchToy } from "./search";
 const sortSelect = document.querySelector(".sort-select") as HTMLSelectElement;
-const myStorage = window.localStorage;
 
 export function changeOrder() {
   const readedData = JSON.parse(myStorage.getItem("data")) as Toy[];
@@ -45,6 +46,12 @@ export function changeOrder() {
 
 sortSelect.addEventListener("change", () => {
   myStorage.setItem("order", sortSelect.value);
-  changeOrder();
-  renderData();
+  if (!myStorage.getItem("searchedData")) {
+    changeOrder();
+    renderData();
+  } else {
+    changeOrder();
+    searchToy();
+    renderData();
+  }
 });

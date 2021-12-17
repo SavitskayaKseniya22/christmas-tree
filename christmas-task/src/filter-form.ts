@@ -1,6 +1,11 @@
 import data from "./data";
 import { Card } from "./toys";
 import { changeOrder } from "./search-order";
+import { restoreSelection } from "./selection";
+import { Toy } from "./toys";
+import { searchToy } from "./search";
+//import { myStorage } from "./index";
+const myStorage = window.localStorage;
 
 const filtersSource: Ifilters = {
   color: {
@@ -112,8 +117,6 @@ interface Ifilters {
   };
 }
 
-const myStorage = window.localStorage;
-
 if (!myStorage.getItem("filters")) {
   myStorage.setItem("filters", JSON.stringify(filtersSource));
 }
@@ -122,7 +125,8 @@ const filters = JSON.parse(myStorage.getItem("filters"));
 const mainContainer = document.querySelector(".toys-container");
 
 export function filterAll() {
-  let filteredData = data.slice(); // сюда передать дату
+  let filteredData = data.slice();
+
   // по цвету
   let result = [];
   let isChanged = false;
@@ -193,10 +197,8 @@ export function filterAll() {
   }
   if (result.length === 0 && isChanged) {
     mainContainer.innerHTML = "";
-    alert(1111);
     filteredData = [];
   }
-
   myStorage.setItem("data", JSON.stringify(filteredData));
 }
 
@@ -218,15 +220,28 @@ document.addEventListener("click", (e: Event) => {
     myStorage.setItem("filters", JSON.stringify(filters));
     filterAll();
     changeOrder();
+
+    if (myStorage.getItem("searchedData")) {
+      searchToy();
+    }
     renderData();
+    restoreSelection();
   }
 });
 
 export function renderData() {
-  const readedData = JSON.parse(myStorage.getItem("data"));
-
   mainContainer.innerHTML = "";
-  for (const item of readedData) {
+  for (const item of getData()) {
     mainContainer.innerHTML += new Card(item).renderHTML();
   }
+}
+
+export function getData() {
+  let readedData: Toy[];
+  if (!myStorage.getItem("searchedData")) {
+    readedData = JSON.parse(myStorage.getItem("data"));
+  } else {
+    readedData = JSON.parse(myStorage.getItem("searchedData"));
+  }
+  return readedData;
 }
