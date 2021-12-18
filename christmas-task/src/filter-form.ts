@@ -7,7 +7,7 @@ import { searchToy } from "./search";
 //import { myStorage } from "./index";
 const myStorage = window.localStorage;
 
-const filtersSource: Ifilters = {
+export const filtersSource: Ifilters = {
   color: {
     className: ".color-toy",
     options: {
@@ -270,14 +270,7 @@ document.addEventListener("click", (e: Event) => {
       console.log(filters);
     }
     myStorage.setItem("filters", JSON.stringify(filters));
-    filterAll();
-    changeOrder();
-
-    if (myStorage.getItem("searchedData")) {
-      searchToy();
-    }
-    renderData();
-    restoreSelection();
+    filterAndRender();
   }
 });
 
@@ -298,15 +291,12 @@ export function getData() {
   return readedData;
 }
 
-export function ttt() {
+export function filterAndRender() {
   filterAll();
-
   changeOrder();
-
   if (myStorage.getItem("searchedData")) {
     searchToy();
   }
   renderData();
-
   restoreSelection();
 }

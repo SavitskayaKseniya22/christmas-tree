@@ -3,20 +3,13 @@ import "./search.ts";
 import "./filter-form.ts";
 import "./search-order.ts";
 import "./slider.ts";
-
+import "./reset.ts";
+import { filterAndRender } from "./filter-form";
 import data from "./data";
-import { filterAll } from "./filter-form";
-
-import { changeOrder } from "./search-order";
-import { renderData } from "./filter-form";
-import { restoreSelection } from "./selection";
 
 export const myStorage = window.localStorage;
 if (!myStorage.getItem("data")) {
   myStorage.setItem("data", JSON.stringify(data));
 }
 
-filterAll();
-changeOrder();
-renderData();
-restoreSelection();
+filterAndRender();
