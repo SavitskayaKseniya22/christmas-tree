@@ -1,5 +1,3 @@
-const mainContainer = document.querySelector(".toys-container") as HTMLElement;
-
 export type Toy = {
   num: string;
   name: string;
@@ -42,8 +40,4 @@ export class Card {
     <img class="star-image" src="./assets/svg/star-empty.svg" alt="star" />
   </div>`;
   }
-}
-
-export default function printAllCards(toys: Toy[]) {
-  toys.forEach((toy) => (mainContainer.innerHTML += new Card(toy).renderHTML()));
 }

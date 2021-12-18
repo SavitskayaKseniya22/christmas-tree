@@ -1,8 +1,7 @@
 import * as noUiSlider from "nouislider";
 import "nouislider/dist/nouislider.css";
-import { Ifilters, filterAndRender } from "./filter-form";
-
-const myStorage = window.localStorage;
+import { filterAndRender } from "./render";
+import { myStorage } from "./defaultData";
 
 export const sliderAmount = document.getElementById("amount") as noUiSlider.target;
 
@@ -32,7 +31,7 @@ noUiSlider.create(sliderYear, {
 
 sliderYear.noUiSlider.on("change", function () {
   const sliderYearValues = sliderYear.noUiSlider.get() as string[];
-  const filters = JSON.parse(myStorage.getItem("filters")) as Ifilters;
+  const filters = JSON.parse(myStorage.getItem("filters"));
   filters.year.min = Number(sliderYearValues[0].slice(0, -3));
   filters.year.max = Number(sliderYearValues[1].slice(0, -3));
   myStorage.setItem("filters", JSON.stringify(filters));
@@ -41,7 +40,7 @@ sliderYear.noUiSlider.on("change", function () {
 
 sliderAmount.noUiSlider.on("change", function () {
   const sliderAmountValues = sliderAmount.noUiSlider.get() as string[];
-  const filters = JSON.parse(myStorage.getItem("filters")) as Ifilters;
+  const filters = JSON.parse(myStorage.getItem("filters"));
   filters.amount.min = Number(sliderAmountValues[0].slice(0, -3));
   filters.amount.max = Number(sliderAmountValues[1].slice(0, -3));
   myStorage.setItem("filters", JSON.stringify(filters));
@@ -49,12 +48,20 @@ sliderAmount.noUiSlider.on("change", function () {
 });
 
 function restoreSliderPosYear() {
-  const filters = JSON.parse(myStorage.getItem("filters")) as Ifilters;
-  const sliderYearStart = [filters.year.min, filters.year.max];
-  return sliderYearStart;
+  if (!myStorage.getItem("filters")) {
+    return [1940, 2020];
+  } else {
+    const filters = JSON.parse(myStorage.getItem("filters"));
+    const sliderYearStart = [filters.year.min, filters.year.max];
+    return sliderYearStart;
+  }
 }
 function restoreSliderPosAmount() {
-  const filters = JSON.parse(myStorage.getItem("filters")) as Ifilters;
-  const sliderAmountStart = [filters.amount.min, filters.amount.max];
-  return sliderAmountStart;
+  if (!myStorage.getItem("filters")) {
+    return [1, 12];
+  } else {
+    const filters = JSON.parse(myStorage.getItem("filters"));
+    const sliderAmountStart = [filters.amount.min, filters.amount.max];
+    return sliderAmountStart;
+  }
 }

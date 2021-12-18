@@ -1,6 +1,6 @@
 import { restoreSelection } from "./selection";
-import { renderData } from "./filter-form";
-import { myStorage } from "./index";
+import { renderData } from "./render";
+import { myStorage } from "./defaultData";
 const clearSearch = document.querySelector(".clear-search") as HTMLButtonElement;
 const searchInput = document.querySelector(".search-input") as HTMLInputElement;
 const searchWarning = document.querySelector(".search-warning") as HTMLSpanElement;
@@ -9,9 +9,9 @@ export function searchToy() {
   const readedData = JSON.parse(myStorage.getItem("data"));
   const searchedData = [];
 
-  for (const item of readedData) {
-    if (item.name.toLowerCase().includes(searchInput.value.toLowerCase())) {
-      searchedData.push(item);
+  for (const toy of readedData) {
+    if (toy.name.toLowerCase().includes(searchInput.value.toLowerCase())) {
+      searchedData.push(toy);
     }
   }
   myStorage.setItem("searchedData", JSON.stringify(searchedData));

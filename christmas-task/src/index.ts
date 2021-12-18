@@ -1,15 +1,11 @@
 import "./styles.scss";
+import "./defaultData.ts";
+import "./render.ts";
+import "./filter.ts";
+import "./order.ts";
 import "./search.ts";
-import "./filter-form.ts";
-import "./search-order.ts";
 import "./slider.ts";
 import "./reset.ts";
-import { filterAndRender } from "./filter-form";
-import data from "./data";
-
-export const myStorage = window.localStorage;
-if (!myStorage.getItem("data")) {
-  myStorage.setItem("data", JSON.stringify(data));
-}
+import { filterAndRender } from "./render";
 
 filterAndRender();

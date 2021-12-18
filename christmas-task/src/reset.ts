@@ -1,5 +1,5 @@
-import { myStorage } from "./index";
-import { filtersSource, filterAndRender } from "./filter-form";
+import { myStorage, filtersSource } from "./defaultData";
+import { filterAndRender } from "./render";
 import { sliderAmount, sliderYear } from "./slider";
 const resetFilter = document.querySelector(".reset-filter");
 resetFilter.addEventListener("click", function () {

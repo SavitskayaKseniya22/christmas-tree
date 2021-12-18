@@ -1,17 +1,13 @@
 import { Toy } from "./toys";
-import { renderData } from "./filter-form";
-import { myStorage } from "./index";
+import { myStorage } from "./defaultData";
+import { renderData } from "./render";
 import { searchToy } from "./search";
-const sortSelect = document.querySelector(".sort-select") as HTMLSelectElement;
+import { restoreSelection } from "./selection";
 
 export function changeOrder() {
   const readedData = JSON.parse(myStorage.getItem("data")) as Toy[];
-  if (!myStorage.getItem("order")) {
-    myStorage.setItem("order", "nameUp");
-  }
   const value = myStorage.getItem("order");
-  const selectedOption = document.querySelector(`[value=${value}]`);
-  selectedOption.setAttribute("selected", "true");
+  document.querySelector(`[value=${value}]`).setAttribute("selected", "true");
 
   let sortedData;
   switch (value) {
@@ -37,21 +33,19 @@ export function changeOrder() {
       });
       break;
     default:
-      return sortedData;
+      return (sortedData = readedData);
   }
 
   myStorage.setItem("data", JSON.stringify(sortedData));
-  return sortedData;
 }
 
+const sortSelect = document.querySelector(".sort-select") as HTMLSelectElement;
 sortSelect.addEventListener("change", () => {
   myStorage.setItem("order", sortSelect.value);
-  if (!myStorage.getItem("searchedData")) {
-    changeOrder();
-    renderData();
-  } else {
-    changeOrder();
+  changeOrder();
+  if (myStorage.getItem("searchedData")) {
     searchToy();
-    renderData();
   }
+  renderData();
+  restoreSelection();
 });

@@ -76,6 +76,7 @@ h4 {
   flex-direction: column;
   background-color: #ceb31e;
   row-gap: 2em;
+  flex-shrink: 0;
 }
 section {
   display: flex;

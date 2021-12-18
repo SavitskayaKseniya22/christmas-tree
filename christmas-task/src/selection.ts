@@ -1,9 +1,8 @@
-import { myStorage } from "./index";
+import { myStorage } from "./defaultData";
 
 const selectionCount = document.querySelector(".selection-count") as HTMLSpanElement;
 const selectionRest = document.querySelector(".selection-rest") as HTMLSpanElement;
 const selectionWarning = document.querySelector(".selection-warning") as HTMLSpanElement;
-
 let selection: string[] = [];
 
 export function restoreSelection() {
