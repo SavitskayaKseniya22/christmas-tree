@@ -12,6 +12,7 @@ export function filterAll() {
     if (filters.color.options[option].value) {
       isChanged = true;
       result.push(filteredData.filter((item) => item.color === filters.color.options[option].name));
+      (document.querySelector(`#${option}`) as HTMLInputElement).checked = true;
     }
   }
   result = result.flat();
@@ -30,6 +31,7 @@ export function filterAll() {
     if (filters.shape.options[option].value) {
       isChanged = true;
       result.push(filteredData.filter((item) => item.shape === filters.shape.options[option].name));
+      (document.querySelector(`#${option}`) as HTMLInputElement).checked = true;
     }
   }
   result = result.flat();
@@ -48,6 +50,7 @@ export function filterAll() {
     if (filters.size.options[option].value) {
       isChanged = true;
       result.push(filteredData.filter((item) => item.size === filters.size.options[option].name));
+      (document.querySelector(`#${option}`) as HTMLInputElement).checked = true;
     }
   }
   result = result.flat();
@@ -103,6 +106,7 @@ export function filterAll() {
   if (filters.favorite.options) {
     isChanged = true;
     result.push(filteredData.filter((item) => item.favorite === filters.favorite.options));
+    (document.querySelector("#favorite") as HTMLInputElement).checked = true;
   }
 
   result = result.flat();

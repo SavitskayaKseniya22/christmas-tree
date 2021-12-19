@@ -8,3 +8,8 @@ resetFilter.addEventListener("click", function () {
   sliderYear.noUiSlider.set([1940, 2020]);
   sliderAmount.noUiSlider.set([1, 12]);
 });
+
+const resetSettings = document.querySelector(".reset-storage");
+resetSettings.addEventListener("click", function () {
+  myStorage.clear();
+});

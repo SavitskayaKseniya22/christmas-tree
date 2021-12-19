@@ -136,3 +136,11 @@ if (!myStorage.getItem("filters")) {
 if (!myStorage.getItem("order")) {
   myStorage.setItem("order", "nameUp");
 }
+
+function uncheck() {
+  const checkboxes = document.querySelectorAll("input[type='checkbox']:checked");
+  for (const checkbox of checkboxes) {
+    (checkbox as HTMLInputElement).checked = false;
+  }
+}
+uncheck();
