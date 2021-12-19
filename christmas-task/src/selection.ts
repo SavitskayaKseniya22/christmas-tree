@@ -3,11 +3,10 @@ import { myStorage } from "./defaultData";
 const selectionCount = document.querySelector(".selection-count") as HTMLSpanElement;
 const selectionRest = document.querySelector(".selection-rest") as HTMLSpanElement;
 const selectionWarning = document.querySelector(".selection-warning") as HTMLSpanElement;
-let selection: string[] = [];
 
 export function restoreSelection() {
   if (myStorage.getItem("selection")) {
-    selection = JSON.parse(myStorage.getItem("selection") as string);
+    const selection = JSON.parse(myStorage.getItem("selection") as string);
     selectionCount.textContent = String(selection.length);
     selectionRest.textContent = String(20 - selection.length);
     if (selection.length === 20) {
@@ -21,11 +20,19 @@ export function restoreSelection() {
         (item.querySelector(".star-image") as HTMLImageElement).classList.add("golden-star-image");
       }
     }
+  } else {
+    selectionCount.textContent = String(0);
+    selectionRest.textContent = String(20);
   }
 }
 
 document.addEventListener("click", (e: Event) => {
   if ((e.target as HTMLElement).closest(".toy-item")) {
+    let selection: string[] = [];
+    if (myStorage.getItem("selection")) {
+      selection = JSON.parse(myStorage.getItem("selection") as string);
+    }
+
     const containerToy = (e.target as HTMLElement).closest(".toy-item") as HTMLElement;
     const img = containerToy.querySelector(".star-image") as HTMLImageElement;
     if (containerToy.getAttribute("data-selection") === "false") {
@@ -40,7 +47,6 @@ document.addEventListener("click", (e: Event) => {
       img.classList.remove("golden-star-image");
       containerToy.setAttribute("data-selection", "false");
       selectionWarning.textContent = "";
-
       selection = selection.filter((elem) => elem !== containerToy.getAttribute("data-num"));
     }
 

@@ -1,4 +1,5 @@
 import data from "./data";
+import { filterAndRender } from "./render";
 export const mainContainer = document.querySelector(".toys-container");
 export const myStorage = window.localStorage;
 
@@ -99,15 +100,6 @@ export interface Ifilters {
   count: Ilimit;
   year: Ilimit;
 }
-if (!myStorage.getItem("data")) {
-  myStorage.setItem("data", JSON.stringify(data));
-}
-if (!myStorage.getItem("filters")) {
-  myStorage.setItem("filters", JSON.stringify(filtersSource));
-}
-if (!myStorage.getItem("order")) {
-  myStorage.setItem("order", "nameUp");
-}
 
 function uncheck() {
   const checkboxes = document.querySelectorAll("input[type='checkbox']:checked");
@@ -115,4 +107,17 @@ function uncheck() {
     (checkbox as HTMLInputElement).checked = false;
   }
 }
-uncheck();
+
+export function setDefaultSettings() {
+  if (!myStorage.getItem("data")) {
+    myStorage.setItem("data", JSON.stringify(data));
+  }
+  if (!myStorage.getItem("filters")) {
+    myStorage.setItem("filters", JSON.stringify(filtersSource));
+  }
+  if (!myStorage.getItem("order")) {
+    myStorage.setItem("order", "nameUp");
+  }
+  uncheck();
+  filterAndRender();
+}

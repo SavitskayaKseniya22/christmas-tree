@@ -1,7 +1,7 @@
 import { restoreSelection } from "./selection";
 import { renderData } from "./render";
 import { myStorage } from "./defaultData";
-const clearSearch = document.querySelector(".clear-search") as HTMLButtonElement;
+const clearSearchButton = document.querySelector(".clear-search") as HTMLButtonElement;
 const searchInput = document.querySelector(".search-input") as HTMLInputElement;
 const searchWarning = document.querySelector(".search-warning") as HTMLSpanElement;
 
@@ -21,20 +21,24 @@ export function searchToy() {
     : (searchWarning.textContent = "");
 }
 
-clearSearch.addEventListener("click", () => {
-  searchInput.value = "";
-  searchWarning.textContent = "";
-  myStorage.removeItem("searchedData");
+clearSearchButton.addEventListener("click", () => {
+  clearSearch();
   renderData();
   restoreSelection();
 });
 
 searchInput.addEventListener("input", () => {
   if (searchInput.value.length === 0) {
-    myStorage.removeItem("searchedData");
+    clearSearch();
   } else {
     searchToy();
   }
   renderData();
   restoreSelection();
 });
+
+export function clearSearch() {
+  searchInput.value = "";
+  searchWarning.textContent = "";
+  myStorage.removeItem("searchedData");
+}

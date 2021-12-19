@@ -7,7 +7,10 @@ import { restoreSelection } from "./selection";
 export function changeOrder() {
   const readedData = JSON.parse(myStorage.getItem("data")) as Toy[];
   const value = myStorage.getItem("order");
-  document.querySelector(`[value=${value}]`).setAttribute("selected", "true");
+  document
+    .querySelectorAll("#sort-select option")
+    .forEach((element) => ((element as HTMLOptionElement).selected = false));
+  (document.querySelector(`[value=${value}]`) as HTMLOptionElement).selected = true;
 
   let sortedData;
   switch (value) {

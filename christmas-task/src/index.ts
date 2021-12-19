@@ -6,6 +6,5 @@ import "./order.ts";
 import "./search.ts";
 import "./slider.ts";
 import "./reset.ts";
-import { filterAndRender } from "./render";
-
-filterAndRender();
+import { setDefaultSettings } from "./defaultData";
+setDefaultSettings();
