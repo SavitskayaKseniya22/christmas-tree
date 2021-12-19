@@ -4,7 +4,6 @@ export const myStorage = window.localStorage;
 
 export const filtersSource: Ifilters = {
   color: {
-    className: ".color-toy",
     options: {
       white: {
         value: false,
@@ -29,7 +28,6 @@ export const filtersSource: Ifilters = {
     },
   },
   shape: {
-    className: ".shape-toy",
     options: {
       round: {
         value: false,
@@ -55,7 +53,6 @@ export const filtersSource: Ifilters = {
   },
 
   size: {
-    className: ".size-toy",
     options: {
       big: {
         value: false,
@@ -71,11 +68,8 @@ export const filtersSource: Ifilters = {
       },
     },
   },
-  favorite: {
-    className: ".favorite-toy",
-    options: false,
-  },
-  amount: {
+  favorite: false,
+  count: {
     min: 1,
     max: 12,
   },
@@ -84,48 +78,26 @@ export const filtersSource: Ifilters = {
     max: 2020,
   },
 };
-
+export interface Ifilter {
+  options: {
+    [key: string]: {
+      value: boolean;
+      name: string;
+    };
+  };
+}
+interface Ilimit {
+  min: number;
+  max: number;
+}
 export interface Ifilters {
-  color: {
-    className: string;
-    options: {
-      [key: string]: {
-        value: boolean;
-        name: string;
-      };
-    };
-  };
-  shape: {
-    className: string;
-    options: {
-      [key: string]: {
-        value: boolean;
-        name: string;
-      };
-    };
-  };
-
-  size: {
-    className: string;
-    options: {
-      [key: string]: {
-        value: boolean;
-        name: string;
-      };
-    };
-  };
-  favorite: {
-    className: string;
-    options: boolean;
-  };
-  amount: {
-    min: number;
-    max: number;
-  };
-  year: {
-    min: number;
-    max: number;
-  };
+  [k: string]: Ifilter | Ilimit | boolean;
+  color: Ifilter;
+  shape: Ifilter;
+  size: Ifilter;
+  favorite: boolean;
+  count: Ilimit;
+  year: Ilimit;
 }
 if (!myStorage.getItem("data")) {
   myStorage.setItem("data", JSON.stringify(data));

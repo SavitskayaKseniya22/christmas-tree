@@ -41,8 +41,8 @@ sliderYear.noUiSlider.on("change", function () {
 sliderAmount.noUiSlider.on("change", function () {
   const sliderAmountValues = sliderAmount.noUiSlider.get() as string[];
   const filters = JSON.parse(myStorage.getItem("filters"));
-  filters.amount.min = Number(sliderAmountValues[0].slice(0, -3));
-  filters.amount.max = Number(sliderAmountValues[1].slice(0, -3));
+  filters.count.min = Number(sliderAmountValues[0].slice(0, -3));
+  filters.count.max = Number(sliderAmountValues[1].slice(0, -3));
   myStorage.setItem("filters", JSON.stringify(filters));
   filterAndRender();
 });
@@ -61,7 +61,7 @@ function restoreSliderPosAmount() {
     return [1, 12];
   } else {
     const filters = JSON.parse(myStorage.getItem("filters"));
-    const sliderAmountStart = [filters.amount.min, filters.amount.max];
+    const sliderAmountStart = [filters.count.min, filters.count.max];
     return sliderAmountStart;
   }
 }
