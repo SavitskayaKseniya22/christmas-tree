@@ -16,23 +16,23 @@ export function changeOrder() {
   switch (value) {
     case "nameUp":
       sortedData = readedData.sort((a, b) => {
-        return Number(a.name > b.name);
+        return a.name.localeCompare(b.name);
       });
 
       break;
     case "nameDown":
       sortedData = readedData.sort((a, b) => {
-        return Number(a.name < b.name);
+        return b.name.localeCompare(a.name);
       });
       break;
     case "valueUp":
       sortedData = readedData.sort((a, b) => {
-        return Number(Number(a.year) > Number(b.year));
+        return a.year.localeCompare(b.year);
       });
       break;
     case "valueDown":
       sortedData = readedData.sort((a, b) => {
-        return Number(Number(a.year) < Number(b.year));
+        return b.year.localeCompare(a.year);
       });
       break;
     default:

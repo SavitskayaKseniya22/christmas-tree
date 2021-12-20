@@ -26,17 +26,19 @@ export function restoreSelection() {
   } else {
     selectionCount.textContent = String(0);
     selectionRest.textContent = String(20);
+    selectionWarning.textContent = "";
   }
 }
 
 document.addEventListener("click", (e: Event) => {
-  if ((e.target as HTMLElement).closest(".toys-container .toy-item")) {
+  const targetElement = e.target as HTMLElement;
+  if (targetElement.closest(".toys-container .toy-item")) {
     let selection: string[] = [];
     if (myStorage.getItem("selection")) {
       selection = JSON.parse(myStorage.getItem("selection") as string);
     }
 
-    const containerToy = (e.target as HTMLElement).closest(".toy-item") as HTMLElement;
+    const containerToy = targetElement.closest(".toy-item") as HTMLElement;
     const img = containerToy.querySelector(".star-image") as HTMLImageElement;
     if (containerToy.getAttribute("data-selection") === "false") {
       if (selection.length < 20) {
@@ -56,14 +58,18 @@ document.addEventListener("click", (e: Event) => {
     myStorage.setItem("selection", JSON.stringify(selection));
     selectionCount.textContent = String(selection.length);
     selectionRest.textContent = String(20 - selection.length);
-  } else if ((e.target as HTMLElement).closest(".selection-count")) {
+  } else if (targetElement.closest(".open-selected")) {
     container.classList.add("active");
     containerInner.classList.add("active");
     const collection = JSON.parse(myStorage.getItem("selection")) as number[];
-    collection.forEach((element) => {
-      containerInner.innerHTML += new Card(data[element]).renderSelectionHTML();
-    });
-  } else if ((e.target as HTMLElement).closest(".selection-inner__close")) {
+    if (collection) {
+      collection.forEach((element) => {
+        containerInner.innerHTML += new Card(data[element]).renderSelectionHTML();
+      });
+    } else {
+      containerInner.textContent = "Сначала добавьте игрушки в избранное. Нет игрушек в избранном";
+    }
+  } else if (targetElement.closest(".selection-inner__close")) {
     container.classList.remove("active");
     containerInner.classList.remove("active");
     containerInner.innerHTML = "";

@@ -100,14 +100,14 @@ export interface Ifilters {
   count: Ilimit;
   year: Ilimit;
 }
-
-function uncheck() {
-  const checkboxes = document.querySelectorAll("input[type='checkbox']");
-  for (const checkbox of checkboxes) {
-    (checkbox as HTMLInputElement).checked = false;
-  }
+//сброс чекбоксов
+export function uncheck() {
+  document.querySelectorAll("input[type='checkbox']").forEach((element) => {
+    (element as HTMLInputElement).checked = false;
+  });
 }
 
+// установить дефолтные значения и применить их/вывести на страницу
 export function setDefaultSettings() {
   if (!myStorage.getItem("data")) {
     myStorage.setItem("data", JSON.stringify(data));

@@ -5,6 +5,7 @@ import { filterAndRender } from "./render";
 export function filterAll() {
   let filteredData = data.slice();
   const filters = JSON.parse(myStorage.getItem("filters")) as Ifilters;
+
   for (const key of Object.keys(filters)) {
     let result = [];
     let isChanged = false;
@@ -13,6 +14,7 @@ export function filterAll() {
         if ((filters[key] as Ifilter).options[option].value) {
           isChanged = true;
           result.push(filteredData.filter((item) => item[key] === (filters[key] as Ifilter).options[option].name));
+
           (document.querySelector(`#${option}`) as HTMLInputElement).checked = true;
         }
       }
@@ -37,6 +39,7 @@ export function filterAll() {
       filteredData = [];
     }
   }
+
   myStorage.setItem("data", JSON.stringify(filteredData));
 }
 
@@ -45,12 +48,15 @@ document.addEventListener("click", (e: Event) => {
   if (targetElement.closest(".inner-section label")) {
     const filters = JSON.parse(myStorage.getItem("filters")) as Ifilters;
     if (targetElement.closest(".shape-label")) {
+      e.preventDefault();
       const attrName = targetElement.closest(".shape-label").getAttribute("for");
       filters.shape.options[attrName].value = !filters.shape.options[attrName].value;
     } else if (targetElement.closest(".size-label")) {
+      e.preventDefault();
       const attrName = targetElement.closest(".size-label").getAttribute("for");
       filters.size.options[attrName].value = !filters.size.options[attrName].value;
     } else if (targetElement.closest(".color-label")) {
+      e.preventDefault();
       const attrName = targetElement.closest(".color-label").getAttribute("for");
       filters.color.options[attrName].value = !filters.color.options[attrName].value;
     } else if (targetElement.closest(".favorite-label")) {

@@ -9,7 +9,7 @@ export function renderData() {
   mainContainer.innerHTML = "";
   getData().forEach((element) => (mainContainer.innerHTML += new Card(element).renderHTML()));
 }
-
+//выбрать дату на основе того, был ли поиск или нет
 export function getData() {
   let readedData: Toy[];
   if (!myStorage.getItem("searchedData")) {
