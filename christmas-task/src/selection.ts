@@ -78,7 +78,7 @@ document.addEventListener("click", (e: Event) => {
         containerInner.innerHTML += new Card(data[element - 1]).renderSelectionHTML();
       });
     } else {
-      containerInner.textContent = "Сначала добавьте игрушки в избранное. Нет игрушек в избранном";
+      containerInner.textContent = "Нет игрушек, добавленных в избранное";
     }
   } else if (targetElement.closest(".selection-inner__close")) {
     container.classList.remove("active");
@@ -93,7 +93,10 @@ document.addEventListener("click", (e: Event) => {
     restoreSelection();
     targetElement.closest(".remove-selection").parentElement.remove();
     if (containerInner.innerHTML === "") {
-      containerInner.textContent = "Сначала добавьте игрушки в избранное. Нет игрушек в избранном";
+      containerInner.textContent = "Нет игрушек, добавленных в избранное";
     }
+  } else if (targetElement.closest(".clear-selected")) {
+    myStorage.removeItem("selection");
+    restoreSelection();
   }
 });

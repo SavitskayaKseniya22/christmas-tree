@@ -1,8 +1,8 @@
 import data from "./data";
 import { filterAndRender } from "./render";
+
 export const mainContainer = document.querySelector(".toys-container");
 export const myStorage = window.localStorage;
-
 export const filtersSource: Ifilters = {
   color: {
     white: {
@@ -98,7 +98,6 @@ export function uncheck() {
     (element as HTMLInputElement).checked = false;
   });
 }
-
 // установить дефолтные значения и применить их/вывести на страницу
 export function setDefaultSettings() {
   if (!myStorage.getItem("data")) {
@@ -110,7 +109,7 @@ export function setDefaultSettings() {
   if (!myStorage.getItem("order")) {
     myStorage.setItem("order", "nameUp");
   }
-  uncheck();
+
   filterAndRender();
 }
 setDefaultSettings();

@@ -1,13 +1,13 @@
-import { myStorage, filtersSource, setDefaultSettings, uncheck } from "./defaultData";
+import { myStorage, filtersSource, setDefaultSettings } from "./defaultData";
 import { filterAndRender } from "./render";
 import { sliderAmount, sliderYear } from "./slider";
 import { clearSearch } from "./search";
+
 const resetFilter = document.querySelector(".reset-filter");
 //сброс только фильтров
 resetFilter.addEventListener("click", function () {
   myStorage.setItem("filters", JSON.stringify(filtersSource));
   filterAndRender();
-  uncheck();
   setDefaultRange();
 });
 //сброс фильтров, сортировки, поиска, избранного

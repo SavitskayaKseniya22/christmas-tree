@@ -1,6 +1,7 @@
 import { restoreSelection } from "./selection";
 import { renderData } from "./render";
 import { myStorage } from "./defaultData";
+
 const clearSearchButton = document.querySelector(".clear-search") as HTMLButtonElement;
 const searchInput = document.querySelector(".search-input") as HTMLInputElement;
 
