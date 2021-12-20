@@ -5,68 +5,62 @@ export const myStorage = window.localStorage;
 
 export const filtersSource: Ifilters = {
   color: {
-    options: {
-      white: {
-        value: false,
-        name: "белый",
-      },
-      yellow: {
-        value: false,
-        name: "желтый",
-      },
-      red: {
-        value: false,
-        name: "красный",
-      },
-      blue: {
-        value: false,
-        name: "синий",
-      },
-      green: {
-        value: false,
-        name: "зелёный",
-      },
+    white: {
+      value: false,
+      name: "белый",
+    },
+    yellow: {
+      value: false,
+      name: "желтый",
+    },
+    red: {
+      value: false,
+      name: "красный",
+    },
+    blue: {
+      value: false,
+      name: "синий",
+    },
+    green: {
+      value: false,
+      name: "зелёный",
     },
   },
   shape: {
-    options: {
-      round: {
-        value: false,
-        name: "шар",
-      },
-      bell: {
-        value: false,
-        name: "колокольчик",
-      },
-      cone: {
-        value: false,
-        name: "шишка",
-      },
-      snowflake: {
-        value: false,
-        name: "снежинка",
-      },
-      custom: {
-        value: false,
-        name: "фигурка",
-      },
+    round: {
+      value: false,
+      name: "шар",
+    },
+    bell: {
+      value: false,
+      name: "колокольчик",
+    },
+    cone: {
+      value: false,
+      name: "шишка",
+    },
+    snowflake: {
+      value: false,
+      name: "снежинка",
+    },
+    custom: {
+      value: false,
+      name: "фигурка",
     },
   },
 
   size: {
-    options: {
-      big: {
-        value: false,
-        name: "большой",
-      },
-      middle: {
-        value: false,
-        name: "средний",
-      },
-      small: {
-        value: false,
-        name: "малый",
-      },
+    big: {
+      value: false,
+      name: "большой",
+    },
+    middle: {
+      value: false,
+      name: "средний",
+    },
+    small: {
+      value: false,
+      name: "малый",
     },
   },
   favorite: false,
@@ -80,11 +74,9 @@ export const filtersSource: Ifilters = {
   },
 };
 export interface Ifilter {
-  options: {
-    [key: string]: {
-      value: boolean;
-      name: string;
-    };
+  [key: string]: {
+    value: boolean;
+    name: string;
   };
 }
 interface Ilimit {
@@ -121,3 +113,4 @@ export function setDefaultSettings() {
   uncheck();
   filterAndRender();
 }
+setDefaultSettings();

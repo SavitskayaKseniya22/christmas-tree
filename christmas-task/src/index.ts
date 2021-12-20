@@ -6,5 +6,5 @@ import "./order.ts";
 import "./search.ts";
 import "./slider.ts";
 import "./reset.ts";
-import { setDefaultSettings } from "./defaultData";
-setDefaultSettings();
+import "./toys.ts";
+import "./selection";

@@ -11,10 +11,10 @@ export function filterAll() {
     let result = [];
     let isChanged = false;
     if (key === "shape" || key === "color" || key === "size") {
-      for (const option of Object.keys(filters[key].options)) {
-        if ((filters[key] as Ifilter).options[option].value) {
+      for (const option of Object.keys(filters[key])) {
+        if ((filters[key] as Ifilter)[option].value) {
           isChanged = true;
-          result.push(filteredData.filter((item) => item[key] === (filters[key] as Ifilter).options[option].name));
+          result.push(filteredData.filter((item) => item[key] === (filters[key] as Ifilter)[option].name));
 
           (document.querySelector(`#${option}`) as HTMLInputElement).checked = true;
         }
@@ -52,15 +52,15 @@ document.addEventListener("click", (e: Event) => {
     if (targetElement.closest(".shape-label")) {
       e.preventDefault();
       const attrName = targetElement.closest(".shape-label").getAttribute("for");
-      filters.shape.options[attrName].value = !filters.shape.options[attrName].value;
+      filters.shape[attrName].value = !filters.shape[attrName].value;
     } else if (targetElement.closest(".size-label")) {
       e.preventDefault();
       const attrName = targetElement.closest(".size-label").getAttribute("for");
-      filters.size.options[attrName].value = !filters.size.options[attrName].value;
+      filters.size[attrName].value = !filters.size[attrName].value;
     } else if (targetElement.closest(".color-label")) {
       e.preventDefault();
       const attrName = targetElement.closest(".color-label").getAttribute("for");
-      filters.color.options[attrName].value = !filters.color.options[attrName].value;
+      filters.color[attrName].value = !filters.color[attrName].value;
     } else if (targetElement.closest(".favorite-label")) {
       filters.favorite = !filters.favorite;
     }

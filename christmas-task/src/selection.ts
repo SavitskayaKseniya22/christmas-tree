@@ -45,15 +45,28 @@ document.addEventListener("click", (e: Event) => {
 
   if (targetElement.closest(".toys-container .toy-item")) {
     let selection: string[] = [];
-    const containerToy = targetElement.closest(".toy-item") as HTMLElement;
+    const toy = targetElement.closest(".toy-item") as HTMLElement;
     if (myStorage.getItem("selection")) {
       selection = JSON.parse(myStorage.getItem("selection") as string);
     }
-    if (containerToy.getAttribute("data-selection") === "false" && selection.length < 20) {
-      selection.push(containerToy.getAttribute("data-num") as string);
-    } else {
-      selection = selection.filter((elem) => elem !== containerToy.getAttribute("data-num"));
+    if (toy.getAttribute("data-selection") === "false" && selection.length === 20) {
+      toy.style.backgroundColor = "red";
+      selectionWarning.style.color = "red";
+      setTimeout(() => {
+        toy.style.backgroundColor = "#355829";
+        selectionWarning.style.color = "white";
+      }, 200);
     }
+    if (toy.getAttribute("data-selection") === "false" && selection.length < 20) {
+      selection.push(toy.getAttribute("data-num") as string);
+      (toy.querySelector(".star-image") as HTMLImageElement).style.transform = "scale(2)";
+      setTimeout(() => {
+        (toy.querySelector(".star-image") as HTMLImageElement).style.transform = "scale(1)";
+      }, 200);
+    } else {
+      selection = selection.filter((elem) => elem !== toy.getAttribute("data-num"));
+    }
+
     myStorage.setItem("selection", JSON.stringify(selection));
     restoreSelection();
   } else if (targetElement.closest(".open-selected")) {

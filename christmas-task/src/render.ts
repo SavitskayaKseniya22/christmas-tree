@@ -13,6 +13,7 @@ export function renderData() {
   } else {
     const notice = document.createElement("span");
     notice.textContent = "Извините, совпадений не обнаружено";
+    notice.classList.add("search-warning");
     mainContainer.append(notice);
   }
 }

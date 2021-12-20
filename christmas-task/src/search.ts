@@ -3,7 +3,6 @@ import { renderData } from "./render";
 import { myStorage } from "./defaultData";
 const clearSearchButton = document.querySelector(".clear-search") as HTMLButtonElement;
 const searchInput = document.querySelector(".search-input") as HTMLInputElement;
-const searchWarning = document.querySelector(".search-warning") as HTMLSpanElement;
 
 export function searchToy() {
   const readedData = JSON.parse(myStorage.getItem("data"));
@@ -15,10 +14,6 @@ export function searchToy() {
     }
   }
   myStorage.setItem("searchedData", JSON.stringify(searchedData));
-
-  searchedData.length === 0
-    ? (searchWarning.textContent = "Извините, совпадений не обнаружено")
-    : (searchWarning.textContent = "");
 }
 
 clearSearchButton.addEventListener("click", () => {
@@ -39,6 +34,6 @@ searchInput.addEventListener("input", () => {
 
 export function clearSearch() {
   searchInput.value = "";
-  searchWarning.textContent = "";
+
   myStorage.removeItem("searchedData");
 }
