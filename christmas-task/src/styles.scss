@@ -65,10 +65,12 @@ h4 {
   padding: 1em;
   align-items: center;
 }
+
 .main {
   background-color: #567d30;
   display: flex;
 }
+
 .settings {
   width: 350px;
   padding: 1.5em;
@@ -78,15 +80,18 @@ h4 {
   row-gap: 2em;
   flex-shrink: 0;
 }
+
 section {
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
 }
+
 .inner-section {
   padding: 1em;
   row-gap: 1em;
 }
+
 .shape-list,
 .color-list,
 .size-list {
@@ -113,28 +118,35 @@ section {
     height: 100%;
   }
 }
+
 .size-label_middle {
   img {
     width: 80%;
   }
 }
+
 .size-label_small {
   img {
     width: 50%;
   }
 }
+
 .color-label_white {
   background-color: white;
 }
+
 .color-label_yellow {
   background-color: yellow;
 }
+
 .color-label_red {
   background-color: red;
 }
+
 .color-label_blue {
   background-color: blue;
 }
+
 .color-label_green {
   background-color: green;
 }
@@ -146,9 +158,11 @@ section {
 input[type="checkbox"]:checked ~ label {
   opacity: 0.9;
 }
+
 label:hover {
   opacity: 1;
 }
+
 .open-selected,
 .reset-storage,
 .reset-filter,
@@ -158,15 +172,16 @@ label:hover {
   border-radius: 0.2em;
   border: 2px solid #567d30;
 }
+
 .toys-container {
   display: flex;
   flex-wrap: wrap;
   padding: 2rem;
   column-gap: 1rem;
   row-gap: 1rem;
-
   align-self: flex-start;
 }
+
 .toy-item {
   width: 280px;
   height: 200px;
@@ -179,6 +194,7 @@ label:hover {
   color: white;
   cursor: pointer;
   overflow: hidden;
+
   &:hover {
     .toy-image {
       width: 250px;
@@ -197,6 +213,7 @@ label:hover {
     left: 55%;
     transition: 1s;
   }
+
   .star-image {
     position: absolute;
     width: 20px;
@@ -211,13 +228,17 @@ label:hover {
   background-repeat: no-repeat;
   background-size: contain;
 }
+
 .selection-warning,
 .search-warning {
   color: rgb(170, 34, 34);
 }
+
 .search-section {
   position: relative;
 }
+.remove-selection,
+.selection-inner__close,
 .clear-search {
   padding: 0;
   margin: 0;
@@ -229,13 +250,17 @@ label:hover {
   right: 1rem;
   top: 3.4rem;
   opacity: 0.5;
+
   img {
     width: 100%;
   }
 }
+.remove-selection:hover,
+.selection-inner__close:hover,
 .clear-search:hover {
   opacity: 1;
 }
+
 [data-visible="false"] {
   display: none;
 }
@@ -244,29 +269,36 @@ div.noUi-horizontal {
   height: 10px;
   font-size: 0.9rem;
 }
+
 .noUi-base {
   background-color: #8fb14e;
 }
+
 .noUi-horizontal div.noUi-handle {
   height: 20px;
   width: 30px;
 }
+
 div.noUi-handle::before,
 div.noUi-handle::after {
   display: none;
 }
+
 div.noUi-connect {
   background-color: #567d30;
 }
+
 div.noUi-touch-area {
   cursor: grab;
 }
+
 .noUi-horizontal div.noUi-tooltip {
   background-color: rgba(255, 255, 255, 0.5);
   border: none;
   border-radius: 0;
   bottom: -200%;
 }
+
 .selection-container {
   position: fixed;
   top: 0;
@@ -278,15 +310,18 @@ div.noUi-touch-area {
   pointer-events: none;
   transition: 0.5s all;
   z-index: 2;
+
   .small-title {
     font-size: 1.1rem;
   }
 }
+
 .selection-container.active {
   opacity: 1;
   pointer-events: all;
   transition: 0.5s all;
 }
+
 .selection-inner {
   z-index: 3;
   position: absolute;
@@ -300,11 +335,13 @@ div.noUi-touch-area {
   column-gap: 1rem;
   row-gap: 1rem;
   flex-wrap: wrap;
+
   .toy-item {
     width: 250px;
     height: 100px;
     overflow: hidden;
     justify-content: space-between;
+
     .toy-image {
       width: 100px;
       height: 100px;
@@ -319,13 +356,11 @@ div.noUi-touch-area {
 .selection-inner__close {
   width: 30px;
   height: 30px;
-  position: absolute;
   top: 2rem;
   right: 2rem;
-  border: none;
-  background-color: transparent;
-  opacity: 0.5;
 }
-.selection-inner__close:hover {
-  opacity: 1;
+.remove-selection {
+  top: unset;
+  right: 0.5rem;
+  bottom: 0.5rem;
 }

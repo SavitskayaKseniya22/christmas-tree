@@ -7,17 +7,27 @@ const selectionRest = document.querySelector(".selection-rest") as HTMLSpanEleme
 const selectionWarning = document.querySelector(".selection-warning") as HTMLSpanElement;
 const container = document.querySelector(".selection-container");
 const containerInner = document.querySelector(".selection-inner");
+
 export function restoreSelection() {
+  document.querySelectorAll(".star-image").forEach((element) => {
+    element.classList.remove("golden-star-image");
+  });
+  document.querySelectorAll("[data-selection='true']").forEach((element) => {
+    element.setAttribute("data-selection", "false");
+  });
+
   if (myStorage.getItem("selection")) {
     const selection = JSON.parse(myStorage.getItem("selection")) as string[];
     selectionCount.textContent = String(selection.length);
     selectionRest.textContent = String(20 - selection.length);
     if (selection.length === 20) {
-      selectionWarning.textContent = "Извините, все слоты заполнены";
+      selectionWarning.textContent = "Все слоты заполнены";
+    } else {
+      selectionWarning.textContent = "";
     }
 
     selection.forEach(function (element) {
-      const choosenToy = document.querySelector(`[data-num="${element}"]`);
+      const choosenToy = document.querySelector(`.toys-container [data-num="${element}"]`);
       if (choosenToy) {
         choosenToy.setAttribute("data-selection", "true");
         choosenToy.querySelector(".star-image").classList.add("golden-star-image");
@@ -32,39 +42,27 @@ export function restoreSelection() {
 
 document.addEventListener("click", (e: Event) => {
   const targetElement = e.target as HTMLElement;
+
   if (targetElement.closest(".toys-container .toy-item")) {
     let selection: string[] = [];
+    const containerToy = targetElement.closest(".toy-item") as HTMLElement;
     if (myStorage.getItem("selection")) {
       selection = JSON.parse(myStorage.getItem("selection") as string);
     }
-
-    const containerToy = targetElement.closest(".toy-item") as HTMLElement;
-    const img = containerToy.querySelector(".star-image") as HTMLImageElement;
-    if (containerToy.getAttribute("data-selection") === "false") {
-      if (selection.length < 20) {
-        img.classList.add("golden-star-image");
-        containerToy.setAttribute("data-selection", "true");
-        selection.push(containerToy.getAttribute("data-num") as string);
-      } else {
-        selectionWarning.textContent = "Извините, все слоты заполнены";
-      }
+    if (containerToy.getAttribute("data-selection") === "false" && selection.length < 20) {
+      selection.push(containerToy.getAttribute("data-num") as string);
     } else {
-      img.classList.remove("golden-star-image");
-      containerToy.setAttribute("data-selection", "false");
-      selectionWarning.textContent = "";
       selection = selection.filter((elem) => elem !== containerToy.getAttribute("data-num"));
     }
-
     myStorage.setItem("selection", JSON.stringify(selection));
-    selectionCount.textContent = String(selection.length);
-    selectionRest.textContent = String(20 - selection.length);
+    restoreSelection();
   } else if (targetElement.closest(".open-selected")) {
     container.classList.add("active");
     containerInner.classList.add("active");
     const collection = JSON.parse(myStorage.getItem("selection")) as number[];
-    if (collection) {
+    if (collection && collection.length > 0) {
       collection.forEach((element) => {
-        containerInner.innerHTML += new Card(data[element]).renderSelectionHTML();
+        containerInner.innerHTML += new Card(data[element - 1]).renderSelectionHTML();
       });
     } else {
       containerInner.textContent = "Сначала добавьте игрушки в избранное. Нет игрушек в избранном";
@@ -73,5 +71,16 @@ document.addEventListener("click", (e: Event) => {
     container.classList.remove("active");
     containerInner.classList.remove("active");
     containerInner.innerHTML = "";
+  } else if (targetElement.closest(".remove-selection")) {
+    let selection = JSON.parse(myStorage.getItem("selection")) as string[];
+    selection = selection.filter(
+      (elem) => elem !== targetElement.closest(".remove-selection").parentElement.getAttribute("data-num"),
+    );
+    myStorage.setItem("selection", JSON.stringify(selection));
+    restoreSelection();
+    targetElement.closest(".remove-selection").parentElement.remove();
+    if (containerInner.innerHTML === "") {
+      containerInner.textContent = "Сначала добавьте игрушки в избранное. Нет игрушек в избранном";
+    }
   }
 });

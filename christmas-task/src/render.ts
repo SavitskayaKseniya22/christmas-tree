@@ -7,7 +7,14 @@ import { filterAll } from "./filter";
 
 export function renderData() {
   mainContainer.innerHTML = "";
-  getData().forEach((element) => (mainContainer.innerHTML += new Card(element).renderHTML()));
+
+  if (getData().length > 0) {
+    getData().forEach((element) => (mainContainer.innerHTML += new Card(element).renderHTML()));
+  } else {
+    const notice = document.createElement("span");
+    notice.textContent = "Извините, совпадений не обнаружено";
+    mainContainer.append(notice);
+  }
 }
 //выбрать дату на основе того, был ли поиск или нет
 export function getData() {

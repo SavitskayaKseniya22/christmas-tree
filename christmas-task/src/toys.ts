@@ -41,10 +41,11 @@ export class Card {
   </div>`;
   }
   renderSelectionHTML() {
-    return `<div class="toy-item toy-item_selected">
+    return `<div class="toy-item toy-item_selected" data-num=${this.toyData.num}>
     <h4 class="small-title">${this.toyData.name}</h4>
     <img class="toy-image" src=${`./assets/toys/${this.toyData.num}.png`} alt="toy" />
     <div><span class="count-toy">${this.toyData.count}</span></div>
+    <button class="remove-selection"><img src="./assets/svg/close-white.svg" alt="close" /></button>
   </div>`;
   }
 }

@@ -1,8 +1,9 @@
 import data from "./data";
-import { mainContainer, Ifilters, myStorage, Ifilter } from "./defaultData";
+import { mainContainer, Ifilters, myStorage, Ifilter, uncheck } from "./defaultData";
 import { filterAndRender } from "./render";
 
 export function filterAll() {
+  uncheck();
   let filteredData = data.slice();
   const filters = JSON.parse(myStorage.getItem("filters")) as Ifilters;
 
@@ -36,6 +37,7 @@ export function filterAll() {
     }
     if (result.length === 0 && isChanged) {
       mainContainer.innerHTML = "";
+
       filteredData = [];
     }
   }
