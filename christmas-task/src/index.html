@@ -12,7 +12,7 @@
       <h2 class="big-title">Игрушки</h2>
     </header>
     <main class="main">
-      <div class="filter">
+      <div class="settings">
         <section class="search-section">
           <label for="search">
             <h3 class="middle-title">Поиск</h3>
@@ -33,9 +33,15 @@
         </section>
         <section>
           <h3 class="middle-title">Избранное</h3>
-          <span>Добавлено в избранное: <span class="selection-count">0</span></span>
+          <span>Добавлено в избранное: <button class="selection-count">0</button></span>
           <span>Свободных слотов: <span class="selection-rest">20</span></span>
           <span class="selection-warning"></span>
+          <div class="selection-container">
+            <button class="selection-inner__close">
+              <img src="./assets/svg/close-white.svg" alt="close button" />
+            </button>
+            <div class="selection-inner"></div>
+          </div>
         </section>
         <section>
           <label for="sort-select"><h3 class="middle-title">Сортировать</h3></label>
@@ -46,7 +52,7 @@
             <option value="valueDown">По году приобретения &darr;</option>
           </select>
         </section>
-        <section>
+        <section class="filter">
           <h3 class="middle-title">Фильтры</h3>
           <section class="inner-section">
             <h4 class="small-title">Форма</h4>

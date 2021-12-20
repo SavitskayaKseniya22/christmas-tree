@@ -102,7 +102,7 @@ export interface Ifilters {
 }
 
 function uncheck() {
-  const checkboxes = document.querySelectorAll("input[type='checkbox']:checked");
+  const checkboxes = document.querySelectorAll("input[type='checkbox']");
   for (const checkbox of checkboxes) {
     (checkbox as HTMLInputElement).checked = false;
   }

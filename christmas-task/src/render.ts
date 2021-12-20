@@ -7,9 +7,7 @@ import { filterAll } from "./filter";
 
 export function renderData() {
   mainContainer.innerHTML = "";
-  for (const item of getData()) {
-    mainContainer.innerHTML += new Card(item).renderHTML();
-  }
+  getData().forEach((element) => (mainContainer.innerHTML += new Card(element).renderHTML()));
 }
 
 export function getData() {

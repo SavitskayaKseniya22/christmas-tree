@@ -40,4 +40,11 @@ export class Card {
     <img class="star-image" src="./assets/svg/star-empty.svg" alt="star" />
   </div>`;
   }
+  renderSelectionHTML() {
+    return `<div class="toy-item toy-item_selected">
+    <h4 class="small-title">${this.toyData.name}</h4>
+    <img class="toy-image" src=${`./assets/toys/${this.toyData.num}.png`} alt="toy" />
+    <div><span class="count-toy">${this.toyData.count}</span></div>
+  </div>`;
+  }
 }

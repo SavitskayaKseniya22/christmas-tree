@@ -1,25 +1,28 @@
 import { myStorage } from "./defaultData";
+import { Card } from "./toys";
+import data from "./data";
 
 const selectionCount = document.querySelector(".selection-count") as HTMLSpanElement;
 const selectionRest = document.querySelector(".selection-rest") as HTMLSpanElement;
 const selectionWarning = document.querySelector(".selection-warning") as HTMLSpanElement;
-
+const container = document.querySelector(".selection-container");
+const containerInner = document.querySelector(".selection-inner");
 export function restoreSelection() {
   if (myStorage.getItem("selection")) {
-    const selection = JSON.parse(myStorage.getItem("selection") as string);
+    const selection = JSON.parse(myStorage.getItem("selection")) as string[];
     selectionCount.textContent = String(selection.length);
     selectionRest.textContent = String(20 - selection.length);
     if (selection.length === 20) {
       selectionWarning.textContent = "Извините, все слоты заполнены";
     }
 
-    for (const i of selection) {
-      const item = document.querySelector(`[data-num="${i}"]`) as HTMLElement;
-      if (item) {
-        item.setAttribute("data-selection", "true");
-        (item.querySelector(".star-image") as HTMLImageElement).classList.add("golden-star-image");
+    selection.forEach(function (element) {
+      const choosenToy = document.querySelector(`[data-num="${element}"]`);
+      if (choosenToy) {
+        choosenToy.setAttribute("data-selection", "true");
+        choosenToy.querySelector(".star-image").classList.add("golden-star-image");
       }
-    }
+    });
   } else {
     selectionCount.textContent = String(0);
     selectionRest.textContent = String(20);
@@ -27,7 +30,7 @@ export function restoreSelection() {
 }
 
 document.addEventListener("click", (e: Event) => {
-  if ((e.target as HTMLElement).closest(".toy-item")) {
+  if ((e.target as HTMLElement).closest(".toys-container .toy-item")) {
     let selection: string[] = [];
     if (myStorage.getItem("selection")) {
       selection = JSON.parse(myStorage.getItem("selection") as string);
@@ -53,5 +56,16 @@ document.addEventListener("click", (e: Event) => {
     myStorage.setItem("selection", JSON.stringify(selection));
     selectionCount.textContent = String(selection.length);
     selectionRest.textContent = String(20 - selection.length);
+  } else if ((e.target as HTMLElement).closest(".selection-count")) {
+    container.classList.add("active");
+    containerInner.classList.add("active");
+    const collection = JSON.parse(myStorage.getItem("selection")) as number[];
+    collection.forEach((element) => {
+      containerInner.innerHTML += new Card(data[element]).renderSelectionHTML();
+    });
+  } else if ((e.target as HTMLElement).closest(".selection-inner__close")) {
+    container.classList.remove("active");
+    containerInner.classList.remove("active");
+    containerInner.innerHTML = "";
   }
 });
