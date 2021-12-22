@@ -1,5 +1,5 @@
 import { myStorage } from "./defaultData";
-import { Card } from "./toys";
+import { Card } from "./toyCard";
 import data from "./data";
 
 const selectionCount = document.querySelector(".selection-count") as HTMLSpanElement;
@@ -80,7 +80,7 @@ document.addEventListener("click", (e: Event) => {
     } else {
       containerInner.textContent = "Нет игрушек, добавленных в избранное";
     }
-  } else if (targetElement.closest(".selection-inner__close")) {
+  } else if (targetElement.closest(".selection__close")) {
     container.classList.remove("active");
     containerInner.classList.remove("active");
     containerInner.innerHTML = "";

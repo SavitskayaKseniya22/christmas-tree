@@ -1,4 +1,4 @@
-import { Toy } from "./toys";
+import { Toy } from "./toyCard";
 import { myStorage } from "./defaultData";
 import { renderData } from "./render";
 import { searchToy } from "./search";
