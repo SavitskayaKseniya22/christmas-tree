@@ -1,7 +1,7 @@
 import * as noUiSlider from "nouislider";
 import "nouislider/dist/nouislider.css";
 import { filterAndRender } from "./render";
-import { Ifilters, myStorage } from "./defaultData";
+import { Filters, storage } from "./defaultData";
 
 export const sliderAmount = document.getElementById("amount") as noUiSlider.target;
 
@@ -47,36 +47,36 @@ noUiSlider.create(sliderYear, {
 
 sliderYear.noUiSlider.on("change", function () {
   const sliderYearValues = sliderYear.noUiSlider.get() as number[];
-  const filters = JSON.parse(myStorage.getItem("filters")) as Ifilters;
+  const filters = JSON.parse(storage.getItem("filters")) as Filters;
   filters.year.min = sliderYearValues[0];
   filters.year.max = sliderYearValues[1];
-  myStorage.setItem("filters", JSON.stringify(filters));
+  storage.setItem("filters", JSON.stringify(filters));
   filterAndRender();
 });
 
 sliderAmount.noUiSlider.on("change", function () {
   const sliderAmountValues = sliderAmount.noUiSlider.get() as number[];
-  const filters = JSON.parse(myStorage.getItem("filters")) as Ifilters;
+  const filters = JSON.parse(storage.getItem("filters")) as Filters;
   filters.count.min = sliderAmountValues[0];
   filters.count.max = sliderAmountValues[1];
-  myStorage.setItem("filters", JSON.stringify(filters));
+  storage.setItem("filters", JSON.stringify(filters));
   filterAndRender();
 });
 
 function restoreSliderPosYear() {
-  if (!myStorage.getItem("filters")) {
+  if (!storage.getItem("filters")) {
     return [1940, 2020];
   } else {
-    const filters = JSON.parse(myStorage.getItem("filters")) as Ifilters;
+    const filters = JSON.parse(storage.getItem("filters")) as Filters;
     const sliderYearStart = [filters.year.min, filters.year.max];
     return sliderYearStart;
   }
 }
 function restoreSliderPosAmount() {
-  if (!myStorage.getItem("filters")) {
+  if (!storage.getItem("filters")) {
     return [1, 12];
   } else {
-    const filters = JSON.parse(myStorage.getItem("filters")) as Ifilters;
+    const filters = JSON.parse(storage.getItem("filters")) as Filters;
     const sliderAmountStart = [filters.count.min, filters.count.max];
     return sliderAmountStart;
   }

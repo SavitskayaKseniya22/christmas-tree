@@ -1,12 +1,12 @@
 import { restoreSelection } from "./selection";
 import { renderData } from "./render";
-import { myStorage } from "./defaultData";
+import { storage } from "./defaultData";
 
 const clearSearchButton = document.querySelector(".clear-search") as HTMLButtonElement;
 const searchInput = document.querySelector(".search-input") as HTMLInputElement;
 
 export function searchToy() {
-  const readedData = JSON.parse(myStorage.getItem("data"));
+  const readedData = JSON.parse(storage.getItem("data"));
   const searchedData = [];
 
   for (const toy of readedData) {
@@ -14,7 +14,7 @@ export function searchToy() {
       searchedData.push(toy);
     }
   }
-  myStorage.setItem("searchedData", JSON.stringify(searchedData));
+  storage.setItem("searchedData", JSON.stringify(searchedData));
 }
 
 clearSearchButton.addEventListener("click", () => {
@@ -36,5 +36,5 @@ searchInput.addEventListener("input", () => {
 export function clearSearch() {
   searchInput.value = "";
 
-  myStorage.removeItem("searchedData");
+  storage.removeItem("searchedData");
 }

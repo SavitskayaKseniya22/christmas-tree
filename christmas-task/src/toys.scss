@@ -25,63 +25,66 @@
         display: flex;
         column-gap: 0.5em;
         justify-content: center;
-
-        label {
-          display: block;
-          width: 40px;
-          height: 40px;
-          opacity: 0.5;
-          transition: 0.3s;
-
-          img {
-            width: 100%;
-            height: 100%;
-          }
-        }
-
-        label:hover {
+      }
+      label {
+        display: block;
+        width: 40px;
+        height: 40px;
+        opacity: 0.5;
+        transition: 0.3s;
+        &:hover {
           opacity: 1;
         }
 
-        .size-label_middle {
-          img {
-            width: 80%;
-          }
+        img {
+          width: 100%;
+          height: 100%;
         }
+      }
 
-        .size-label_small {
-          img {
-            width: 50%;
-          }
-        }
+      .favorite-title {
+        width: 100%;
+        opacity: 1;
+      }
 
-        .color-label_white {
-          background-color: white;
-        }
+      input[type="checkbox"]:checked ~ label {
+        opacity: 0.9;
+      }
 
-        .color-label_yellow {
-          background-color: yellow;
+      .size-label_middle {
+        img {
+          width: 80%;
         }
+      }
 
-        .color-label_red {
-          background-color: red;
+      .size-label_small {
+        img {
+          width: 50%;
         }
+      }
 
-        .color-label_blue {
-          background-color: blue;
-        }
+      .color-label_white {
+        background-color: white;
+      }
 
-        .color-label_green {
-          background-color: green;
-        }
+      .color-label_yellow {
+        background-color: yellow;
+      }
 
-        input[type="checkbox"] {
-          display: none;
-        }
+      .color-label_red {
+        background-color: red;
+      }
 
-        input[type="checkbox"]:checked ~ label {
-          opacity: 0.9;
-        }
+      .color-label_blue {
+        background-color: blue;
+      }
+
+      .color-label_green {
+        background-color: green;
+      }
+
+      input[type="checkbox"] {
+        display: none;
       }
     }
   }
@@ -108,6 +111,9 @@
   color: white;
   font-size: 1.5em;
   transition: 0.5s;
+  &.active {
+    color: red;
+  }
 }
 //кнопки-крестики
 .remove-selection,
@@ -154,6 +160,9 @@
     cursor: pointer;
     overflow: hidden;
     transition: 0.5s;
+    &.active {
+      background-color: #ff0000;
+    }
 
     &:hover {
       .toy-image {
@@ -181,6 +190,10 @@
       bottom: 1rem;
       right: 1rem;
       transition: 0.5s;
+      transform: scale(1);
+      &.scale {
+        transform: scale(2);
+      }
     }
     .golden-star-image {
       background-image: url("./assets/svg/star-full.svg");

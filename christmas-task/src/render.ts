@@ -1,15 +1,15 @@
 import { changeOrder } from "./order";
 import { restoreSelection } from "./selection";
-import { Toy, Card } from "./toyCard";
+import { Toy, ToyCard } from "./toyCard";
 import { searchToy } from "./search";
-import { mainContainer, myStorage } from "./defaultData";
+import { mainContainer, storage } from "./defaultData";
 import { filterAll } from "./filter";
 
 export function renderData() {
   mainContainer.innerHTML = "";
 
   if (getData().length > 0) {
-    getData().forEach((element) => (mainContainer.innerHTML += new Card(element).renderHTML()));
+    getData().forEach((element) => (mainContainer.innerHTML += new ToyCard(element).renderHTML()));
   } else {
     const notice = document.createElement("span");
     notice.textContent = "Извините, совпадений не обнаружено";
@@ -19,19 +19,13 @@ export function renderData() {
 }
 //выбрать дату на основе того, был ли поиск или нет
 export function getData() {
-  let readedData: Toy[];
-  if (!myStorage.getItem("searchedData")) {
-    readedData = JSON.parse(myStorage.getItem("data"));
-  } else {
-    readedData = JSON.parse(myStorage.getItem("searchedData"));
-  }
-  return readedData;
+  return JSON.parse(storage.getItem("searchedData") || storage.getItem("data")) as Toy[];
 }
 
 export function filterAndRender() {
   filterAll();
   changeOrder();
-  if (myStorage.getItem("searchedData")) {
+  if (storage.getItem("searchedData")) {
     searchToy();
   }
   renderData();

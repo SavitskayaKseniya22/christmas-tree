@@ -2,8 +2,8 @@ import data from "./data";
 import { filterAndRender } from "./render";
 
 export const mainContainer = document.querySelector(".toys-container");
-export const myStorage = window.localStorage;
-export const filtersSource: Ifilters = {
+export const storage = window.localStorage;
+export const filtersSource: Filters = {
   color: {
     white: {
       value: false,
@@ -73,24 +73,23 @@ export const filtersSource: Ifilters = {
     max: 2020,
   },
 };
-export interface Ifilter {
+export interface Filter {
   [key: string]: {
     value: boolean;
     name: string;
   };
 }
-interface Ilimit {
+interface Limit {
   min: number;
   max: number;
 }
-export interface Ifilters {
-  [k: string]: Ifilter | Ilimit | boolean;
-  color: Ifilter;
-  shape: Ifilter;
-  size: Ifilter;
+export interface Filters {
+  color: Filter;
+  shape: Filter;
+  size: Filter;
   favorite: boolean;
-  count: Ilimit;
-  year: Ilimit;
+  count: Limit;
+  year: Limit;
 }
 //сброс чекбоксов
 export function uncheck() {
@@ -100,14 +99,14 @@ export function uncheck() {
 }
 // установить дефолтные значения и применить их/вывести на страницу
 export function setDefaultSettings() {
-  if (!myStorage.getItem("data")) {
-    myStorage.setItem("data", JSON.stringify(data));
+  if (!storage.getItem("data")) {
+    storage.setItem("data", JSON.stringify(data));
   }
-  if (!myStorage.getItem("filters")) {
-    myStorage.setItem("filters", JSON.stringify(filtersSource));
+  if (!storage.getItem("filters")) {
+    storage.setItem("filters", JSON.stringify(filtersSource));
   }
-  if (!myStorage.getItem("order")) {
-    myStorage.setItem("order", "nameUp");
+  if (!storage.getItem("order")) {
+    storage.setItem("order", "nameUp");
   }
 
   filterAndRender();

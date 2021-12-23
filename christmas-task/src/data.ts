@@ -1,4 +1,5 @@
-const data = [
+import { Toy } from "./toyCard";
+export const data: Toy[] = [
   {
     num: "1",
     name: "Большой шар с рисунком",

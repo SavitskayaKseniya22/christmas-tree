@@ -1,12 +1,12 @@
 import { Toy } from "./toyCard";
-import { myStorage } from "./defaultData";
+import { storage } from "./defaultData";
 import { renderData } from "./render";
 import { searchToy } from "./search";
 import { restoreSelection } from "./selection";
 
 export function changeOrder() {
-  const readedData = JSON.parse(myStorage.getItem("data")) as Toy[];
-  const value = myStorage.getItem("order");
+  const readedData = JSON.parse(storage.getItem("data")) as Toy[];
+  const value = storage.getItem("order");
   document
     .querySelectorAll("#sort-select option")
     .forEach((element) => ((element as HTMLOptionElement).selected = false));
@@ -39,14 +39,14 @@ export function changeOrder() {
       return (sortedData = readedData);
   }
 
-  myStorage.setItem("data", JSON.stringify(sortedData));
+  storage.setItem("data", JSON.stringify(sortedData));
 }
 
 const sortSelect = document.querySelector(".sort-select") as HTMLSelectElement;
 sortSelect.addEventListener("change", () => {
-  myStorage.setItem("order", sortSelect.value);
+  storage.setItem("order", sortSelect.value);
   changeOrder();
-  if (myStorage.getItem("searchedData")) {
+  if (storage.getItem("searchedData")) {
     searchToy();
   }
   renderData();

@@ -9,7 +9,7 @@ export type Toy = {
   favorite: boolean;
 };
 
-export class Card {
+export class ToyCard {
   src: string;
   element: string;
   favoriteString: string;
