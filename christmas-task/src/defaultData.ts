@@ -1,5 +1,6 @@
 import data from "./data";
 import { filterAndRender } from "./render";
+import { Filters } from "./types";
 
 export const mainContainer = document.querySelector(".toys-container");
 export const storage = window.localStorage;
@@ -73,24 +74,7 @@ export const filtersSource: Filters = {
     max: 2020,
   },
 };
-export interface Filter {
-  [key: string]: {
-    value: boolean;
-    name: string;
-  };
-}
-interface Limit {
-  min: number;
-  max: number;
-}
-export interface Filters {
-  color: Filter;
-  shape: Filter;
-  size: Filter;
-  favorite: boolean;
-  count: Limit;
-  year: Limit;
-}
+
 //сброс чекбоксов
 export function uncheck() {
   document.querySelectorAll("input[type='checkbox']").forEach((element) => {

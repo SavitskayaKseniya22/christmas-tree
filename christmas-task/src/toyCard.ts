@@ -1,14 +1,4 @@
-export type Toy = {
-  num: string;
-  name: string;
-  count: string;
-  year: string;
-  shape: string;
-  color: string;
-  size: string;
-  favorite: boolean;
-};
-
+import { Toy } from "./types";
 export class ToyCard {
   src: string;
   element: string;

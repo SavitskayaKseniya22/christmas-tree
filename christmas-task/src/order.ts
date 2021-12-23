@@ -1,4 +1,4 @@
-import { Toy } from "./toyCard";
+import { Toy } from "./types";
 import { storage } from "./defaultData";
 import { renderData } from "./render";
 import { searchToy } from "./search";

@@ -1,2 +1,2 @@
-import "./toys.ts";
-import "./trees.ts";
+import "./toys";
+import "./trees";

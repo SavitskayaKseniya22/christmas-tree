@@ -1,7 +1,8 @@
 import * as noUiSlider from "nouislider";
 import "nouislider/dist/nouislider.css";
 import { filterAndRender } from "./render";
-import { Filters, storage } from "./defaultData";
+import { storage } from "./defaultData";
+import { Filters } from "./types";
 
 export const sliderAmount = document.getElementById("amount") as noUiSlider.target;
 

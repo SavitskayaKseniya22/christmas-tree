@@ -1,4 +1,4 @@
-import { Toy } from "./toyCard";
+import { Toy } from "./types";
 export const data: Toy[] = [
   {
     num: "1",
