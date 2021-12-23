@@ -12,7 +12,7 @@ export class ToyCard {
     this.toyData.favorite ? (this.favoriteString = "да") : (this.favoriteString = "нет");
   }
   renderHTML() {
-    return `<div class="toy-item" data-num=${this.toyData.num} data-selection=${this.selection}>
+    return `<li class="toy-item" data-num=${this.toyData.num} data-selection=${this.selection}>
     <h4 class="small-title">${this.toyData.name}</h4>
     <img class="toy-image" src=${`./assets/toys/${this.toyData.num}.png`} alt="toy" />
     <ul>
@@ -24,14 +24,14 @@ export class ToyCard {
       <li>Любимая: <span class="favorite-toy">${this.favoriteString}</span></li>
     </ul>
     <img class="star-image" src="./assets/svg/star-empty.svg" alt="star" />
-  </div>`;
+  </li>`;
   }
   renderSelectionHTML() {
-    return `<div class="toy-item toy-item_selected" data-num=${this.toyData.num}>
+    return `<li class="toy-item toy-item_selected" data-num=${this.toyData.num}>
     <h4 class="small-title">${this.toyData.name}</h4>
     <img class="toy-image" src=${`./assets/toys/${this.toyData.num}.png`} alt="toy" />
     <div><span class="count-toy">${this.toyData.count}</span></div>
     <button class="remove-selection"><img src="./assets/svg/close-white.svg" alt="close" /></button>
-  </div>`;
+  </li>`;
   }
 }
