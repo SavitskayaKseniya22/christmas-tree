@@ -1,6 +1,6 @@
-import data from "./data";
+import data from "../data";
 import { filterAndRender } from "./render";
-import { Filters } from "./types";
+import { Filters } from "../types";
 
 export const mainContainer = document.querySelector(".toys-container");
 export const storage = window.localStorage;

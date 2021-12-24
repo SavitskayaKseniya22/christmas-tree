@@ -24,8 +24,7 @@ const bgCollection = document.querySelectorAll("input[name='bg']");
 bgCollection.forEach((element) => {
   element.addEventListener("click", function (e: Event) {
     const number = (e.target as HTMLInputElement).value;
-    resultScreen.className = "result-screen";
-    resultScreen.classList.add("bg");
+    resultScreen.className = "result-screen bg";
     resultScreen.classList.add(`bg${number}`);
     //resultScreen.style.backgroundImage = `url("./assets/bg/${number}.jpg") cover center`;
   });
@@ -50,11 +49,13 @@ class Game {
   tree: string;
   garland: boolean;
   garlandType: string;
-  constructor(bg = "bg1", tree = "./assets/tree/1.png", garland = false, garlandType = "transparent-garland") {
+  constructor(bg = "bg1", tree = "./assets/tree/1.png", garland = false, garlandType = "green-garland") {
     this.bg = bg;
     this.tree = tree;
     this.garland = garland;
-    this.garlandType = garlandType;
+    if (this.garland) {
+      this.garlandType = garlandType;
+    }
   }
 
   printResult() {
@@ -62,8 +63,5 @@ class Game {
     <img src="${this.tree}" alt="tree target">
     <ul class="${this.garlandType}"><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
     </div>`;
-  }
-  changeBG(){
-    
   }
 }

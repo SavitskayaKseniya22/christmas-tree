@@ -9,8 +9,10 @@
   </head>
   <body class="body">
     <header class="header">
+      <a href="./toys/toys.html"><h2 class="big-title">Игрушки</h2></a>
+      <img src="./assets/svg/ball-2.svg" alt="ball" />
+      <h2 class="big-title current-title">Ёлка</h2>
       <a href="./index.html" class="back-button"><img src="./assets/svg/arrow-left.svg" alt="back" /></a>
-      <h2 class="big-title">Ёлка</h2>
     </header>
     <main class="main">
       <div class="options">
@@ -24,7 +26,7 @@
           <h3 class="middle-title">Выберите ёлку</h3>
           <ul>
             <li>
-              <input type="radio" id="tree1" name="tree" value="1" />
+              <input type="radio" id="tree1" name="tree" value="1" checked />
               <label for="tree1"> <img src="./assets/tree/1.png" alt="tree 1" /></label>
             </li>
             <li>
@@ -53,7 +55,7 @@
           <h3 class="middle-title">Выберите фон</h3>
           <ul class="bg-list">
             <li>
-              <input type="radio" id="bg1" name="bg" value="1" />
+              <input type="radio" id="bg1" name="bg" value="1" checked />
               <label for="bg1"> <img src="./assets/bg/1.jpg" alt="background 1" /></label>
             </li>
             <li>
@@ -114,7 +116,9 @@
           </ul>
         </section>
       </div>
-      <div class="result-screen"></div>
+      <div class="result-screen bg1 bg">
+        <img src="./assets/tree/1.png" alt="tree" class="tree-img" />
+      </div>
       <div>
         <section class="selection-options bg-options">
           <h3 class="middle-title">Избранные игрушки</h3>
@@ -146,16 +150,3 @@
     </footer>
   </body>
 </html>
-
-<ul>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-  <li></li>
-</ul>

@@ -1,7 +1,7 @@
 import { changeOrder } from "./order";
 import { restoreSelection } from "./selection";
-import { ToyCard } from "./toyCard";
-import { Toy } from "./types";
+import { ToyCard } from "../toyCard";
+import { Toy } from "../types";
 
 import { searchToy } from "./search";
 import { mainContainer, storage } from "./defaultData";

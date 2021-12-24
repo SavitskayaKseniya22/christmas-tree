@@ -1,7 +1,7 @@
-import { data as toys } from "./data";
+import { data as toys } from "../data";
 import { mainContainer, storage, uncheck } from "./defaultData";
 import { filterAndRender } from "./render";
-import { Filters } from "./types";
+import { Filters } from "../types";
 
 export function filterAll() {
   uncheck();

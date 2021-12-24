@@ -17,12 +17,12 @@ a {
   color: #355829;
   text-decoration: none;
   transition: 0.5s;
-  &:hover {
-    color: #ffd700;
-  }
-  &:active {
-    color: #ceb31e;
-  }
+}
+a:hover {
+  color: #ffd700;
+}
+a:active {
+  color: #ceb31e;
 }
 
 ul {
@@ -47,6 +47,11 @@ input[type="checkbox"] {
   text-align: center;
   background-color: #8fb14e;
   position: relative;
+  display: flex;
+  justify-content: center;
+}
+.current-title {
+  color: #ffd700;
 }
 
 .big-title {
@@ -73,6 +78,7 @@ h4 {
   position: absolute;
   display: block;
   top: calc(50% - 15px);
+  left: 1rem;
 }
 .back-button img {
   width: 100%;

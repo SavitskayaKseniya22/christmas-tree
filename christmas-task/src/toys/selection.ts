@@ -1,6 +1,6 @@
 import { storage } from "./defaultData";
-import { ToyCard } from "./toyCard";
-import data from "./data";
+import { ToyCard } from "../toyCard";
+import data from "../data";
 
 const selectionCount = document.querySelector(".selection-count") as HTMLSpanElement;
 const selectionRest = document.querySelector(".selection-rest") as HTMLSpanElement;

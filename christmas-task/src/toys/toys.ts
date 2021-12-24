@@ -5,5 +5,5 @@ import "./order";
 import "./search";
 import "./slider";
 import "./reset";
-import "./toyCard";
+import "../toyCard";
 import "./selection";
