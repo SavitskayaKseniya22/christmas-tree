@@ -77,8 +77,8 @@
       }
     }
 
-    .settings {
-      flex-direction: row;
+    .settings ul {
+      justify-content: left;
     }
   }
   .result-screen {

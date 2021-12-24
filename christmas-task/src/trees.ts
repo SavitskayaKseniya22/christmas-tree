@@ -51,6 +51,7 @@ class Settings {
   bgCollection: NodeListOf<Element>;
   resultScreen: HTMLDivElement;
   treeCollection: NodeListOf<Element>;
+  resetButton: HTMLButtonElement;
 
   constructor(music = false, snow = false, bg = "bg1", tree = "1") {
     this.music = music;
@@ -63,11 +64,9 @@ class Settings {
     this.bgCollection = document.querySelectorAll("input[name='bg']");
     this.resultScreen = document.querySelector(".result-screen");
     this.treeCollection = document.querySelectorAll("input[name='tree']");
+    this.resetButton = document.querySelector(".reset-storage");
 
-    this.changeMusic(this.music);
-    this.changeBg(this.bg);
-    this.changeSnow(this.snow);
-    this.changeTree(this.tree);
+    this.callSettings(this.music, this.snow, this.bg, this.tree);
 
     this.checkboxMusic.addEventListener("change", () => {
       this.changeMusic(this.checkboxMusic.checked);
@@ -87,6 +86,9 @@ class Settings {
         this.changeTree((e.target as HTMLInputElement).value);
       });
     });
+    this.resetButton.addEventListener("click", () => {
+      this.callSettings(false, false, "bg1", "1");
+    });
   }
   changeMusic(value: boolean) {
     this.music = value;
@@ -95,6 +97,7 @@ class Settings {
       this.checkboxMusic.checked = true;
       this.audio.play();
     } else {
+      this.checkboxMusic.checked = false;
       this.audio.pause();
     }
   }
@@ -105,6 +108,7 @@ class Settings {
     if (this.snow) {
       this.checkboxSnow.checked = true;
     } else {
+      this.checkboxSnow.checked = false;
     }
   }
   changeBg(value: string) {
@@ -127,6 +131,13 @@ class Settings {
   saveCheckedState(value: string) {
     const item = document.querySelector(`input[value="${value}"]`) as HTMLInputElement;
     item.checked = true;
+  }
+
+  callSettings(music: boolean, snow: boolean, bg: string, tree: string) {
+    this.changeMusic(music);
+    this.changeBg(bg);
+    this.changeSnow(snow);
+    this.changeTree(tree);
   }
 
   saveSettings() {
