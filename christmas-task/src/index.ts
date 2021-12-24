@@ -1,2 +1,0 @@
-import "./toys";
-import "./trees";

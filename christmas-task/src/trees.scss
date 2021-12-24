@@ -8,15 +8,13 @@
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
     width: 400px;
+    row-gap: 2rem;
     section {
-      margin: 1rem;
-
-      .middle-title {
-        margin-bottom: 1rem;
-      }
-
+      display: flex;
+      flex-direction: column;
+      row-gap: 2rem;
       ul {
         display: flex;
         flex-wrap: wrap;
@@ -25,7 +23,6 @@
         justify-content: space-evenly;
 
         li {
-          background-color: rgba(255, 255, 255, 0.3);
           cursor: pointer;
 
           label {
@@ -41,9 +38,11 @@
           }
           input[type="radio"]:checked ~ label {
             opacity: 1;
-            width: 150%;
-            height: 150%;
+            width: 120%;
+            height: 120%;
             padding: 5%;
+            border: 3px solid #ffd700;
+            border-radius: 50%;
           }
 
           img {
@@ -66,12 +65,13 @@
 
     .bg-options {
       li {
-        width: 50px;
-        height: 50px;
+        width: 75px;
+        height: 75px;
         padding: 0.2rem;
       }
     }
     .garland-options {
+      position: relative;
       li {
         width: 25px;
         height: 25px;
@@ -92,9 +92,35 @@
           background-color: green;
         }
       }
+
+      .garland-enabler {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        right: 5rem;
+        top: 0.5rem;
+      }
+    }
+    .toy-preview {
+      position: relative;
+      .count-toy {
+        display: block;
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        background-color: transparent;
+        border: 3px solid #ffd700;
+
+        border-radius: 50%;
+        top: 0;
+
+        font-weight: bold;
+        text-align: left;
+      }
     }
 
     .settings {
+      flex-direction: row;
       label {
         display: inline-block;
         width: 50px;
@@ -114,9 +140,15 @@
 
       #snow:checked ~ label[for="snow"] {
         opacity: 1;
+        border: 3px solid #ffd700;
+        border-radius: 50%;
+        padding: 0.5rem;
       }
       #music:checked ~ label[for="music"] {
         opacity: 1;
+        border: 3px solid #ffd700;
+        border-radius: 50%;
+        padding: 0.5rem;
       }
     }
   }
@@ -124,5 +156,40 @@
     width: 50%;
     flex-shrink: 0;
     background-color: #567d30;
+
+    &.bg {
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    &.bg1 {
+      background-image: url("./assets/bg/1.jpg");
+    }
+    &.bg2 {
+      background-image: url("./assets/bg/2.jpg");
+    }
+    &.bg3 {
+      background-image: url("./assets/bg/3.jpg");
+    }
+    &.bg4 {
+      background-image: url("./assets/bg/4.jpg");
+    }
+    &.bg5 {
+      background-image: url("./assets/bg/5.jpg");
+    }
+    &.bg6 {
+      background-image: url("./assets/bg/6.jpg");
+    }
+    &.bg7 {
+      background-image: url("./assets/bg/7.jpg");
+    }
+    &.bg10 {
+      background-image: url("./assets/bg/10.jpg");
+    }
+    .tree-img {
+      width: 400px;
+      height: 600px;
+      margin: auto auto 2% auto;
+    }
   }
 }
