@@ -16,7 +16,10 @@
     display: flex;
     flex-direction: column;
     row-gap: 1rem;
-
+    .label-title {
+      width: 100%;
+      opacity: 1;
+    }
     .inner-section {
       padding: 1em;
       row-gap: 1em;
@@ -25,34 +28,6 @@
         display: flex;
         column-gap: 0.5em;
         justify-content: center;
-      }
-      label {
-        display: block;
-        width: 50px;
-        height: 50px;
-        opacity: 0.5;
-        transition: 0.5s;
-        padding: 0.5rem;
-
-        &:hover {
-          opacity: 1;
-        }
-
-        img {
-          width: 100%;
-          height: 100%;
-        }
-      }
-
-      .favorite-title {
-        width: 100%;
-        opacity: 1;
-      }
-
-      input[type="checkbox"]:checked ~ label {
-        border: 3px solid #ffd700;
-        border-radius: 50%;
-        opacity: 0.9;
       }
 
       .size-label_middle {
@@ -65,30 +40,6 @@
         img {
           width: 50%;
         }
-      }
-
-      .color-label_white {
-        background-color: white;
-      }
-
-      .color-label_yellow {
-        background-color: yellow;
-      }
-
-      .color-label_red {
-        background-color: red;
-      }
-
-      .color-label_blue {
-        background-color: blue;
-      }
-
-      .color-label_green {
-        background-color: green;
-      }
-
-      input[type="checkbox"] {
-        display: none;
       }
     }
   }

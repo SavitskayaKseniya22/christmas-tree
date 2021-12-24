@@ -16,13 +16,20 @@
     </header>
     <main class="main">
       <div class="options">
-        <section class="settings">
-          <input type="checkbox" id="music" />
-          <label for="music"><img src="./assets/svg/audio.svg" alt="music" /></label>
-          <input type="checkbox" id="snow" />
-          <label for="snow"><img src="./assets/svg/snow.svg" alt="snow" /></label>
+        <section class="settings small-item-container">
+          <ul>
+            <li>
+              <input type="checkbox" id="toggle-button-music" />
+              <label for="toggle-button-music"><img src="./assets/svg/audio.svg" alt="music" /></label>
+              <audio src="./assets/audio/audio.mp3"></audio>
+            </li>
+            <li>
+              <input type="checkbox" id="snow" />
+              <label for="snow"><img src="./assets/svg/snow.svg" alt="snow" /></label>
+            </li>
+          </ul>
         </section>
-        <section class="tree-options">
+        <section class="tree-options big-item-container">
           <h3 class="middle-title">Выберите ёлку</h3>
           <ul>
             <li>
@@ -51,7 +58,7 @@
             </li>
           </ul>
         </section>
-        <section class="bg-options">
+        <section class="bg-options middle-item-container">
           <h3 class="middle-title">Выберите фон</h3>
           <ul class="bg-list">
             <li>
@@ -95,23 +102,23 @@
           <ul>
             <li>
               <input type="radio" id="garland-white" name="garland" value="garland-white" />
-              <label for="garland-white"></label>
+              <label for="garland-white" class="color_white"></label>
             </li>
             <li>
               <input type="radio" id="garland-yellow" name="garland" value="garland-yellow" />
-              <label for="garland-yellow"></label>
+              <label for="garland-yellow" class="color_yellow"></label>
             </li>
             <li>
               <input type="radio" id="garland-red" name="garland" value="garland-red" />
-              <label for="garland-red"></label>
+              <label for="garland-red" class="color_red"></label>
             </li>
             <li>
               <input type="radio" id="garland-blue" name="garland" value="garland-blue" />
-              <label for="garland-blue"></label>
+              <label for="garland-blue" class="color_blue"></label>
             </li>
             <li>
               <input type="radio" id="garland-green" name="garland" value="garland-green" />
-              <label for="garland-green"></label>
+              <label for="garland-green" class="color_green"></label>
             </li>
           </ul>
         </section>
@@ -120,11 +127,11 @@
         <img src="./assets/tree/1.png" alt="tree" class="tree-img" />
       </div>
       <div>
-        <section class="selection-options bg-options">
+        <section class="selection-options middle-item-container">
           <h3 class="middle-title">Избранные игрушки</h3>
           <ul></ul>
         </section>
-        <section class="done-options tree-options">
+        <section class="done-options big-item-container">
           <h3 class="middle-title">Вы нарядили</h3>
           <ul>
             <li></li>

@@ -20,7 +20,7 @@
     <main class="main">
       <div class="settings">
         <section class="search-section">
-          <label for="search">
+          <label for="search" class="label-title">
             <h3 class="middle-title">Поиск</h3>
           </label>
           <input
@@ -51,7 +51,7 @@
           </div>
         </section>
         <section>
-          <label for="sort-select"><h3 class="middle-title">Сортировать</h3></label>
+          <label for="sort-select" class="label-title"><h3 class="middle-title">Сортировать</h3></label>
           <select size="1" class="sort-select" id="sort-select">
             <option value="nameUp">По названию &uarr;</option>
             <option value="nameDown">По названию &darr;</option>
@@ -63,7 +63,7 @@
           <h3 class="middle-title">Фильтры</h3>
           <section class="inner-section">
             <h4 class="small-title">Форма</h4>
-            <ul class="shape-list">
+            <ul class="shape-list small-item-container">
               <li>
                 <input type="checkbox" id="round" />
                 <label class="shape-label" for="round"
@@ -102,32 +102,32 @@
           </section>
           <section class="inner-section">
             <h4 class="small-title">Цвет</h4>
-            <ul class="color-list">
+            <ul class="color-list small-item-container">
               <li>
                 <input type="checkbox" id="white" />
-                <label class="color-label color-label_white" for="white"></label>
+                <label class="color-label color_white" for="white"></label>
               </li>
               <li>
                 <input type="checkbox" id="yellow" />
-                <label class="color-label color-label_yellow" for="yellow"></label>
+                <label class="color-label color_yellow" for="yellow"></label>
               </li>
               <li>
                 <input type="checkbox" id="red" />
-                <label class="color-label color-label_red" for="red"></label>
+                <label class="color-label color_red" for="red"></label>
               </li>
               <li>
                 <input type="checkbox" id="blue" />
-                <label class="color-label color-label_blue" for="blue"></label>
+                <label class="color-label color_blue" for="blue"></label>
               </li>
               <li>
                 <input type="checkbox" id="green" />
-                <label class="color-label color-label_green" for="green"></label>
+                <label class="color-label color_green" for="green"></label>
               </li>
             </ul>
           </section>
           <section class="inner-section">
             <h4 class="small-title">Размер</h4>
-            <ul class="size-list">
+            <ul class="size-list small-item-container">
               <li>
                 <input type="checkbox" id="big" />
                 <label class="size-label size-label_big" for="big"
@@ -149,7 +149,7 @@
             </ul>
           </section>
           <section class="inner-section">
-            <label for="favorite" class="favorite-label favorite-title"
+            <label for="favorite" class="favorite-label label-title"
               ><h4 class="small-title">Любимые игрушки</h4></label
             >
             <input type="checkbox" id="favorite" />

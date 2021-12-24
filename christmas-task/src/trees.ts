@@ -65,3 +65,44 @@ class Game {
     </div>`;
   }
 }
+
+class Settings {
+  music: boolean;
+  snow: boolean;
+  tree: string;
+  bg: string;
+  checkbox: HTMLInputElement;
+  audio: HTMLAudioElement;
+  constructor(music = false, snow = false, bg = "bg1", tree = "./assets/tree/1.png") {
+    this.music = music;
+    this.snow = snow;
+    this.bg = bg;
+    this.tree = tree;
+    this.checkbox = document.querySelector("#toggle-button-music");
+    this.audio = document.querySelector("audio");
+
+    if (this.music) {
+      this.checkbox.checked = true;
+      this.audio.play();
+    }
+  }
+  changeMusic(value: boolean) {
+    this.music = value;
+    if (this.music) {
+      this.audio.play();
+    } else {
+      this.audio.pause();
+    }
+  }
+
+  changeSnow(value: boolean) {
+    this.snow = value;
+  }
+}
+
+const settings = new Settings();
+
+const audioCheckbox = document.querySelector("#toggle-button-music");
+audioCheckbox.addEventListener("change", function () {
+  settings.changeMusic((audioCheckbox as HTMLInputElement).checked);
+});

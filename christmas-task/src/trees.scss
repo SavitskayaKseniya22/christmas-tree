@@ -26,74 +26,34 @@
           cursor: pointer;
 
           label {
-            display: block;
-            transition: 0.5s;
             width: 100%;
             height: 100%;
-            opacity: 0.5;
-          }
-
-          input[type="radio"] {
-            display: none;
-          }
-          input[type="radio"]:checked ~ label {
-            opacity: 1;
-            width: 120%;
-            height: 120%;
-            padding: 5%;
-            border: 3px solid #ffd700;
-            border-radius: 50%;
+            img {
+              width: 100%;
+              height: 100%;
+            }
           }
 
           img {
-            width: 100%;
-            height: 100%;
             position: relative;
             z-index: 10;
+            width: 100%;
+            height: 100%;
           }
         }
       }
     }
 
-    .tree-options {
-      li {
-        width: 100px;
-        height: 100px;
-        padding: 0.5rem;
-      }
-    }
-
-    .bg-options {
-      li {
-        width: 75px;
-        height: 75px;
-        padding: 0.2rem;
-      }
-    }
     .garland-options {
       position: relative;
       li {
         width: 25px;
         height: 25px;
         padding: 0.2rem;
-        [for="garland-white"] {
-          background-color: white;
-        }
-        [for="garland-yellow"] {
-          background-color: yellow;
-        }
-        [for="garland-red"] {
-          background-color: red;
-        }
-        [for="garland-blue"] {
-          background-color: blue;
-        }
-        [for="garland-green"] {
-          background-color: green;
-        }
       }
 
       .garland-enabler {
+        display: block;
         position: absolute;
         width: 20px;
         height: 20px;
@@ -110,10 +70,8 @@
         position: absolute;
         background-color: transparent;
         border: 3px solid #ffd700;
-
         border-radius: 50%;
         top: 0;
-
         font-weight: bold;
         text-align: left;
       }
@@ -121,35 +79,6 @@
 
     .settings {
       flex-direction: row;
-      label {
-        display: inline-block;
-        width: 50px;
-        height: 50px;
-        margin: 1rem;
-        opacity: 0.5;
-        transition: 0.5s;
-
-        img {
-          width: 100%;
-          height: 100%;
-        }
-      }
-      input[type="checkbox"] {
-        display: none;
-      }
-
-      #snow:checked ~ label[for="snow"] {
-        opacity: 1;
-        border: 3px solid #ffd700;
-        border-radius: 50%;
-        padding: 0.5rem;
-      }
-      #music:checked ~ label[for="music"] {
-        opacity: 1;
-        border: 3px solid #ffd700;
-        border-radius: 50%;
-        padding: 0.5rem;
-      }
     }
   }
   .result-screen {
