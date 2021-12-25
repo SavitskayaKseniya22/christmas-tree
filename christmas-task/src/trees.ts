@@ -93,6 +93,7 @@ class Settings {
   changeMusic(value: boolean) {
     this.music = value;
     this.saveSettings();
+
     if (this.music) {
       this.checkboxMusic.checked = true;
       this.audio.play();
@@ -105,11 +106,7 @@ class Settings {
   changeSnow(value: boolean) {
     this.snow = value;
     this.saveSettings();
-    if (this.snow) {
-      this.checkboxSnow.checked = true;
-    } else {
-      this.checkboxSnow.checked = false;
-    }
+    this.snow ? (this.checkboxSnow.checked = true) : (this.checkboxSnow.checked = false);
   }
   changeBg(value: string) {
     this.bg = value;

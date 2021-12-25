@@ -50,8 +50,31 @@
         width: 25px;
         height: 25px;
         padding: 0.2rem;
+        border-radius: 50%;
+      }
+      input[name="garland"]:checked + .animate-blink {
+        animation: animate_blink 3s infinite;
+        border: none;
       }
 
+      .animate-blink:hover {
+        animation: none;
+      }
+      @keyframes animate_blink {
+        0% {
+          transform: scale3d(1, 1, 1);
+          box-shadow: 0 0 0 0 rgb(228, 25, 49, 0);
+        }
+        50% {
+          transform: scale3d(1.1, 1.1, 1.1);
+          background-color: white;
+          box-shadow: 0 0 2px 5px rgb(228, 25, 49, 0.2);
+        }
+        100% {
+          transform: scale3d(0.9, 0.9, 0.9);
+          box-shadow: 0 0 0 0 rgb(228, 25, 49, 0);
+        }
+      }
       .garland-enabler {
         display: block;
         position: absolute;
@@ -119,6 +142,66 @@
       width: 400px;
       height: 600px;
       margin: auto auto 2% auto;
+    }
+  }
+}
+
+#garland-block {
+  position: relative;
+  z-index: 77777;
+  li {
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    animation: animate_blink 3s infinite;
+
+    &:nth-child(2) {
+      margin-top: 20px;
+    }
+    &:nth-child(3) {
+      margin-top: 40px;
+    }
+    &:nth-child(4) {
+      margin-top: 60px;
+    }
+    &:nth-child(5) {
+      margin-top: 80px;
+    }
+    &:nth-child(6) {
+      margin-top: 100px;
+    }
+    &:nth-child(7) {
+      margin-top: 120px;
+    }
+    &:nth-child(8) {
+      margin-top: 140px;
+    }
+    &:nth-child(9) {
+      margin-top: 160px;
+    }
+    &:nth-child(10) {
+      margin-top: 180px;
+    }
+    &:nth-child(11) {
+      margin-top: 200px;
+    }
+  }
+  .animate-blink:hover {
+    animation: none;
+  }
+  @keyframes animate_blink {
+    0% {
+      transform: scale3d(1, 1, 1);
+      box-shadow: 0 0 0 0 rgb(228, 25, 49, 0);
+    }
+    50% {
+      transform: scale3d(1.1, 1.1, 1.1);
+      background-color: white;
+      box-shadow: 0 0 2px 5px rgb(228, 25, 49, 0.2);
+    }
+    100% {
+      transform: scale3d(0.9, 0.9, 0.9);
+      box-shadow: 0 0 0 0 rgb(228, 25, 49, 0);
     }
   }
 }
