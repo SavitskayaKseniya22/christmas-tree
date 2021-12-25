@@ -52,12 +52,18 @@ class Settings {
   resultScreen: HTMLDivElement;
   treeCollection: NodeListOf<Element>;
   resetButton: HTMLButtonElement;
+  checkboxGarland: HTMLInputElement;
+  garland: boolean;
+  garlandTypes: NodeListOf<Element>;
+  garlandType: string;
 
-  constructor(music = false, snow = false, bg = "bg1", tree = "1") {
+  constructor(music = false, snow = false, bg = "bg1", tree = "1", garland = false, garlandType = "5") {
     this.music = music;
     this.snow = snow;
     this.bg = bg;
     this.tree = tree;
+    this.garland = garland;
+    this.garlandType = garlandType;
     this.checkboxMusic = document.querySelector("#toggle-button-music");
     this.audio = document.querySelector("audio");
     this.checkboxSnow = document.querySelector("#toggle-button-snow");
@@ -65,14 +71,28 @@ class Settings {
     this.resultScreen = document.querySelector(".result-screen");
     this.treeCollection = document.querySelectorAll("input[name='tree']");
     this.resetButton = document.querySelector(".reset-storage");
+    this.checkboxGarland = document.querySelector(".garland-enabler");
+    this.garlandTypes = document.querySelectorAll("input[name='garland']");
 
-    this.callSettings(this.music, this.snow, this.bg, this.tree);
+    this.callSettings(this.music, this.snow, this.bg, this.tree, this.garland, this.garlandType);
 
+    this.checkboxGarland.addEventListener("change", () => {
+      this.changeGarland(this.checkboxGarland.checked, this.garlandType);
+    });
     this.checkboxMusic.addEventListener("change", () => {
       this.changeMusic(this.checkboxMusic.checked);
     });
     this.checkboxSnow.addEventListener("change", () => {
       this.changeSnow(this.checkboxSnow.checked);
+    });
+
+    this.garlandTypes.forEach((element) => {
+      element.addEventListener("click", (e: Event) => {
+        this.changeGarland(
+          this.checkboxGarland.checked,
+          (document.querySelector('input[name="garland"]:checked') as HTMLInputElement).value,
+        );
+      });
     });
 
     this.bgCollection.forEach((element) => {
@@ -87,13 +107,93 @@ class Settings {
       });
     });
     this.resetButton.addEventListener("click", () => {
-      this.callSettings(false, false, "bg1", "1");
+      this.callSettings(false, false, "bg1", "1", false, "5");
     });
   }
+
+  changeGarland(value: boolean, index: string) {
+    this.garland = value;
+    this.garlandType = index;
+    this.saveSettings();
+    const i = Number(index) - 1;
+
+    if (this.garland) {
+      this.checkboxGarland.checked = true;
+      (this.garlandTypes[i] as HTMLInputElement).checked = true;
+      const className = (this.garlandTypes[i] as HTMLInputElement).getAttribute("data-color");
+      this.resultScreen.innerHTML += this.printGarland(className);
+    } else {
+      this.checkboxGarland.checked = false;
+      (this.garlandTypes[i] as HTMLInputElement).checked = false;
+      this.garlandTypes.forEach((element) => {
+        (element as HTMLInputElement).checked = false;
+      });
+
+      this.removeGarland();
+    }
+  }
+  removeGarland() {
+    const garlandBlockCollection = document.querySelectorAll(".garland-block");
+    garlandBlockCollection.forEach((element) => {
+      element.remove();
+    });
+  }
+  printGarland(className: string) {
+    return `<ul id="garland-block-first" class="garland-block">
+    <li class=${className}></li>
+    <li class=${className}></li>
+    <li class=${className}></li>
+    <li class=${className}></li>
+    <li class=${className}></li>
+    <li class=${className}></li>
+    <li class=${className}></li>
+    <li class=${className}></li>
+  </ul>
+  <ul id="garland-block-second" class="garland-block">
+  <li class=${className}></li>
+  <li class=${className}></li>
+  <li class=${className}></li>
+  <li class=${className}></li>
+  <li class=${className}></li>
+  <li class=${className}></li>
+  <li class=${className}></li>
+  <li class=${className}></li>
+  </ul>
+  <ul id="garland-block-third" class="garland-block">
+  <li class=${className}></li>
+  <li class=${className}></li>
+  <li class=${className}></li>
+  <li class=${className}></li>
+  <li class=${className}></li>
+  <li class=${className}></li>
+  <li class=${className}></li>
+  <li class=${className}></li>
+  </ul>
+  <ul id="garland-block-fourth" class="garland-block">
+  <li class=${className}></li>
+    <li class=${className}></li>
+    <li class=${className}></li>
+    <li class=${className}></li>
+    <li class=${className}></li>
+    <li class=${className}></li>
+    <li class=${className}></li>
+  </ul>
+  <ul id="garland-block-fifth" class="garland-block">
+  <li class=${className}></li>
+    <li class=${className}></li>
+    <li class=${className}></li>
+    <li class=${className}></li>
+    <li class=${className}></li>
+    <li class=${className}></li>
+    
+  </ul>
+  
+  `;
+  }
+
   changeMusic(value: boolean) {
     this.music = value;
     this.saveSettings();
-
     if (this.music) {
       this.checkboxMusic.checked = true;
       this.audio.play();
@@ -122,7 +222,7 @@ class Settings {
     const treeImg = document.createElement("img");
     treeImg.src = `./assets/tree/${value}.png`;
     treeImg.classList.add("tree-img");
-    this.resultScreen.innerHTML = "";
+    document.querySelector(".tree-img")?.remove();
     this.resultScreen.append(treeImg);
   }
   saveCheckedState(value: string) {
@@ -130,21 +230,25 @@ class Settings {
     item.checked = true;
   }
 
-  callSettings(music: boolean, snow: boolean, bg: string, tree: string) {
+  callSettings(music: boolean, snow: boolean, bg: string, tree: string, garland: boolean, garlandType: string) {
     this.changeMusic(music);
     this.changeBg(bg);
     this.changeSnow(snow);
     this.changeTree(tree);
+    this.changeGarland(garland, garlandType);
   }
 
   saveSettings() {
-    window.localStorage.setItem("gameSettings", JSON.stringify([this.music, this.snow, this.bg, this.tree]));
+    window.localStorage.setItem(
+      "gameSettings",
+      JSON.stringify([this.music, this.snow, this.bg, this.tree, this.garland, this.garlandType]),
+    );
   }
 }
 let settings: Settings;
 if (window.localStorage.getItem("gameSettings")) {
   const arr = JSON.parse(window.localStorage.getItem("gameSettings"));
-  settings = new Settings(arr[0], arr[1], arr[2], arr[3]);
+  settings = new Settings(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]);
 } else {
   settings = new Settings();
 }
