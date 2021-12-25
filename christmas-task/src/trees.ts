@@ -118,21 +118,21 @@ class Settings {
     const i = Number(index) - 1;
 
     if (this.garland) {
+      this.removeGarland();
       this.checkboxGarland.checked = true;
       (this.garlandTypes[i] as HTMLInputElement).checked = true;
       const className = (this.garlandTypes[i] as HTMLInputElement).getAttribute("data-color");
       this.resultScreen.innerHTML += this.printGarland(className);
     } else {
       this.checkboxGarland.checked = false;
-      (this.garlandTypes[i] as HTMLInputElement).checked = false;
-      this.garlandTypes.forEach((element) => {
-        (element as HTMLInputElement).checked = false;
-      });
-
       this.removeGarland();
+      (this.garlandTypes[i] as HTMLInputElement).checked = false;
     }
   }
   removeGarland() {
+    this.garlandTypes.forEach((element) => {
+      (element as HTMLInputElement).checked = false;
+    });
     const garlandBlockCollection = document.querySelectorAll(".garland-block");
     garlandBlockCollection.forEach((element) => {
       element.remove();
@@ -206,7 +206,28 @@ class Settings {
   changeSnow(value: boolean) {
     this.snow = value;
     this.saveSettings();
-    this.snow ? (this.checkboxSnow.checked = true) : (this.checkboxSnow.checked = false);
+    if (this.snow) {
+      this.checkboxSnow.checked = true;
+      this.resultScreen.innerHTML += this.printSnow();
+    } else {
+      this.checkboxSnow.checked = false;
+      document.querySelector(".snowfall")?.remove();
+    }
+  }
+  printSnow() {
+    return `<ul class="snowfall">
+    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+    
+  </ul>
+  `;
   }
   changeBg(value: string) {
     this.bg = value;

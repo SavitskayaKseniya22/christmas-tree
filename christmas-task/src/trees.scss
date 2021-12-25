@@ -142,13 +142,12 @@
 #garland-block-fifth {
   position: absolute;
   z-index: 77777;
-
   flex-wrap: nowrap;
   column-gap: 0;
   row-gap: 0;
   li {
-    width: 10px;
-    height: 10px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
 
     &:nth-child(odd) {
@@ -181,17 +180,14 @@
     &:nth-child(9) {
       margin-top: 30px;
     }
-  }
-  li.color_multy {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    animation: none;
-    &:nth-child(odd) {
-      animation: animate_blink_multy 2s infinite;
-    }
-    &:nth-child(even) {
-      animation: animate_blink_multy 4s infinite;
+    &.color_multy {
+      animation: none;
+      &:nth-child(odd) {
+        animation: animate_blink_multy 2s infinite;
+      }
+      &:nth-child(even) {
+        animation: animate_blink_multy 4s infinite;
+      }
     }
   }
 }
@@ -224,7 +220,7 @@
 @keyframes animate_blink {
   0% {
     transform: scale3d(0.9, 0.9, 0.9);
-    box-shadow: 0 0 5px 7px rgb(255, 215, 0, 0.2);
+    box-shadow: 0 0 5px 10px rgb(255, 215, 0, 0.2);
   }
   50% {
     transform: scale3d(1, 1, 1);
@@ -233,34 +229,81 @@
   }
   100% {
     transform: scale3d(0.9, 0.9, 0.9);
-    box-shadow: 0 0 5px 7px rgb(255, 215, 0, 0.2);
+    box-shadow: 0 0 5px 10px rgb(255, 215, 0, 0.2);
   }
 }
 
 @keyframes animate_blink_multy {
   0% {
     transform: scale3d(1, 1, 1);
-    box-shadow: 0 0 5px 7px rgb(228, 25, 49, 0.2);
+    box-shadow: 0 0 5px 10px rgb(228, 25, 49, 0.2);
     background-color: white;
   }
   25% {
     transform: scale3d(1.1, 1.1, 1.1);
     background-color: green;
-    box-shadow: 0 0 5px 7px rgb(255, 0, 0, 0.2);
+    box-shadow: 0 0 5px 10px rgb(255, 0, 0, 0.2);
   }
   50% {
     transform: scale3d(1.2, 1.2, 1.2);
     background-color: red;
-    box-shadow: 0 0 5px 7px rgb(0, 128, 0, 0.2);
+    box-shadow: 0 0 5px 10px rgb(0, 128, 0, 0.2);
   }
   75% {
     transform: scale3d(1, 1, 1);
     background-color: blue;
-    box-shadow: 0 0 5px 7px rgb(255, 215, 0, 0.2);
+    box-shadow: 0 0 5px 10px rgb(255, 215, 0, 0.2);
   }
   100% {
     transform: scale3d(0.9, 0.9, 0.9);
     background-color: yellow;
-    box-shadow: 0 0 5px 7px rgb(0, 0, 255, 0.2);
+    box-shadow: 0 0 5px 10px rgb(0, 0, 255, 0.2);
+  }
+}
+
+.snowfall {
+  position: absolute;
+  width: 100%;
+  height: 60%;
+  li {
+    position: relative;
+    opacity: 1;
+    filter: blur(1px);
+    width: 10%;
+    height: 10%;
+    z-index: 99999;
+    animation-name: snowflakes-fall, snowflakes-shake;
+    animation-duration: 10s, 10s;
+    animation-timing-function: linear, ease-in-out;
+    animation-iteration-count: infinite, infinite;
+    animation-play-state: running, running;
+
+    &:nth-child(even) {
+      margin-top: 300px;
+    }
+    &:nth-child(odd) {
+      margin-top: 50px;
+    }
+  }
+}
+
+@keyframes snowflakes-fall {
+  0% {
+    top: -20%;
+  }
+  100% {
+    opacity: 0;
+    top: 100%;
+  }
+}
+@keyframes snowflakes-shake {
+  0% {
+    transform: translateX(0px);
+  }
+  30% {
+    transform: translateX(120px) rotate(0.5turn);
+  }
+  100% {
+    transform: translateX(-120px) rotate(-0.5turn) scale3d(2, 2, 2);
   }
 }
