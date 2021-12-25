@@ -139,7 +139,7 @@ class Settings {
     });
   }
   printGarland(className: string) {
-    return `<ul id="garland-block-first" class="garland-block">
+    return `<div class="garland-container"><ul id="garland-block-first" class="garland-block">
     <li class=${className}></li>
     <li class=${className}></li>
     <li class=${className}></li>
@@ -186,7 +186,7 @@ class Settings {
     <li class=${className}></li>
     <li class=${className}></li>
     
-  </ul>
+  </ul></div>
   
   `;
   }
@@ -197,6 +197,13 @@ class Settings {
     if (this.music) {
       this.checkboxMusic.checked = true;
       this.audio.play();
+      document.addEventListener(
+        "click",
+        () => {
+          this.audio.play();
+        },
+        { once: true },
+      );
     } else {
       this.checkboxMusic.checked = false;
       this.audio.pause();
@@ -224,8 +231,6 @@ class Settings {
     <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
     <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
     <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
-    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
-    
   </ul>
   `;
   }
@@ -252,11 +257,11 @@ class Settings {
   }
 
   callSettings(music: boolean, snow: boolean, bg: string, tree: string, garland: boolean, garlandType: string) {
-    this.changeMusic(music);
     this.changeBg(bg);
     this.changeSnow(snow);
     this.changeTree(tree);
     this.changeGarland(garland, garlandType);
+    this.changeMusic(music);
   }
 
   saveSettings() {
@@ -273,3 +278,31 @@ if (window.localStorage.getItem("gameSettings")) {
 } else {
   settings = new Settings();
 }
+
+const collectionToys = document.querySelectorAll(".toy-preview");
+const resultScreen = document.querySelector(".result-screen");
+collectionToys.forEach((element) => {
+  element.addEventListener("dragstart", (e: Event) => {
+    (e.target as HTMLElement).classList.add("selected");
+  });
+  element.addEventListener("dragend", (e: Event) => {
+    (e.target as HTMLElement).classList.remove("selected");
+  });
+});
+
+resultScreen.addEventListener(`dragover`, (evt) => {
+  evt.preventDefault();
+});
+
+resultScreen.addEventListener("drop", function (event) {
+  //console.log((event as DragEvent).dataTransfer.getData("text"));
+  event.preventDefault();
+  const activeElement = document.querySelector(".selected");
+  const count = activeElement.nextElementSibling.textContent;
+  if (count != "0") {
+    const dupActiveElement = activeElement.cloneNode();
+    (dupActiveElement as HTMLElement).classList.remove("selected");
+    resultScreen.append(dupActiveElement);
+    activeElement.nextElementSibling.textContent = String(+count - 1);
+  }
+});
