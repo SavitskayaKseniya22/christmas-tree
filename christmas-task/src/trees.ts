@@ -281,6 +281,7 @@ if (window.localStorage.getItem("gameSettings")) {
 
 const collectionToys = document.querySelectorAll(".toy-preview");
 const resultScreen = document.querySelector(".result-screen");
+/*
 collectionToys.forEach((element) => {
   element.addEventListener("dragstart", (e: Event) => {
     (e.target as HTMLElement).classList.add("selected");
@@ -305,4 +306,37 @@ resultScreen.addEventListener("drop", function (event) {
     resultScreen.append(dupActiveElement);
     activeElement.nextElementSibling.textContent = String(+count - 1);
   }
+});*/
+
+collectionToys.forEach((element) => {
+  element.addEventListener("mousedown", (e: Event) => {
+    function moveAt(pageX: number, pageY: number) {
+      (dupActiveElement as HTMLElement).style.left = pageX - shiftX + "px";
+      (dupActiveElement as HTMLElement).style.top = pageY - shiftY + "px";
+    }
+
+    const activeElement = e.target as HTMLElement;
+    const dupActiveElement = activeElement.cloneNode();
+    const shiftX = (e as MouseEvent).clientX - (element as HTMLElement).getBoundingClientRect().left;
+    const shiftY = (e as MouseEvent).clientY - (element as HTMLElement).getBoundingClientRect().top;
+    const body = document.querySelector(".body");
+
+    body.append(dupActiveElement);
+    console.log(body);
+
+    moveAt((e as MouseEvent).pageX, (e as MouseEvent).pageY);
+
+    function onMouseMove(e: MouseEvent) {
+      moveAt(e.pageX, e.pageY);
+    }
+    document.addEventListener("mousemove", onMouseMove);
+
+    (resultScreen as HTMLElement).onmouseup = function () {
+      document.removeEventListener("mousemove", onMouseMove);
+      (element as HTMLElement).onmouseup = null;
+    };
+  });
+  (element as HTMLElement).ondragstart = function () {
+    return false;
+  };
 });

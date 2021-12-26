@@ -13,9 +13,12 @@
     max-width: 400px;
     row-gap: 2rem;
     flex-grow: 0;
+    position: relative;
     .toy-image {
       width: 30px;
       height: 30px;
+      position: absolute;
+      z-index: 999999;
     }
 
     section {
@@ -329,7 +332,12 @@
     transform: translateX(-120px) rotate(-0.5turn) scale3d(2, 2, 2);
   }
 }
-
+.toy-image {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  z-index: 999999;
+}
 @media (max-width: 1280px) {
   .main {
     .result-screen {
