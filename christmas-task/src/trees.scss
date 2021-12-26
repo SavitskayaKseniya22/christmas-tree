@@ -104,10 +104,11 @@
     }
   }
   .result-screen {
-    min-width: 40%;
-    max-width: 50%;
+    min-width: 760px;
+    max-width: 100%;
     flex-grow: 1;
     max-height: 100vh;
+    min-height: 850px;
     height: auto;
     flex-shrink: 0;
     background-color: #567d30;
@@ -115,7 +116,7 @@
     overflow: hidden;
 
     &.bg {
-      background-position: center;
+      background-position: bottom;
       background-size: cover;
       background-repeat: no-repeat;
     }
@@ -144,20 +145,19 @@
       background-image: url("./assets/bg/10.jpg");
     }
     .tree-img {
-      width: 40%;
-      height: 60%;
+      width: 450px;
       position: absolute;
-      bottom: 5%;
-      left: calc(50% - 20%);
+      bottom: 2%;
+      left: calc(50% - 225px);
     }
   }
 }
 .garland-container {
-  width: 40%;
-  height: 60%;
+  width: 430px;
+  height: 640px;
   position: absolute;
   bottom: 5%;
-  left: 30%;
+  left: calc(50% - 215px);
 }
 #garland-block-first,
 #garland-block-second,
@@ -170,8 +170,8 @@
   column-gap: 0;
   row-gap: 0;
   li {
-    width: 7px;
-    height: 7px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
 
     &:nth-child(odd) {
@@ -243,52 +243,55 @@
 
 @keyframes animate_blink {
   0% {
-    transform: scale3d(0.9, 0.9, 0.9);
-    box-shadow: 0 0 5px 10px rgb(255, 215, 0, 0.2);
+    transform: scale3d(1, 1, 1);
+    box-shadow: 0 0 10px 15px rgb(255, 215, 0, 0.2);
   }
   50% {
-    transform: scale3d(1, 1, 1);
+    transform: scale3d(1.2, 1.2, 1.2);
     background-color: white;
     box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
   }
   100% {
-    transform: scale3d(0.9, 0.9, 0.9);
-    box-shadow: 0 0 5px 10px rgb(255, 215, 0, 0.2);
+    transform: scale3d(1, 1, 1);
+    box-shadow: 0 0 10px 15px rgb(255, 215, 0, 0.2);
   }
 }
 
 @keyframes animate_blink_multy {
   0% {
     transform: scale3d(1, 1, 1);
-    box-shadow: 0 0 5px 10px rgb(228, 25, 49, 0.2);
+    box-shadow: 0 0 10px 15px rgb(228, 25, 49, 0.2);
     background-color: white;
   }
   25% {
     transform: scale3d(1.1, 1.1, 1.1);
     background-color: green;
-    box-shadow: 0 0 5px 10px rgb(255, 0, 0, 0.2);
+    box-shadow: 0 0 10px 15px rgb(255, 0, 0, 0.2);
   }
   50% {
     transform: scale3d(1.2, 1.2, 1.2);
     background-color: red;
-    box-shadow: 0 0 5px 10px rgb(0, 128, 0, 0.2);
+    box-shadow: 0 0 10px 15px rgb(0, 128, 0, 0.2);
   }
   75% {
     transform: scale3d(1, 1, 1);
     background-color: blue;
-    box-shadow: 0 0 5px 10px rgb(255, 215, 0, 0.2);
+    box-shadow: 0 0 10px 15px rgb(255, 215, 0, 0.2);
   }
   100% {
     transform: scale3d(0.9, 0.9, 0.9);
     background-color: yellow;
-    box-shadow: 0 0 5px 10px rgb(0, 0, 255, 0.2);
+    box-shadow: 0 0 10px 15px rgb(0, 0, 255, 0.2);
   }
 }
 
-.snowfall {
+.snowfall,
+.snowfall2,
+.snowfall3 {
   position: absolute;
   width: 100%;
   height: 60%;
+  top: 0;
 
   li {
     position: relative;
@@ -297,24 +300,36 @@
     width: 10%;
     height: 10%;
     z-index: 99999;
+    opacity: 0;
     animation-name: snowflakes-fall, snowflakes-shake;
-    animation-duration: 10s, 10s;
+    animation-duration: 9s, 9s;
     animation-timing-function: linear, ease-in-out;
     animation-iteration-count: infinite, infinite;
     animation-play-state: running, running;
 
     &:nth-child(even) {
-      margin-top: 50%;
+      margin-top: 40%;
     }
     &:nth-child(odd) {
       margin-top: 20%;
     }
   }
 }
+.snowfall2 {
+  li {
+    animation-delay: 3s;
+  }
+}
+.snowfall3 {
+  li {
+    animation-delay: 6s;
+  }
+}
 
 @keyframes snowflakes-fall {
   0% {
-    top: -20%;
+    opacity: 1;
+    top: -50%;
   }
   100% {
     opacity: 0;
@@ -338,48 +353,18 @@
   position: absolute;
   z-index: 999999;
 }
+
 @media (max-width: 1280px) {
   .main {
-    .result-screen {
-      max-height: 500px;
+    background-color: #ceb31e;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+
+    & > div {
+      max-width: 100%;
     }
-  }
-  #garland-block-first,
-  #garland-block-second,
-  #garland-block-third,
-  #garland-block-fourth,
-  #garland-block-fifth {
-    li {
-      width: 5px;
-      height: 5px;
-    }
-  }
-  #garland-block-first {
-    width: 100%;
-    left: 5%;
-  }
-  #garland-block-second {
-    width: 75%;
-    left: 15%;
-  }
-  #garland-block-third {
-    width: 60%;
-    left: 20%;
-  }
-  #garland-block-fourth {
-    width: 40%;
-    left: 30%;
-  }
-  #garland-block-fifth {
-    width: 25%;
-    left: 40%;
   }
 }
 
 @media (max-width: 800px) {
-  .main {
-    .result-screen {
-      max-height: 350px;
-    }
-  }
 }

@@ -219,10 +219,31 @@ class Settings {
     } else {
       this.checkboxSnow.checked = false;
       document.querySelector(".snowfall")?.remove();
+      document.querySelector(".snowfall2")?.remove();
     }
   }
   printSnow() {
     return `<ul class="snowfall">
+    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+  </ul>
+  <ul class="snowfall2">
+    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+  </ul>
+  <ul class="snowfall3">
     <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
     <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
     <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
@@ -308,6 +329,8 @@ resultScreen.addEventListener("drop", function (event) {
   }
 });*/
 
+/*
+
 collectionToys.forEach((element) => {
   element.addEventListener("mousedown", (e: Event) => {
     function moveAt(pageX: number, pageY: number) {
@@ -339,4 +362,33 @@ collectionToys.forEach((element) => {
   (element as HTMLElement).ondragstart = function () {
     return false;
   };
+});
+const garlandContainer = document.querySelector(".garland-container");
+document.addEventListener("mousedown", function (e: MouseEvent) {
+  console.log(garlandContainer.getBoundingClientRect());
+});*/
+
+collectionToys.forEach((element) => {
+  element.addEventListener("dragstart", (e: Event) => {
+    (e.target as HTMLElement).classList.add("selected");
+  });
+  element.addEventListener("dragend", (e: Event) => {
+    (e.target as HTMLElement).classList.remove("selected");
+  });
+});
+
+resultScreen.addEventListener(`dragover`, (evt) => {
+  evt.preventDefault();
+});
+
+resultScreen.addEventListener("drop", function (event) {
+  event.preventDefault();
+  const activeElement = document.querySelector(".selected");
+  const count = activeElement.nextElementSibling.textContent;
+  if (count != "0") {
+    const dupActiveElement = activeElement.cloneNode();
+    (dupActiveElement as HTMLElement).classList.remove("selected");
+    resultScreen.append(dupActiveElement);
+    activeElement.nextElementSibling.textContent = String(+count - 1);
+  }
 });
