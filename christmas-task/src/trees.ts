@@ -220,6 +220,7 @@ class Settings {
       this.checkboxSnow.checked = false;
       document.querySelector(".snowfall")?.remove();
       document.querySelector(".snowfall2")?.remove();
+      document.querySelector(".snowfall3")?.remove();
     }
   }
   printSnow() {
@@ -268,9 +269,15 @@ class Settings {
     this.saveSettings();
     const treeImg = document.createElement("img");
     treeImg.src = `./assets/tree/${value}.png`;
+    treeImg.useMap = "#workmap";
+    treeImg.alt = "tree";
     treeImg.classList.add("tree-img");
     document.querySelector(".tree-img")?.remove();
+    document.querySelector("#map-tree")?.remove();
     this.resultScreen.append(treeImg);
+    this.resultScreen.innerHTML += `<map name="workmap" id="map-tree">
+    <area target="_blank" alt="88" title="" href="#" coords="726,992,1176,992,951,350" shape="poly" />
+  </map>`;
   }
   saveCheckedState(value: string) {
     const item = document.querySelector(`input[value="${value}"]`) as HTMLInputElement;
@@ -363,32 +370,74 @@ collectionToys.forEach((element) => {
     return false;
   };
 });
-const garlandContainer = document.querySelector(".garland-container");
-document.addEventListener("mousedown", function (e: MouseEvent) {
-  console.log(garlandContainer.getBoundingClientRect());
-});*/
 
-collectionToys.forEach((element) => {
+*/
+
+function addSelectClassname(element: Element) {
   element.addEventListener("dragstart", (e: Event) => {
     (e.target as HTMLElement).classList.add("selected");
+    setArea();
   });
   element.addEventListener("dragend", (e: Event) => {
     (e.target as HTMLElement).classList.remove("selected");
   });
+}
+function setCoords(element: HTMLElement, e: Event) {
+  element.style.left = `${
+    (e as MouseEvent).pageX - (resultScreen.getBoundingClientRect().left + 20 + window.pageXOffset)
+  }px`;
+  element.style.top = `${
+    (e as MouseEvent).pageY - (resultScreen.getBoundingClientRect().top + 20 + window.pageYOffset)
+  }px`;
+}
+
+collectionToys.forEach((element) => {
+  addSelectClassname(element);
 });
 
-resultScreen.addEventListener(`dragover`, (evt) => {
-  evt.preventDefault();
+resultScreen.addEventListener(`dragover`, (e) => {
+  e.preventDefault();
 });
 
-resultScreen.addEventListener("drop", function (event) {
-  event.preventDefault();
-  const activeElement = document.querySelector(".selected");
-  const count = activeElement.nextElementSibling.textContent;
-  if (count != "0") {
-    const dupActiveElement = activeElement.cloneNode();
-    (dupActiveElement as HTMLElement).classList.remove("selected");
+resultScreen.addEventListener("drop", function (e) {
+  e.preventDefault();
+  console.log(resultScreen.getBoundingClientRect());
+  const activeElement = document.querySelector(".selected") as HTMLElement;
+  const count = activeElement.nextElementSibling?.textContent;
+
+  if (Number(count) > 0) {
+    const dupActiveElement = activeElement.cloneNode() as HTMLElement;
+    dupActiveElement.classList.remove("selected");
     resultScreen.append(dupActiveElement);
+    setCoords(dupActiveElement, e);
     activeElement.nextElementSibling.textContent = String(+count - 1);
+    addSelectClassname(dupActiveElement);
+  } else {
+    setCoords(activeElement, e);
   }
 });
+
+//setArea();
+function setArea() {
+  const treeImg = document.querySelector(".tree-img");
+  const obj = treeImg.getBoundingClientRect();
+  const firstCoord = [Math.floor(obj.x), Math.floor(obj.y + obj.height)];
+  const secondCoord = [Math.floor(obj.x + obj.width), Math.floor(obj.y + obj.height)];
+  const thirdCoord = [Math.floor(obj.x + obj.width / 2), Math.floor(obj.y)];
+  const mapTree = document.querySelector("#map-tree") as HTMLAreaElement;
+  mapTree.coords = firstCoord.concat(secondCoord).concat(thirdCoord).join();
+  console.log(mapTree.coords);
+}
+
+class ToyOnTree {
+  left: number;
+  top: number;
+  constructor() {
+    this.left = 0;
+    this.top = 0;
+  }
+  setCoords(value: number[]) {
+    this.left = value[0];
+    this.top = value[1];
+  }
+}
