@@ -340,3 +340,32 @@ if (window.localStorage.getItem("gameSettings")) {
 } else {
   settings = new Settings();
 }
+
+const saveTree = document.querySelector(".save-tree");
+const doneList = document.querySelector(".done-list");
+saveTree.addEventListener("click", function (e: Event) {
+  const resultScreen = document.querySelector(".result-screen") as HTMLElement;
+  const dupResult = resultScreen.cloneNode(true);
+  console.log(dupResult);
+
+  const savedTree = document.createElement("li");
+  savedTree.style.backgroundImage = window.getComputedStyle(resultScreen).backgroundImage;
+  savedTree.setAttribute("data-num", `${doneList.children.length}`);
+  savedTree.addEventListener("click", function () {
+    const savedTrees = JSON.parse(window.localStorage.getItem("savedTrees")) as string[][];
+    const num = savedTree.getAttribute("data-num");
+    console.log(savedTrees[Number(num)]);
+  });
+  doneList.prepend(savedTree);
+  window.localStorage.getItem("gameSettings");
+
+  if (window.localStorage.getItem("savedTrees")) {
+    const savedTrees = JSON.parse(window.localStorage.getItem("savedTrees")) as string[][];
+    savedTrees.unshift(JSON.parse(window.localStorage.getItem("gameSettings")));
+    window.localStorage.setItem("savedTrees", JSON.stringify(savedTrees));
+  } else {
+    const arr = [];
+    arr.push(JSON.parse(window.localStorage.getItem("gameSettings")));
+    window.localStorage.setItem("savedTrees", JSON.stringify(arr));
+  }
+});

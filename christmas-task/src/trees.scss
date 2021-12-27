@@ -20,6 +20,19 @@
       position: absolute;
       z-index: 999999;
     }
+    .done-list {
+      width: 100%;
+      height: 100px;
+      display: flex;
+      overflow: auto;
+      padding: 0.5rem;
+      justify-content: space-evenly;
+      li {
+        background-size: cover;
+        background-repeat: no-repeat;
+        flex-shrink: 0;
+      }
+    }
 
     section {
       display: flex;
