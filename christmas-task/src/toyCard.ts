@@ -36,7 +36,7 @@ export class ToyCard {
   }
   renderPreview() {
     return `<li class="toy-preview" draggable="true" data-num=${this.toyData.num}>
-    <img class="toy-image" data-num=${this.toyData.num} src=../assets/toys/${this.toyData.num}.png alt="toy" />
+    <img class="toy-image" data-num=${this.toyData.num} src=./assets/toys/${this.toyData.num}.png alt="toy" />
     <span class="count-toy">${this.toyData.count}</span>
   </li>`;
   }
