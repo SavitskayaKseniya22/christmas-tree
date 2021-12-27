@@ -117,8 +117,7 @@ input[type="checkbox"]:checked + label,
 input[type="radio"]:checked + label {
   transition: 0.5s;
   opacity: 1;
-  padding: 0.2rem;
-  border: 3px solid #ffd700;
+  padding: 0.3rem;
   border-radius: 50%;
 }
 

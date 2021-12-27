@@ -1,43 +1,35 @@
 import { ToyCard } from "./toyCard";
 import { data } from "./data";
 
-const collectionList = document.querySelector(".selection-options ul");
+function printSelection() {
+  const collectionList = document.querySelector(".selection-options ul");
+  const collection = JSON.parse(window.localStorage.getItem("selection")) as number[];
+  collectionList.innerHTML = "";
 
-const collection = JSON.parse(window.localStorage.getItem("selection")) as number[];
-//alert(2);
-
-if (collection && collection.length > 0) {
-  collection.forEach((element) => {
-    collectionList.innerHTML += new ToyCard(data[element - 1]).renderPreview();
-  });
-} else {
-  let i = 0;
-  while (i < 20) {
-    collectionList.innerHTML += new ToyCard(data[i]).renderPreview();
-    i++;
-  }
-}
-
-class Game {
-  bg: string;
-  tree: string;
-  garland: boolean;
-  garlandType: string;
-  constructor(bg = "bg1", tree = "./assets/tree/1.png", garland = false, garlandType = "green-garland") {
-    this.bg = bg;
-    this.tree = tree;
-    this.garland = garland;
-    if (this.garland) {
-      this.garlandType = garlandType;
+  if (collection && collection.length > 0) {
+    collection.forEach((element) => {
+      collectionList.innerHTML += new ToyCard(data[element - 1]).renderPreview();
+    });
+  } else {
+    let i = 0;
+    while (i < 20) {
+      collectionList.innerHTML += new ToyCard(data[i]).renderPreview();
+      i++;
     }
   }
+  const collectionToys = document.querySelectorAll(".toy-preview");
 
-  printResult() {
-    return `<div class="bg ${this.bg}">
-    <img src="${this.tree}" alt="tree target">
-    <ul class="${this.garlandType}"><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
-    </div>`;
-  }
+  collectionToys.forEach((element) => {
+    addSelectClassname(element);
+  });
+}
+function addSelectClassname(element: Element) {
+  element.addEventListener("dragstart", (e: Event) => {
+    (e.target as HTMLElement).classList.add("selected");
+  });
+  element.addEventListener("dragend", (e: Event) => {
+    (e.target as HTMLElement).classList.remove("selected");
+  });
 }
 
 class Settings {
@@ -108,6 +100,7 @@ class Settings {
     });
     this.resetButton.addEventListener("click", () => {
       this.callSettings(false, false, "bg1", "1", false, "5");
+      printSelection();
     });
   }
 
@@ -122,7 +115,12 @@ class Settings {
       this.checkboxGarland.checked = true;
       (this.garlandTypes[i] as HTMLInputElement).checked = true;
       const className = (this.garlandTypes[i] as HTMLInputElement).getAttribute("data-color");
-      this.resultScreen.innerHTML += this.printGarland(className);
+      const treeContainer = document.querySelector(".tree-container");
+
+      const garlandContainer = document.createElement("div");
+      garlandContainer.className = "garland-container";
+      garlandContainer.innerHTML += this.printGarland(className);
+      treeContainer.append(garlandContainer);
     } else {
       this.checkboxGarland.checked = false;
       this.removeGarland();
@@ -133,13 +131,10 @@ class Settings {
     this.garlandTypes.forEach((element) => {
       (element as HTMLInputElement).checked = false;
     });
-    const garlandBlockCollection = document.querySelectorAll(".garland-block");
-    garlandBlockCollection.forEach((element) => {
-      element.remove();
-    });
+    document.querySelector(".garland-container")?.remove();
   }
   printGarland(className: string) {
-    return `<div class="garland-container"><ul id="garland-block-first" class="garland-block">
+    return `<ul id="garland-block-first" class="garland-block">
     <li class=${className}></li>
     <li class=${className}></li>
     <li class=${className}></li>
@@ -186,7 +181,7 @@ class Settings {
     <li class=${className}></li>
     <li class=${className}></li>
     
-  </ul></div>
+  </ul>
   
   `;
   }
@@ -215,7 +210,11 @@ class Settings {
     this.saveSettings();
     if (this.snow) {
       this.checkboxSnow.checked = true;
-      this.resultScreen.innerHTML += this.printSnow();
+
+      const snowContainer = document.createElement("div");
+      snowContainer.className = "snow-container";
+      snowContainer.innerHTML = this.printSnow();
+      this.resultScreen.append(snowContainer);
     } else {
       this.checkboxSnow.checked = false;
       document.querySelector(".snowfall")?.remove();
@@ -267,18 +266,52 @@ class Settings {
     this.tree = value;
     this.saveCheckedState(value);
     this.saveSettings();
+    document.querySelector(".map-tree")?.remove();
+    document.querySelector(".tree-image")?.remove();
+
     const treeImg = document.createElement("img");
     treeImg.src = `./assets/tree/${value}.png`;
-    treeImg.useMap = "#workmap";
+    treeImg.useMap = "#image-map";
     treeImg.alt = "tree";
-    treeImg.classList.add("tree-img");
-    document.querySelector(".tree-img")?.remove();
-    document.querySelector("#map-tree")?.remove();
-    this.resultScreen.append(treeImg);
-    this.resultScreen.innerHTML += `<map name="workmap" id="map-tree">
-    <area target="_blank" alt="88" title="" href="#" coords="726,992,1176,992,951,350" shape="poly" />
-  </map>`;
+    treeImg.classList.add("tree-image");
+
+    const treeBlock = document.querySelector(".tree-container");
+    treeBlock.append(treeImg);
+    this.resultScreen.append(treeBlock);
+    treeBlock.innerHTML += `<map name="image-map" class="map-tree">
+    <area target="" alt="tree" title="" href="#" coords="247,3,481,616,363,702,87,691,7,618" shape="poly">
+</map>`;
+
+    const mapTree = document.querySelector(".map-tree");
+    mapTree.addEventListener(`dragover`, (e) => {
+      e.preventDefault();
+    });
+
+    mapTree.addEventListener("drop", (e) => {
+      e.preventDefault();
+      const activeElement = document.querySelector(".selected") as HTMLElement;
+      const count = activeElement.nextElementSibling?.textContent;
+      if (Number(count) > 0) {
+        const dupActiveElement = activeElement.cloneNode() as HTMLElement;
+        dupActiveElement.classList.remove("selected");
+        mapTree.append(dupActiveElement);
+        this.setCoords(dupActiveElement, e, mapTree);
+        activeElement.nextElementSibling.textContent = String(+count - 1);
+        addSelectClassname(dupActiveElement);
+      } else if (activeElement.parentElement.className == "map-tree") {
+        this.setCoords(activeElement, e, mapTree);
+      }
+    });
+    printSelection();
   }
+
+  setCoords(element: HTMLElement, e: Event, block: Element) {
+    element.style.left = ` ${
+      (e as MouseEvent).pageX - (block.getBoundingClientRect().left + 20 + window.pageXOffset)
+    }px`;
+    element.style.top = `${(e as MouseEvent).pageY - (block.getBoundingClientRect().top + 20 + window.pageYOffset)}px`;
+  }
+
   saveCheckedState(value: string) {
     const item = document.querySelector(`input[value="${value}"]`) as HTMLInputElement;
     item.checked = true;
@@ -287,8 +320,8 @@ class Settings {
   callSettings(music: boolean, snow: boolean, bg: string, tree: string, garland: boolean, garlandType: string) {
     this.changeBg(bg);
     this.changeSnow(snow);
-    this.changeTree(tree);
     this.changeGarland(garland, garlandType);
+    this.changeTree(tree);
     this.changeMusic(music);
   }
 
@@ -299,145 +332,11 @@ class Settings {
     );
   }
 }
+
 let settings: Settings;
 if (window.localStorage.getItem("gameSettings")) {
   const arr = JSON.parse(window.localStorage.getItem("gameSettings"));
   settings = new Settings(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]);
 } else {
   settings = new Settings();
-}
-
-const collectionToys = document.querySelectorAll(".toy-preview");
-const resultScreen = document.querySelector(".result-screen");
-/*
-collectionToys.forEach((element) => {
-  element.addEventListener("dragstart", (e: Event) => {
-    (e.target as HTMLElement).classList.add("selected");
-  });
-  element.addEventListener("dragend", (e: Event) => {
-    (e.target as HTMLElement).classList.remove("selected");
-  });
-});
-
-resultScreen.addEventListener(`dragover`, (evt) => {
-  evt.preventDefault();
-});
-
-resultScreen.addEventListener("drop", function (event) {
-  //console.log((event as DragEvent).dataTransfer.getData("text"));
-  event.preventDefault();
-  const activeElement = document.querySelector(".selected");
-  const count = activeElement.nextElementSibling.textContent;
-  if (count != "0") {
-    const dupActiveElement = activeElement.cloneNode();
-    (dupActiveElement as HTMLElement).classList.remove("selected");
-    resultScreen.append(dupActiveElement);
-    activeElement.nextElementSibling.textContent = String(+count - 1);
-  }
-});*/
-
-/*
-
-collectionToys.forEach((element) => {
-  element.addEventListener("mousedown", (e: Event) => {
-    function moveAt(pageX: number, pageY: number) {
-      (dupActiveElement as HTMLElement).style.left = pageX - shiftX + "px";
-      (dupActiveElement as HTMLElement).style.top = pageY - shiftY + "px";
-    }
-
-    const activeElement = e.target as HTMLElement;
-    const dupActiveElement = activeElement.cloneNode();
-    const shiftX = (e as MouseEvent).clientX - (element as HTMLElement).getBoundingClientRect().left;
-    const shiftY = (e as MouseEvent).clientY - (element as HTMLElement).getBoundingClientRect().top;
-    const body = document.querySelector(".body");
-
-    body.append(dupActiveElement);
-    console.log(body);
-
-    moveAt((e as MouseEvent).pageX, (e as MouseEvent).pageY);
-
-    function onMouseMove(e: MouseEvent) {
-      moveAt(e.pageX, e.pageY);
-    }
-    document.addEventListener("mousemove", onMouseMove);
-
-    (resultScreen as HTMLElement).onmouseup = function () {
-      document.removeEventListener("mousemove", onMouseMove);
-      (element as HTMLElement).onmouseup = null;
-    };
-  });
-  (element as HTMLElement).ondragstart = function () {
-    return false;
-  };
-});
-
-*/
-
-function addSelectClassname(element: Element) {
-  element.addEventListener("dragstart", (e: Event) => {
-    (e.target as HTMLElement).classList.add("selected");
-    setArea();
-  });
-  element.addEventListener("dragend", (e: Event) => {
-    (e.target as HTMLElement).classList.remove("selected");
-  });
-}
-function setCoords(element: HTMLElement, e: Event) {
-  element.style.left = `${
-    (e as MouseEvent).pageX - (resultScreen.getBoundingClientRect().left + 20 + window.pageXOffset)
-  }px`;
-  element.style.top = `${
-    (e as MouseEvent).pageY - (resultScreen.getBoundingClientRect().top + 20 + window.pageYOffset)
-  }px`;
-}
-
-collectionToys.forEach((element) => {
-  addSelectClassname(element);
-});
-
-resultScreen.addEventListener(`dragover`, (e) => {
-  e.preventDefault();
-});
-
-resultScreen.addEventListener("drop", function (e) {
-  e.preventDefault();
-  console.log(resultScreen.getBoundingClientRect());
-  const activeElement = document.querySelector(".selected") as HTMLElement;
-  const count = activeElement.nextElementSibling?.textContent;
-
-  if (Number(count) > 0) {
-    const dupActiveElement = activeElement.cloneNode() as HTMLElement;
-    dupActiveElement.classList.remove("selected");
-    resultScreen.append(dupActiveElement);
-    setCoords(dupActiveElement, e);
-    activeElement.nextElementSibling.textContent = String(+count - 1);
-    addSelectClassname(dupActiveElement);
-  } else {
-    setCoords(activeElement, e);
-  }
-});
-
-//setArea();
-function setArea() {
-  const treeImg = document.querySelector(".tree-img");
-  const obj = treeImg.getBoundingClientRect();
-  const firstCoord = [Math.floor(obj.x), Math.floor(obj.y + obj.height)];
-  const secondCoord = [Math.floor(obj.x + obj.width), Math.floor(obj.y + obj.height)];
-  const thirdCoord = [Math.floor(obj.x + obj.width / 2), Math.floor(obj.y)];
-  const mapTree = document.querySelector("#map-tree") as HTMLAreaElement;
-  mapTree.coords = firstCoord.concat(secondCoord).concat(thirdCoord).join();
-  console.log(mapTree.coords);
-}
-
-class ToyOnTree {
-  left: number;
-  top: number;
-  constructor() {
-    this.left = 0;
-    this.top = 0;
-  }
-  setCoords(value: number[]) {
-    this.left = value[0];
-    this.top = value[1];
-  }
 }
