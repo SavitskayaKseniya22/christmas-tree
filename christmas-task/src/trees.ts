@@ -48,6 +48,9 @@ class Settings {
   garland: boolean;
   garlandTypes: NodeListOf<Element>;
   garlandType: string;
+  doneList: HTMLUListElement;
+  saveTreeButton: HTMLButtonElement;
+  clearTreeButton: HTMLButtonElement;
 
   constructor(music = false, snow = false, bg = "bg1", tree = "1", garland = false, garlandType = "5") {
     this.music = music;
@@ -65,6 +68,9 @@ class Settings {
     this.resetButton = document.querySelector(".reset-storage");
     this.checkboxGarland = document.querySelector(".garland-enabler");
     this.garlandTypes = document.querySelectorAll("input[name='garland']");
+    this.saveTreeButton = document.querySelector(".save-tree");
+    this.doneList = document.querySelector(".done-list");
+    this.clearTreeButton = document.querySelector(".clear-tree");
 
     this.callSettings(this.music, this.snow, this.bg, this.tree, this.garland, this.garlandType);
 
@@ -98,10 +104,54 @@ class Settings {
         this.changeTree((e.target as HTMLInputElement).value);
       });
     });
+
     this.resetButton.addEventListener("click", () => {
       this.callSettings(false, false, "bg1", "1", false, "5");
       printSelection();
     });
+
+    this.clearTreeButton.addEventListener("click", () => {
+      window.localStorage.removeItem("savedTrees");
+      this.doneList.innerHTML = "";
+    });
+
+    this.saveTreeButton.addEventListener("click", () => {
+      const gameSettings = JSON.parse(window.localStorage.getItem("gameSettings"));
+      const savedTree = document.createElement("li");
+      savedTree.className = `bg ${gameSettings[2]}`;
+      savedTree.setAttribute("data-num", `${this.doneList.children.length}`);
+      this.doneList.append(savedTree);
+
+      if (window.localStorage.getItem("savedTrees")) {
+        const savedTrees = JSON.parse(window.localStorage.getItem("savedTrees")) as string[][];
+        savedTrees.push(gameSettings);
+        window.localStorage.setItem("savedTrees", JSON.stringify(savedTrees));
+      } else {
+        window.localStorage.setItem("savedTrees", JSON.stringify([gameSettings]));
+      }
+
+      savedTree.addEventListener("click", () => {
+        const savedTrees = JSON.parse(window.localStorage.getItem("savedTrees"));
+        const num = savedTree.getAttribute("data-num");
+        const data = savedTrees[Number(num)];
+        this.callSettings(data[0], data[1], data[2], data[3], data[4], data[5]);
+      });
+    });
+
+    if (window.localStorage.getItem("savedTrees")) {
+      const savedTrees = JSON.parse(window.localStorage.getItem("savedTrees"));
+      for (let i = 0; i <= savedTrees.length - 1; i++) {
+        const savedTree = document.createElement("li");
+        savedTree.className = `bg ${savedTrees[i][2]}`;
+        savedTree.setAttribute("data-num", `${this.doneList.children.length}`);
+        this.doneList.append(savedTree);
+        savedTree.addEventListener("click", () => {
+          const num = savedTree.getAttribute("data-num");
+          const data = savedTrees[Number(num)];
+          this.callSettings(data[0], data[1], data[2], data[3], data[4], data[5]);
+        });
+      }
+    }
   }
 
   changeGarland(value: boolean, index: string) {
@@ -340,32 +390,3 @@ if (window.localStorage.getItem("gameSettings")) {
 } else {
   settings = new Settings();
 }
-
-const saveTree = document.querySelector(".save-tree");
-const doneList = document.querySelector(".done-list");
-saveTree.addEventListener("click", function (e: Event) {
-  const resultScreen = document.querySelector(".result-screen") as HTMLElement;
-  const dupResult = resultScreen.cloneNode(true);
-  console.log(dupResult);
-
-  const savedTree = document.createElement("li");
-  savedTree.style.backgroundImage = window.getComputedStyle(resultScreen).backgroundImage;
-  savedTree.setAttribute("data-num", `${doneList.children.length}`);
-  savedTree.addEventListener("click", function () {
-    const savedTrees = JSON.parse(window.localStorage.getItem("savedTrees")) as string[][];
-    const num = savedTree.getAttribute("data-num");
-    console.log(savedTrees[Number(num)]);
-  });
-  doneList.prepend(savedTree);
-  window.localStorage.getItem("gameSettings");
-
-  if (window.localStorage.getItem("savedTrees")) {
-    const savedTrees = JSON.parse(window.localStorage.getItem("savedTrees")) as string[][];
-    savedTrees.unshift(JSON.parse(window.localStorage.getItem("gameSettings")));
-    window.localStorage.setItem("savedTrees", JSON.stringify(savedTrees));
-  } else {
-    const arr = [];
-    arr.push(JSON.parse(window.localStorage.getItem("gameSettings")));
-    window.localStorage.setItem("savedTrees", JSON.stringify(arr));
-  }
-});

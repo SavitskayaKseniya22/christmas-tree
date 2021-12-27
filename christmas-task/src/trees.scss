@@ -28,8 +28,6 @@
       padding: 0.5rem;
       justify-content: space-evenly;
       li {
-        background-size: cover;
-        background-repeat: no-repeat;
         flex-shrink: 0;
       }
     }
@@ -126,35 +124,6 @@
     position: relative;
     overflow: hidden;
 
-    &.bg {
-      background-position: bottom;
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
-    &.bg1 {
-      background-image: url("./assets/bg/1.jpg");
-    }
-    &.bg2 {
-      background-image: url("./assets/bg/2.jpg");
-    }
-    &.bg3 {
-      background-image: url("./assets/bg/3.jpg");
-    }
-    &.bg4 {
-      background-image: url("./assets/bg/4.jpg");
-    }
-    &.bg5 {
-      background-image: url("./assets/bg/5.jpg");
-    }
-    &.bg6 {
-      background-image: url("./assets/bg/6.jpg");
-    }
-    &.bg7 {
-      background-image: url("./assets/bg/7.jpg");
-    }
-    &.bg10 {
-      background-image: url("./assets/bg/10.jpg");
-    }
     .tree-container {
       width: 450px;
       position: absolute;
@@ -343,6 +312,35 @@
       animation-delay: 6s;
     }
   }
+}
+.bg {
+  background-position: bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.bg1 {
+  background-image: url("./assets/bg/1.jpg");
+}
+.bg2 {
+  background-image: url("./assets/bg/2.jpg");
+}
+.bg3 {
+  background-image: url("./assets/bg/3.jpg");
+}
+.bg4 {
+  background-image: url("./assets/bg/4.jpg");
+}
+.bg5 {
+  background-image: url("./assets/bg/5.jpg");
+}
+.bg6 {
+  background-image: url("./assets/bg/6.jpg");
+}
+.bg7 {
+  background-image: url("./assets/bg/7.jpg");
+}
+.bg10 {
+  background-image: url("./assets/bg/10.jpg");
 }
 
 @keyframes snowflakes-fall {
