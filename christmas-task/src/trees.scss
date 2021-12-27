@@ -25,10 +25,11 @@
       height: 100px;
       display: flex;
       overflow: auto;
-      padding: 0.5rem;
+
       justify-content: space-evenly;
       li {
         flex-shrink: 0;
+        cursor: pointer;
       }
     }
 
@@ -147,6 +148,7 @@
       .garland-container {
         width: 100%;
         height: 100%;
+        pointer-events: none;
 
         .garland-block {
           position: absolute;
@@ -339,7 +341,7 @@
 .bg7 {
   background-image: url("./assets/bg/7.jpg");
 }
-.bg10 {
+.bg8 {
   background-image: url("./assets/bg/10.jpg");
 }
 

@@ -1,38 +1,7 @@
 import { ToyCard } from "./toyCard";
 import { data } from "./data";
 
-function printSelection() {
-  const collectionList = document.querySelector(".selection-options ul");
-  const collection = JSON.parse(window.localStorage.getItem("selection")) as number[];
-  collectionList.innerHTML = "";
-
-  if (collection && collection.length > 0) {
-    collection.forEach((element) => {
-      collectionList.innerHTML += new ToyCard(data[element - 1]).renderPreview();
-    });
-  } else {
-    let i = 0;
-    while (i < 20) {
-      collectionList.innerHTML += new ToyCard(data[i]).renderPreview();
-      i++;
-    }
-  }
-  const collectionToys = document.querySelectorAll(".toy-preview");
-
-  collectionToys.forEach((element) => {
-    addSelectClassname(element);
-  });
-}
-function addSelectClassname(element: Element) {
-  element.addEventListener("dragstart", (e: Event) => {
-    (e.target as HTMLElement).classList.add("selected");
-  });
-  element.addEventListener("dragend", (e: Event) => {
-    (e.target as HTMLElement).classList.remove("selected");
-  });
-}
-
-class Settings {
+class Game {
   music: boolean;
   snow: boolean;
   tree: string;
@@ -43,14 +12,11 @@ class Settings {
   bgCollection: NodeListOf<Element>;
   resultScreen: HTMLDivElement;
   treeCollection: NodeListOf<Element>;
-  resetButton: HTMLButtonElement;
   checkboxGarland: HTMLInputElement;
   garland: boolean;
-  garlandTypes: NodeListOf<Element>;
+  garlandButtons: NodeListOf<Element>;
   garlandType: string;
   doneList: HTMLUListElement;
-  saveTreeButton: HTMLButtonElement;
-  clearTreeButton: HTMLButtonElement;
 
   constructor(music = false, snow = false, bg = "bg1", tree = "1", garland = false, garlandType = "5") {
     this.music = music;
@@ -65,14 +31,12 @@ class Settings {
     this.bgCollection = document.querySelectorAll("input[name='bg']");
     this.resultScreen = document.querySelector(".result-screen");
     this.treeCollection = document.querySelectorAll("input[name='tree']");
-    this.resetButton = document.querySelector(".reset-storage");
     this.checkboxGarland = document.querySelector(".garland-enabler");
-    this.garlandTypes = document.querySelectorAll("input[name='garland']");
-    this.saveTreeButton = document.querySelector(".save-tree");
-    this.doneList = document.querySelector(".done-list");
-    this.clearTreeButton = document.querySelector(".clear-tree");
+    this.garlandButtons = document.querySelectorAll("input[name='garland']");
 
-    this.callSettings(this.music, this.snow, this.bg, this.tree, this.garland, this.garlandType);
+    this.doneList = document.querySelector(".done-list");
+
+    this.restoreSettings(this.music, this.snow, this.bg, this.tree, this.garland, this.garlandType);
 
     this.checkboxGarland.addEventListener("change", () => {
       this.changeGarland(this.checkboxGarland.checked, this.garlandType);
@@ -84,8 +48,8 @@ class Settings {
       this.changeSnow(this.checkboxSnow.checked);
     });
 
-    this.garlandTypes.forEach((element) => {
-      element.addEventListener("click", (e: Event) => {
+    this.garlandButtons.forEach((element) => {
+      element.addEventListener("click", () => {
         this.changeGarland(
           this.checkboxGarland.checked,
           (document.querySelector('input[name="garland"]:checked') as HTMLInputElement).value,
@@ -105,22 +69,24 @@ class Settings {
       });
     });
 
-    this.resetButton.addEventListener("click", () => {
-      this.callSettings(false, false, "bg1", "1", false, "5");
-      printSelection();
+    document.querySelector(".reset-storage")?.addEventListener("click", () => {
+      this.restoreSettings(false, false, "bg1", "1", false, "5");
+      this.printSelection();
     });
 
-    this.clearTreeButton.addEventListener("click", () => {
+    document.querySelector(".clear-tree")?.addEventListener("click", () => {
       window.localStorage.removeItem("savedTrees");
       this.doneList.innerHTML = "";
     });
 
-    this.saveTreeButton.addEventListener("click", () => {
+    document.querySelector(".save-tree")?.addEventListener("click", () => {
       const gameSettings = JSON.parse(window.localStorage.getItem("gameSettings"));
       const savedTree = document.createElement("li");
       savedTree.className = `bg ${gameSettings[2]}`;
       savedTree.setAttribute("data-num", `${this.doneList.children.length}`);
       this.doneList.append(savedTree);
+
+      const toyCollection = document.querySelectorAll(".tree-container .toy-image");
 
       if (window.localStorage.getItem("savedTrees")) {
         const savedTrees = JSON.parse(window.localStorage.getItem("savedTrees")) as string[][];
@@ -128,13 +94,14 @@ class Settings {
         window.localStorage.setItem("savedTrees", JSON.stringify(savedTrees));
       } else {
         window.localStorage.setItem("savedTrees", JSON.stringify([gameSettings]));
+        console.log(JSON.parse(window.localStorage.getItem("savedTrees")));
       }
 
       savedTree.addEventListener("click", () => {
         const savedTrees = JSON.parse(window.localStorage.getItem("savedTrees"));
         const num = savedTree.getAttribute("data-num");
         const data = savedTrees[Number(num)];
-        this.callSettings(data[0], data[1], data[2], data[3], data[4], data[5]);
+        this.restoreSettings(data[0], data[1], data[2], data[3], data[4], data[5]);
       });
     });
 
@@ -148,7 +115,7 @@ class Settings {
         savedTree.addEventListener("click", () => {
           const num = savedTree.getAttribute("data-num");
           const data = savedTrees[Number(num)];
-          this.callSettings(data[0], data[1], data[2], data[3], data[4], data[5]);
+          this.restoreSettings(data[0], data[1], data[2], data[3], data[4], data[5]);
         });
       }
     }
@@ -159,26 +126,23 @@ class Settings {
     this.garlandType = index;
     this.saveSettings();
     const i = Number(index) - 1;
-
+    this.removeGarland();
     if (this.garland) {
-      this.removeGarland();
       this.checkboxGarland.checked = true;
-      (this.garlandTypes[i] as HTMLInputElement).checked = true;
-      const className = (this.garlandTypes[i] as HTMLInputElement).getAttribute("data-color");
+      (this.garlandButtons[i] as HTMLInputElement).checked = true;
+      const className = (this.garlandButtons[i] as HTMLInputElement).getAttribute("data-color");
       const treeContainer = document.querySelector(".tree-container");
-
       const garlandContainer = document.createElement("div");
       garlandContainer.className = "garland-container";
       garlandContainer.innerHTML += this.printGarland(className);
       treeContainer.append(garlandContainer);
     } else {
       this.checkboxGarland.checked = false;
-      this.removeGarland();
-      (this.garlandTypes[i] as HTMLInputElement).checked = false;
+      (this.garlandButtons[i] as HTMLInputElement).checked = false;
     }
   }
   removeGarland() {
-    this.garlandTypes.forEach((element) => {
+    this.garlandButtons.forEach((element) => {
       (element as HTMLInputElement).checked = false;
     });
     document.querySelector(".garland-container")?.remove();
@@ -260,18 +224,16 @@ class Settings {
     this.saveSettings();
     if (this.snow) {
       this.checkboxSnow.checked = true;
-
       const snowContainer = document.createElement("div");
       snowContainer.className = "snow-container";
       snowContainer.innerHTML = this.printSnow();
       this.resultScreen.append(snowContainer);
     } else {
       this.checkboxSnow.checked = false;
-      document.querySelector(".snowfall")?.remove();
-      document.querySelector(".snowfall2")?.remove();
-      document.querySelector(".snowfall3")?.remove();
+      document.querySelector(".snow-container")?.remove();
     }
   }
+
   printSnow() {
     return `<ul class="snowfall">
     <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
@@ -305,16 +267,17 @@ class Settings {
   </ul>
   `;
   }
+
   changeBg(value: string) {
     this.bg = value;
-    this.saveCheckedState(value);
+    this.pushRadio(value);
     this.saveSettings();
-    this.resultScreen.className = "result-screen bg";
-    this.resultScreen.classList.add(value);
+    this.resultScreen.className = `result-screen bg ${value}`;
   }
+
   changeTree(value: string) {
     this.tree = value;
-    this.saveCheckedState(value);
+    this.pushRadio(value);
     this.saveSettings();
     document.querySelector(".map-tree")?.remove();
     document.querySelector(".tree-image")?.remove();
@@ -347,12 +310,12 @@ class Settings {
         mapTree.append(dupActiveElement);
         this.setCoords(dupActiveElement, e, mapTree);
         activeElement.nextElementSibling.textContent = String(+count - 1);
-        addSelectClassname(dupActiveElement);
+        this.addSelectClassname(dupActiveElement);
       } else if (activeElement.parentElement.className == "map-tree") {
         this.setCoords(activeElement, e, mapTree);
       }
     });
-    printSelection();
+    this.printSelection();
   }
 
   setCoords(element: HTMLElement, e: Event, block: Element) {
@@ -362,12 +325,12 @@ class Settings {
     element.style.top = `${(e as MouseEvent).pageY - (block.getBoundingClientRect().top + 20 + window.pageYOffset)}px`;
   }
 
-  saveCheckedState(value: string) {
+  pushRadio(value: string) {
     const item = document.querySelector(`input[value="${value}"]`) as HTMLInputElement;
     item.checked = true;
   }
 
-  callSettings(music: boolean, snow: boolean, bg: string, tree: string, garland: boolean, garlandType: string) {
+  restoreSettings(music: boolean, snow: boolean, bg: string, tree: string, garland: boolean, garlandType: string) {
     this.changeBg(bg);
     this.changeSnow(snow);
     this.changeGarland(garland, garlandType);
@@ -381,12 +344,40 @@ class Settings {
       JSON.stringify([this.music, this.snow, this.bg, this.tree, this.garland, this.garlandType]),
     );
   }
+  addSelectClassname(element: Element) {
+    element.addEventListener("dragstart", (e: Event) => {
+      (e.target as HTMLElement).classList.add("selected");
+    });
+    element.addEventListener("dragend", (e: Event) => {
+      (e.target as HTMLElement).classList.remove("selected");
+    });
+  }
+  printSelection() {
+    const collectionList = document.querySelector(".selection-options ul");
+    const collection = JSON.parse(window.localStorage.getItem("selection")) as number[];
+    collectionList.innerHTML = "";
+
+    if (collection && collection.length > 0) {
+      collection.forEach((element) => {
+        collectionList.innerHTML += new ToyCard(data[element - 1]).renderPreview();
+      });
+    } else {
+      let i = 0;
+      while (i < 20) {
+        collectionList.innerHTML += new ToyCard(data[i]).renderPreview();
+        i++;
+      }
+    }
+
+    document.querySelectorAll(".toy-preview").forEach((element) => {
+      this.addSelectClassname(element);
+    });
+  }
 }
 
-let settings: Settings;
 if (window.localStorage.getItem("gameSettings")) {
-  const arr = JSON.parse(window.localStorage.getItem("gameSettings"));
-  settings = new Settings(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]);
+  const gameSettings = JSON.parse(window.localStorage.getItem("gameSettings"));
+  new Game(gameSettings[0], gameSettings[1], gameSettings[2], gameSettings[3], gameSettings[4], gameSettings[5]);
 } else {
-  settings = new Settings();
+  new Game();
 }
