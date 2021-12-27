@@ -17,6 +17,7 @@ class Game {
   garlandButtons: NodeListOf<Element>;
   garlandType: string;
   doneList: HTMLUListElement;
+  selectionsContainer: HTMLUListElement;
 
   constructor(music = false, snow = false, bg = "bg1", tree = "1", garland = false, garlandType = "5") {
     this.music = music;
@@ -33,6 +34,7 @@ class Game {
     this.treeCollection = document.querySelectorAll("input[name='tree']");
     this.checkboxGarland = document.querySelector(".garland-enabler");
     this.garlandButtons = document.querySelectorAll("input[name='garland']");
+    this.selectionsContainer = document.querySelector(".selection-options ul");
 
     this.doneList = document.querySelector(".done-list");
 
@@ -86,15 +88,12 @@ class Game {
       savedTree.setAttribute("data-num", `${this.doneList.children.length}`);
       this.doneList.append(savedTree);
 
-      const toyCollection = document.querySelectorAll(".tree-container .toy-image");
-
       if (window.localStorage.getItem("savedTrees")) {
         const savedTrees = JSON.parse(window.localStorage.getItem("savedTrees")) as string[][];
         savedTrees.push(gameSettings);
         window.localStorage.setItem("savedTrees", JSON.stringify(savedTrees));
       } else {
         window.localStorage.setItem("savedTrees", JSON.stringify([gameSettings]));
-        console.log(JSON.parse(window.localStorage.getItem("savedTrees")));
       }
 
       savedTree.addEventListener("click", () => {
@@ -292,8 +291,8 @@ class Game {
     treeBlock.append(treeImg);
     this.resultScreen.append(treeBlock);
     treeBlock.innerHTML += `<map name="image-map" class="map-tree">
-    <area target="" alt="tree" title="" href="#" coords="247,3,481,616,363,702,87,691,7,618" shape="poly">
-</map>`;
+    <area target="" alt="tree" title="" href="" coords="247,3,481,616,363,702,87,691,7,618" shape="poly">
+    </map>`;
 
     const mapTree = document.querySelector(".map-tree");
     mapTree.addEventListener(`dragover`, (e) => {
@@ -311,11 +310,34 @@ class Game {
         this.setCoords(dupActiveElement, e, mapTree);
         activeElement.nextElementSibling.textContent = String(+count - 1);
         this.addSelectClassname(dupActiveElement);
-      } else if (activeElement.parentElement.className == "map-tree") {
+        dupActiveElement.addEventListener("dblclick", () => {
+          this.returnToy(dupActiveElement);
+        });
+      } else if (activeElement.parentElement.className === "map-tree") {
         this.setCoords(activeElement, e, mapTree);
       }
     });
+
+    this.selectionsContainer.addEventListener(`dragover`, (e) => {
+      e.preventDefault();
+    });
+    this.selectionsContainer.addEventListener("drop", (e) => {
+      e.preventDefault();
+      const activeElement = document.querySelector(".selected") as HTMLElement;
+      if (activeElement.parentElement.className === "map-tree") {
+        this.returnToy(activeElement);
+      }
+    });
+
     this.printSelection();
+  }
+
+  returnToy(element: HTMLElement) {
+    const num = element.getAttribute("data-num");
+    const target = document.querySelector(`.toy-preview [data-num='${num}']`);
+    element.remove();
+    const count = target.nextElementSibling.textContent;
+    target.nextElementSibling.textContent = String(+count + 1);
   }
 
   setCoords(element: HTMLElement, e: Event, block: Element) {
