@@ -2,6 +2,7 @@ import { ToyCard } from "./toyCard";
 import { data } from "./data";
 import { Snow } from "./snow";
 import { Music } from "./music";
+import { Bg } from "./background";
 
 export function saveSettings(prop: string, value: string | boolean) {
   let gameSettings = JSON.parse(window.localStorage.getItem("gameSettings"));
@@ -30,10 +31,8 @@ const gameDefault = {
 
 class Game {
   tree: string;
-  bg: string;
   garland: boolean;
   garlandType: string;
-  bgCollection: NodeListOf<Element>;
   treeCollection: NodeListOf<Element>;
   checkboxGarland: HTMLInputElement;
   garlandButtons: NodeListOf<Element>;
@@ -41,11 +40,10 @@ class Game {
   selectionsContainer: HTMLUListElement;
 
   constructor(game = gameDefault) {
-    this.bg = game.bg;
     this.tree = game.tree;
     this.garland = game.garland;
     this.garlandType = game.garlandType;
-    this.bgCollection = document.querySelectorAll("input[name='bg']");
+
     this.treeCollection = document.querySelectorAll("input[name='tree']");
     this.checkboxGarland = document.querySelector(".garland-enabler");
     this.garlandButtons = document.querySelectorAll("input[name='garland']");
@@ -54,6 +52,7 @@ class Game {
 
     new Snow(game);
     new Music(game);
+    new Bg(game);
     this.restoreSettings(game);
 
     this.checkboxGarland.addEventListener("change", () => {
@@ -66,12 +65,6 @@ class Game {
           this.checkboxGarland.checked,
           (document.querySelector('input[name="garland"]:checked') as HTMLInputElement).value,
         );
-      });
-    });
-
-    this.bgCollection.forEach((element) => {
-      element.addEventListener("click", (e: Event) => {
-        this.changeBg((e.target as HTMLInputElement).value);
       });
     });
 
@@ -182,16 +175,9 @@ class Game {
   `;
   }
 
-  changeBg(value: string) {
-    this.bg = value;
-    this.pushRadio(value);
-    saveSettings("bg", this.bg);
-    document.querySelector(".result-screen").className = `result-screen bg ${value}`;
-  }
-
   changeTree(value: string) {
     this.tree = value;
-    this.pushRadio(value);
+    (document.querySelector(`input[value="${value}"]`) as HTMLInputElement).checked = true;
 
     saveSettings("tree", this.tree);
 
@@ -250,13 +236,8 @@ class Game {
     element.style.top = `${pageY - (block.getBoundingClientRect().top + 20 + window.pageYOffset)}px`;
   }
 
-  pushRadio(value: string) {
-    const item = document.querySelector(`input[value="${value}"]`) as HTMLInputElement;
-    item.checked = true;
-  }
-
   restoreSettings(game: GameTypes) {
-    this.changeBg(game.bg);
+    new Bg(game).changeBg(game.bg);
     new Snow(game).changeSnow(game.snow);
     this.changeGarland(game.garland, game.garlandType);
     this.changeTree(game.tree);
