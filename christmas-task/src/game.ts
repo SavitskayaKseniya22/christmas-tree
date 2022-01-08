@@ -229,21 +229,9 @@ class Game {
     this.tree = value;
     this.pushRadio(value);
     this.saveSettings();
-    document.querySelector(".map-tree")?.remove();
-    document.querySelector(".tree-image")?.remove();
 
-    const treeImg = document.createElement("img");
+    const treeImg = document.querySelector(".tree-image") as HTMLImageElement;
     treeImg.src = `./assets/tree/${value}.png`;
-    treeImg.useMap = "#image-map";
-    treeImg.alt = "tree";
-    treeImg.classList.add("tree-image");
-
-    const treeBlock = document.querySelector(".tree-container");
-    treeBlock.append(treeImg);
-    this.resultScreen.append(treeBlock);
-    treeBlock.innerHTML += `<map name="image-map" class="map-tree">
-    <area target="" alt="tree" title="" href="" coords="247,3,481,616,363,702,87,691,7,618" shape="poly">
-    </map>`;
 
     const mapTree = document.querySelector(".map-tree");
     mapTree.addEventListener(`dragover`, (e) => {
