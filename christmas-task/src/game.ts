@@ -3,6 +3,7 @@ import { data } from "./data";
 import { Snow } from "./snow";
 import { Music } from "./music";
 import { Bg } from "./background";
+import { Garland } from "./garland";
 
 export function saveSettings(prop: string, value: string | boolean) {
   let gameSettings = JSON.parse(window.localStorage.getItem("gameSettings"));
@@ -31,42 +32,22 @@ const gameDefault = {
 
 class Game {
   tree: string;
-  garland: boolean;
-  garlandType: string;
   treeCollection: NodeListOf<Element>;
-  checkboxGarland: HTMLInputElement;
-  garlandButtons: NodeListOf<Element>;
   doneList: HTMLUListElement;
   selectionsContainer: HTMLUListElement;
 
   constructor(game = gameDefault) {
     this.tree = game.tree;
-    this.garland = game.garland;
-    this.garlandType = game.garlandType;
-
     this.treeCollection = document.querySelectorAll("input[name='tree']");
-    this.checkboxGarland = document.querySelector(".garland-enabler");
-    this.garlandButtons = document.querySelectorAll("input[name='garland']");
     this.selectionsContainer = document.querySelector(".selection-options ul");
     this.doneList = document.querySelector(".done-list");
 
     new Snow(game);
     new Music(game);
     new Bg(game);
+    new Garland(game);
+
     this.restoreSettings(game);
-
-    this.checkboxGarland.addEventListener("change", () => {
-      this.changeGarland(this.checkboxGarland.checked, this.garlandType);
-    });
-
-    this.garlandButtons.forEach((element) => {
-      element.addEventListener("click", () => {
-        this.changeGarland(
-          this.checkboxGarland.checked,
-          (document.querySelector('input[name="garland"]:checked') as HTMLInputElement).value,
-        );
-      });
-    });
 
     this.treeCollection.forEach((element) => {
       element.addEventListener("click", (e: Event) => {
@@ -75,7 +56,7 @@ class Game {
     });
 
     document.querySelector(".reset-storage")?.addEventListener("click", () => {
-      this.restoreSettings(game);
+      this.restoreSettings(gameDefault);
       this.printSelection();
     });
 
@@ -121,58 +102,6 @@ class Game {
         });
       }
     }
-  }
-
-  changeGarland(value: boolean, index: string) {
-    this.garland = value;
-    this.garlandType = index;
-    saveSettings("garland", this.garland);
-    saveSettings("garlandType", this.garlandType);
-    const i = Number(index) - 1;
-    this.removeGarland();
-    if (this.garland) {
-      this.checkboxGarland.checked = true;
-      (this.garlandButtons[i] as HTMLInputElement).checked = true;
-      const className = (this.garlandButtons[i] as HTMLInputElement).getAttribute("data-color");
-      const treeContainer = document.querySelector(".tree-container");
-      const garlandContainer = document.createElement("div");
-      garlandContainer.className = "garland-container";
-      garlandContainer.innerHTML += this.printGarland(className);
-      treeContainer.append(garlandContainer);
-    } else {
-      this.checkboxGarland.checked = false;
-      (this.garlandButtons[i] as HTMLInputElement).checked = false;
-    }
-  }
-  removeGarland() {
-    this.garlandButtons.forEach((element) => {
-      (element as HTMLInputElement).checked = false;
-    });
-    document.querySelector(".garland-container")?.remove();
-  }
-  printGarland(className: string) {
-    return `<ul id="garland-block-first" class="garland-block">
-    ${`<li class=${className}></li>`.repeat(8)}
-    
-  </ul>
-  <ul id="garland-block-second" class="garland-block">
-  ${`<li class=${className}></li>`.repeat(8)}
-  
-  </ul>
-  <ul id="garland-block-third" class="garland-block">
-  ${`<li class=${className}></li>`.repeat(8)}
-  
-  </ul>
-  <ul id="garland-block-fourth" class="garland-block">
- ${`<li class=${className}></li>`.repeat(8)}
-    
-  </ul>
-  <ul id="garland-block-fifth" class="garland-block">
-  ${`<li class=${className}></li>`.repeat(8)}
-    
-  </ul>
-  
-  `;
   }
 
   changeTree(value: string) {
@@ -239,7 +168,7 @@ class Game {
   restoreSettings(game: GameTypes) {
     new Bg(game).changeBg(game.bg);
     new Snow(game).changeSnow(game.snow);
-    this.changeGarland(game.garland, game.garlandType);
+    new Garland(game).changeGarland(game.garland, game.garlandType);
     this.changeTree(game.tree);
     new Music(game).changeMusic(game.music);
   }
