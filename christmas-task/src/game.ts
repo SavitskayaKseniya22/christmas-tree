@@ -148,51 +148,23 @@ class Game {
   }
   printGarland(className: string) {
     return `<ul id="garland-block-first" class="garland-block">
-    <li class=${className}></li>
-    <li class=${className}></li>
-    <li class=${className}></li>
-    <li class=${className}></li>
-    <li class=${className}></li>
-    <li class=${className}></li>
-    <li class=${className}></li>
-    <li class=${className}></li>
+    ${`<li class=${className}></li>`.repeat(8)}
+    
   </ul>
   <ul id="garland-block-second" class="garland-block">
-  <li class=${className}></li>
-  <li class=${className}></li>
-  <li class=${className}></li>
-  <li class=${className}></li>
-  <li class=${className}></li>
-  <li class=${className}></li>
-  <li class=${className}></li>
-  <li class=${className}></li>
+  ${`<li class=${className}></li>`.repeat(8)}
+  
   </ul>
   <ul id="garland-block-third" class="garland-block">
-  <li class=${className}></li>
-  <li class=${className}></li>
-  <li class=${className}></li>
-  <li class=${className}></li>
-  <li class=${className}></li>
-  <li class=${className}></li>
-  <li class=${className}></li>
-  <li class=${className}></li>
+  ${`<li class=${className}></li>`.repeat(8)}
+  
   </ul>
   <ul id="garland-block-fourth" class="garland-block">
-  <li class=${className}></li>
-    <li class=${className}></li>
-    <li class=${className}></li>
-    <li class=${className}></li>
-    <li class=${className}></li>
-    <li class=${className}></li>
-    <li class=${className}></li>
+ ${`<li class=${className}></li>`.repeat(8)}
+    
   </ul>
   <ul id="garland-block-fifth" class="garland-block">
-  <li class=${className}></li>
-    <li class=${className}></li>
-    <li class=${className}></li>
-    <li class=${className}></li>
-    <li class=${className}></li>
-    <li class=${className}></li>
+  ${`<li class=${className}></li>`.repeat(8)}
     
   </ul>
   
@@ -235,34 +207,13 @@ class Game {
 
   printSnow() {
     return `<ul class="snowfall">
-    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
-    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
-    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
-    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
-    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
-    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
-    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
-    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+    ${`<li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>`.repeat(8)}
   </ul>
   <ul class="snowfall2">
-    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
-    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
-    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
-    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
-    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
-    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
-    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
-    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+  ${`<li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>`.repeat(8)}
   </ul>
   <ul class="snowfall3">
-    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
-    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
-    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
-    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
-    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
-    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
-    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
-    <li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>
+  ${`<li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>`.repeat(8)} 
   </ul>
   `;
   }
