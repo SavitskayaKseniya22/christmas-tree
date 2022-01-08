@@ -1,11 +1,32 @@
 import { ToyCard } from "./toyCard";
 import { data } from "./data";
 
+interface GameTypes {
+  music: boolean;
+  snow: boolean;
+  tree: string;
+  bg: string;
+  garland: boolean;
+  garlandType: string;
+}
+
+const gameDefault = {
+  music: false,
+  snow: false,
+  bg: "bg1",
+  tree: "1",
+  garland: false,
+  garlandType: "5",
+};
+
 class Game {
   music: boolean;
   snow: boolean;
   tree: string;
   bg: string;
+  garland: boolean;
+  garlandType: string;
+
   checkboxMusic: HTMLInputElement;
   checkboxSnow: HTMLInputElement;
   audio: HTMLAudioElement;
@@ -13,19 +34,17 @@ class Game {
   resultScreen: HTMLDivElement;
   treeCollection: NodeListOf<Element>;
   checkboxGarland: HTMLInputElement;
-  garland: boolean;
   garlandButtons: NodeListOf<Element>;
-  garlandType: string;
   doneList: HTMLUListElement;
   selectionsContainer: HTMLUListElement;
 
-  constructor(music = false, snow = false, bg = "bg1", tree = "1", garland = false, garlandType = "5") {
-    this.music = music;
-    this.snow = snow;
-    this.bg = bg;
-    this.tree = tree;
-    this.garland = garland;
-    this.garlandType = garlandType;
+  constructor(game = gameDefault) {
+    this.music = game.music;
+    this.snow = game.snow;
+    this.bg = game.bg;
+    this.tree = game.tree;
+    this.garland = game.garland;
+    this.garlandType = game.garlandType;
     this.checkboxMusic = document.querySelector("#toggle-button-music");
     this.audio = document.querySelector("audio");
     this.checkboxSnow = document.querySelector("#toggle-button-snow");
@@ -38,16 +57,13 @@ class Game {
 
     this.doneList = document.querySelector(".done-list");
 
-    this.restoreSettings(this.music, this.snow, this.bg, this.tree, this.garland, this.garlandType);
+    this.restoreSettings(game);
 
     this.checkboxGarland.addEventListener("change", () => {
       this.changeGarland(this.checkboxGarland.checked, this.garlandType);
     });
     this.checkboxMusic.addEventListener("change", () => {
       this.changeMusic(this.checkboxMusic.checked);
-    });
-    this.checkboxSnow.addEventListener("change", () => {
-      this.changeSnow(this.checkboxSnow.checked);
     });
 
     this.garlandButtons.forEach((element) => {
@@ -72,7 +88,7 @@ class Game {
     });
 
     document.querySelector(".reset-storage")?.addEventListener("click", () => {
-      this.restoreSettings(false, false, "bg1", "1", false, "5");
+      this.restoreSettings(game);
       this.printSelection();
     });
 
@@ -82,14 +98,14 @@ class Game {
     });
 
     document.querySelector(".save-tree")?.addEventListener("click", () => {
-      const gameSettings = JSON.parse(window.localStorage.getItem("gameSettings"));
+      const gameSettings = JSON.parse(window.localStorage.getItem("gameSettings")) as GameTypes;
       const savedTree = document.createElement("li");
-      savedTree.className = `bg ${gameSettings[2]}`;
+      savedTree.className = `bg ${gameSettings.bg}`;
       savedTree.setAttribute("data-num", `${this.doneList.children.length}`);
       this.doneList.append(savedTree);
 
       if (window.localStorage.getItem("savedTrees")) {
-        const savedTrees = JSON.parse(window.localStorage.getItem("savedTrees")) as string[][];
+        const savedTrees = JSON.parse(window.localStorage.getItem("savedTrees"));
         savedTrees.push(gameSettings);
         window.localStorage.setItem("savedTrees", JSON.stringify(savedTrees));
       } else {
@@ -100,21 +116,21 @@ class Game {
         const savedTrees = JSON.parse(window.localStorage.getItem("savedTrees"));
         const num = savedTree.getAttribute("data-num");
         const data = savedTrees[Number(num)];
-        this.restoreSettings(data[0], data[1], data[2], data[3], data[4], data[5]);
+        this.restoreSettings(data);
       });
     });
 
     if (window.localStorage.getItem("savedTrees")) {
-      const savedTrees = JSON.parse(window.localStorage.getItem("savedTrees"));
+      const savedTrees = JSON.parse(window.localStorage.getItem("savedTrees")) as GameTypes[];
       for (let i = 0; i <= savedTrees.length - 1; i++) {
         const savedTree = document.createElement("li");
-        savedTree.className = `bg ${savedTrees[i][2]}`;
+        savedTree.className = `bg ${savedTrees[i].bg}`;
         savedTree.setAttribute("data-num", `${this.doneList.children.length}`);
         this.doneList.append(savedTree);
         savedTree.addEventListener("click", () => {
           const num = savedTree.getAttribute("data-num");
           const data = savedTrees[Number(num)];
-          this.restoreSettings(data[0], data[1], data[2], data[3], data[4], data[5]);
+          this.restoreSettings(data);
         });
       }
     }
@@ -190,34 +206,6 @@ class Game {
     }
   }
 
-  changeSnow(value: boolean) {
-    this.snow = value;
-    this.saveSettings();
-    if (this.snow) {
-      this.checkboxSnow.checked = true;
-      const snowContainer = document.createElement("div");
-      snowContainer.className = "snow-container";
-      snowContainer.innerHTML = this.printSnow();
-      this.resultScreen.append(snowContainer);
-    } else {
-      this.checkboxSnow.checked = false;
-      document.querySelector(".snow-container")?.remove();
-    }
-  }
-
-  printSnow() {
-    return `<ul class="snowfall">
-    ${`<li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>`.repeat(8)}
-  </ul>
-  <ul class="snowfall2">
-  ${`<li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>`.repeat(8)}
-  </ul>
-  <ul class="snowfall3">
-  ${`<li><img src="./assets/svg/snow.svg" alt="snowflake" /></li>`.repeat(8)} 
-  </ul>
-  `;
-  }
-
   changeBg(value: string) {
     this.bg = value;
     this.pushRadio(value);
@@ -228,6 +216,7 @@ class Game {
   changeTree(value: string) {
     this.tree = value;
     this.pushRadio(value);
+
     this.saveSettings();
 
     const treeImg = document.querySelector(".tree-image") as HTMLImageElement;
@@ -290,18 +279,25 @@ class Game {
     item.checked = true;
   }
 
-  restoreSettings(music: boolean, snow: boolean, bg: string, tree: string, garland: boolean, garlandType: string) {
-    this.changeBg(bg);
-    this.changeSnow(snow);
-    this.changeGarland(garland, garlandType);
-    this.changeTree(tree);
-    this.changeMusic(music);
+  restoreSettings(game: GameTypes) {
+    this.changeBg(game.bg);
+    this.changeSnow(game.snow);
+    this.changeGarland(game.garland, game.garlandType);
+    this.changeTree(game.tree);
+    this.changeMusic(game.music);
   }
 
   saveSettings() {
     window.localStorage.setItem(
       "gameSettings",
-      JSON.stringify([this.music, this.snow, this.bg, this.tree, this.garland, this.garlandType]),
+      JSON.stringify({
+        music: this.music,
+        snow: this.snow,
+        bg: this.bg,
+        tree: this.tree,
+        garland: this.garland,
+        garlandType: this.garlandType,
+      }),
     );
   }
   addSelectClassname(element: Element) {
@@ -335,9 +331,5 @@ class Game {
   }
 }
 
-if (window.localStorage.getItem("gameSettings")) {
-  const gameSettings = JSON.parse(window.localStorage.getItem("gameSettings"));
-  new Game(gameSettings[0], gameSettings[1], gameSettings[2], gameSettings[3], gameSettings[4], gameSettings[5]);
-} else {
-  new Game();
-}
+const gameSettings = JSON.parse(window.localStorage.getItem("gameSettings")) as GameTypes;
+gameSettings ? new Game(gameSettings) : new Game();
