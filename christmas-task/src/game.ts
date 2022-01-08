@@ -280,10 +280,9 @@ class Game {
   }
 
   setCoords(element: HTMLElement, e: Event, block: Element) {
-    element.style.left = ` ${
-      (e as MouseEvent).pageX - (block.getBoundingClientRect().left + 20 + window.pageXOffset)
-    }px`;
-    element.style.top = `${(e as MouseEvent).pageY - (block.getBoundingClientRect().top + 20 + window.pageYOffset)}px`;
+    const { pageX, pageY } = e as MouseEvent;
+    element.style.left = ` ${pageX - (block.getBoundingClientRect().left + 20 + window.pageXOffset)}px`;
+    element.style.top = `${pageY - (block.getBoundingClientRect().top + 20 + window.pageYOffset)}px`;
   }
 
   pushRadio(value: string) {
