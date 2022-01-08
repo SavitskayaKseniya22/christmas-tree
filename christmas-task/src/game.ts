@@ -1,6 +1,7 @@
 import { ToyCard } from "./toyCard";
 import { data } from "./data";
 import { Snow } from "./snow";
+import { Music } from "./music";
 
 export function saveSettings(prop: string, value: string | boolean) {
   let gameSettings = JSON.parse(window.localStorage.getItem("gameSettings"));
@@ -28,18 +29,11 @@ const gameDefault = {
 };
 
 class Game {
-  music: boolean;
-
   tree: string;
   bg: string;
   garland: boolean;
   garlandType: string;
-
-  checkboxMusic: HTMLInputElement;
-
-  audio: HTMLAudioElement;
   bgCollection: NodeListOf<Element>;
-
   treeCollection: NodeListOf<Element>;
   checkboxGarland: HTMLInputElement;
   garlandButtons: NodeListOf<Element>;
@@ -47,33 +41,23 @@ class Game {
   selectionsContainer: HTMLUListElement;
 
   constructor(game = gameDefault) {
-    this.music = game.music;
-
     this.bg = game.bg;
     this.tree = game.tree;
     this.garland = game.garland;
     this.garlandType = game.garlandType;
-    this.checkboxMusic = document.querySelector("#toggle-button-music");
-    this.audio = document.querySelector("audio");
-
     this.bgCollection = document.querySelectorAll("input[name='bg']");
-
     this.treeCollection = document.querySelectorAll("input[name='tree']");
     this.checkboxGarland = document.querySelector(".garland-enabler");
     this.garlandButtons = document.querySelectorAll("input[name='garland']");
     this.selectionsContainer = document.querySelector(".selection-options ul");
-
     this.doneList = document.querySelector(".done-list");
 
     new Snow(game);
-
+    new Music(game);
     this.restoreSettings(game);
 
     this.checkboxGarland.addEventListener("change", () => {
       this.changeGarland(this.checkboxGarland.checked, this.garlandType);
-    });
-    this.checkboxMusic.addEventListener("change", () => {
-      this.changeMusic(this.checkboxMusic.checked);
     });
 
     this.garlandButtons.forEach((element) => {
@@ -198,25 +182,6 @@ class Game {
   `;
   }
 
-  changeMusic(value: boolean) {
-    this.music = value;
-    saveSettings("music", this.music);
-    if (this.music) {
-      this.checkboxMusic.checked = true;
-      this.audio.play();
-      document.addEventListener(
-        "click",
-        () => {
-          this.audio.play();
-        },
-        { once: true },
-      );
-    } else {
-      this.checkboxMusic.checked = false;
-      this.audio.pause();
-    }
-  }
-
   changeBg(value: string) {
     this.bg = value;
     this.pushRadio(value);
@@ -295,7 +260,7 @@ class Game {
     new Snow(game).changeSnow(game.snow);
     this.changeGarland(game.garland, game.garlandType);
     this.changeTree(game.tree);
-    this.changeMusic(game.music);
+    new Music(game).changeMusic(game.music);
   }
 
   addSelectClassname(element: Element) {
