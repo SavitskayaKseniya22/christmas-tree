@@ -1,9 +1,9 @@
-import { ToyCard } from "./toyCard";
-import { data } from "./data";
 import { Snow } from "./snow";
 import { Music } from "./music";
 import { Bg } from "./background";
 import { Garland } from "./garland";
+import { Tree } from "./tree";
+import { DecorateTree } from "./decorateTree";
 
 export function saveSettings(prop: string, value: string | boolean) {
   let gameSettings = JSON.parse(window.localStorage.getItem("gameSettings"));
@@ -31,33 +31,23 @@ const gameDefault = {
 };
 
 class Game {
-  tree: string;
-  treeCollection: NodeListOf<Element>;
   doneList: HTMLUListElement;
-  selectionsContainer: HTMLUListElement;
 
   constructor(game = gameDefault) {
-    this.tree = game.tree;
-    this.treeCollection = document.querySelectorAll("input[name='tree']");
-    this.selectionsContainer = document.querySelector(".selection-options ul");
     this.doneList = document.querySelector(".done-list");
 
     new Snow(game);
     new Music(game);
     new Bg(game);
     new Garland(game);
+    new Tree(game);
+    new DecorateTree().printSelection();
 
     this.restoreSettings(game);
 
-    this.treeCollection.forEach((element) => {
-      element.addEventListener("click", (e: Event) => {
-        this.changeTree((e.target as HTMLInputElement).value);
-      });
-    });
-
     document.querySelector(".reset-storage")?.addEventListener("click", () => {
       this.restoreSettings(gameDefault);
-      this.printSelection();
+      new DecorateTree().printSelection();
     });
 
     document.querySelector(".clear-tree")?.addEventListener("click", () => {
@@ -104,103 +94,12 @@ class Game {
     }
   }
 
-  changeTree(value: string) {
-    this.tree = value;
-    (document.querySelector(`input[value="${value}"]`) as HTMLInputElement).checked = true;
-
-    saveSettings("tree", this.tree);
-
-    const treeImg = document.querySelector(".tree-image") as HTMLImageElement;
-    treeImg.src = `./assets/tree/${value}.png`;
-
-    const mapTree = document.querySelector(".map-tree");
-    mapTree.addEventListener(`dragover`, (e) => {
-      e.preventDefault();
-    });
-
-    mapTree.addEventListener("drop", (e) => {
-      e.preventDefault();
-      const activeElement = document.querySelector(".selected") as HTMLElement;
-      const count = activeElement.nextElementSibling?.textContent;
-      if (Number(count) > 0) {
-        const dupActiveElement = activeElement.cloneNode() as HTMLElement;
-        dupActiveElement.classList.remove("selected");
-        mapTree.append(dupActiveElement);
-        this.setCoords(dupActiveElement, e, mapTree);
-        activeElement.nextElementSibling.textContent = String(+count - 1);
-        this.addSelectClassname(dupActiveElement);
-        dupActiveElement.addEventListener("dblclick", () => {
-          this.returnToy(dupActiveElement);
-        });
-      } else if (activeElement.parentElement.className === "map-tree") {
-        this.setCoords(activeElement, e, mapTree);
-      }
-    });
-
-    this.selectionsContainer.addEventListener(`dragover`, (e) => {
-      e.preventDefault();
-    });
-    this.selectionsContainer.addEventListener("drop", (e) => {
-      e.preventDefault();
-      const activeElement = document.querySelector(".selected") as HTMLElement;
-      if (activeElement.parentElement.className === "map-tree") {
-        this.returnToy(activeElement);
-      }
-    });
-
-    this.printSelection();
-  }
-
-  returnToy(element: HTMLElement) {
-    const num = element.getAttribute("data-num");
-    const target = document.querySelector(`.toy-preview [data-num='${num}']`);
-    element.remove();
-    const count = target.nextElementSibling.textContent;
-    target.nextElementSibling.textContent = String(+count + 1);
-  }
-
-  setCoords(element: HTMLElement, e: Event, block: Element) {
-    const { pageX, pageY } = e as MouseEvent;
-    element.style.left = ` ${pageX - (block.getBoundingClientRect().left + 20 + window.pageXOffset)}px`;
-    element.style.top = `${pageY - (block.getBoundingClientRect().top + 20 + window.pageYOffset)}px`;
-  }
-
   restoreSettings(game: GameTypes) {
     new Bg(game).changeBg(game.bg);
     new Snow(game).changeSnow(game.snow);
     new Garland(game).changeGarland(game.garland, game.garlandType);
-    this.changeTree(game.tree);
+    new Tree(game).changeTree(game.tree);
     new Music(game).changeMusic(game.music);
-  }
-
-  addSelectClassname(element: Element) {
-    element.addEventListener("dragstart", (e: Event) => {
-      (e.target as HTMLElement).classList.add("selected");
-    });
-    element.addEventListener("dragend", (e: Event) => {
-      (e.target as HTMLElement).classList.remove("selected");
-    });
-  }
-  printSelection() {
-    const collectionList = document.querySelector(".selection-options ul");
-    const collection = JSON.parse(window.localStorage.getItem("selection")) as number[];
-    collectionList.innerHTML = "";
-
-    if (collection && collection.length > 0) {
-      collection.forEach((element) => {
-        collectionList.innerHTML += new ToyCard(data[element - 1]).renderPreview();
-      });
-    } else {
-      let i = 0;
-      while (i < 20) {
-        collectionList.innerHTML += new ToyCard(data[i]).renderPreview();
-        i++;
-      }
-    }
-
-    document.querySelectorAll(".toy-preview").forEach((element) => {
-      this.addSelectClassname(element);
-    });
   }
 }
 
