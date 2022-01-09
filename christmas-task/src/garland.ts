@@ -1,4 +1,5 @@
-import { GameTypes, saveSettings } from "./game";
+import { saveSettings } from "./game";
+import { GameTypes } from "./types";
 export class Garland {
   garland: boolean;
   garlandType: string;
