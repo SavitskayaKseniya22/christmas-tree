@@ -28,10 +28,10 @@ export interface Filters {
   year: Limit;
 }
 export interface GameTypes {
-  music: boolean;
-  snow: boolean;
+  isMusicPlaying: boolean;
+  isSnowing: boolean;
   tree: string;
   bg: string;
-  garland: boolean;
+  isGarlandEnabled: boolean;
   garlandType: string;
 }

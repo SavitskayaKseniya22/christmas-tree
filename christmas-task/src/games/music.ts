@@ -1,11 +1,13 @@
-import { saveSettings } from "./game";
-import { GameTypes } from "./types";
+import { saveSettings } from "../game";
+import { GameTypes } from "../types";
+
 export class Music {
   music: boolean;
   checkboxMusic: HTMLInputElement;
   audio: HTMLAudioElement;
-  constructor(game: GameTypes) {
-    this.music = game.music;
+
+  constructor(gameOptions: GameTypes) {
+    this.music = gameOptions.isMusicPlaying;
     this.checkboxMusic = document.querySelector("#toggle-button-music");
     this.audio = document.querySelector("audio");
 
@@ -13,8 +15,9 @@ export class Music {
       this.changeMusic(this.checkboxMusic.checked);
     });
   }
-  changeMusic(value: boolean) {
-    this.music = value;
+
+  changeMusic(isMusicPlaying: boolean) {
+    this.music = isMusicPlaying;
     saveSettings("music", this.music);
     if (this.music) {
       this.checkboxMusic.checked = true;

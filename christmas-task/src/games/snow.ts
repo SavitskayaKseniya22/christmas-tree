@@ -1,11 +1,12 @@
-import { saveSettings } from "./game";
-import { GameTypes } from "./types";
+import { saveSettings } from "../game";
+import { GameTypes } from "../types";
 
 export class Snow {
   checkboxSnow: HTMLInputElement;
   snow: boolean;
-  constructor(game: GameTypes) {
-    this.snow = game.snow;
+
+  constructor(gameOptions: GameTypes) {
+    this.snow = gameOptions.isSnowing;
     this.checkboxSnow = document.querySelector("#toggle-button-snow");
 
     this.checkboxSnow.addEventListener("change", () => {
@@ -13,8 +14,8 @@ export class Snow {
     });
   }
 
-  changeSnow(value: boolean) {
-    this.snow = value;
+  changeSnow(isSnowing: boolean) {
+    this.snow = isSnowing;
     saveSettings("snow", this.snow);
     const snowContainer = document.querySelector(".snow-container");
     if (this.snow) {

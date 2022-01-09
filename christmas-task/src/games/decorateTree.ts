@@ -1,5 +1,6 @@
-import { ToyCard } from "./toyCard";
-import { data } from "./data";
+import { ToyCard } from "../toyCard";
+import { data } from "../data";
+
 export class DecorateTree {
   constructor() {
     document.addEventListener("dragover", (event) => {
@@ -9,6 +10,7 @@ export class DecorateTree {
         event.dataTransfer.dropEffect = "copy";
       }
     });
+
     document.addEventListener("drop", (event) => {
       const target = event.target as HTMLElement;
       if (target.tagName === "AREA") {
@@ -42,6 +44,7 @@ export class DecorateTree {
       }
     });
   }
+
   printSelection() {
     const collectionList = document.querySelector(".selection-options ul");
     const collection = JSON.parse(window.localStorage.getItem("selection")) as number[];
@@ -59,6 +62,7 @@ export class DecorateTree {
       }
     }
   }
+
   returnToy(element: HTMLElement) {
     const num = element.getAttribute("data-num");
     const target = document.querySelector(`.toy-preview [data-num='${num}']`) as HTMLElement;
@@ -73,6 +77,7 @@ export class DecorateTree {
     element.style.left = ` ${pageX - (block.getBoundingClientRect().left + 20 + window.pageXOffset)}px`;
     element.style.top = `${pageY - (block.getBoundingClientRect().top + 20 + window.pageYOffset)}px`;
   }
+
   onDragStart(event: DragEvent) {
     event.dataTransfer.effectAllowed = "copy";
     const parent = (event.target as HTMLElement).parentElement.className;

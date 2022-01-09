@@ -1,7 +1,9 @@
-import { Game } from "./game";
-import { GameTypes } from "./types";
+import { Game } from "../game";
+import { GameTypes } from "../types";
+
 export class DoneList {
   doneList: HTMLUListElement;
+
   constructor() {
     this.doneList = document.querySelector(".done-list");
 
@@ -38,6 +40,7 @@ export class DoneList {
       }
     });
   }
+
   makeSavedTree(settings: GameTypes) {
     const savedTree = document.createElement("li");
     savedTree.className = `bg ${settings.bg}`;

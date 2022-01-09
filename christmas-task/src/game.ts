@@ -1,10 +1,10 @@
-import { Snow } from "./snow";
-import { Music } from "./music";
-import { Bg } from "./background";
-import { Garland } from "./garland";
-import { Tree } from "./tree";
-import { DecorateTree } from "./decorateTree";
-import { DoneList } from "./doneList";
+import { Snow } from "./games/snow";
+import { Music } from "./games/music";
+import { Background } from "./games/background";
+import { Garland } from "./games/garland";
+import { Tree } from "./games/tree";
+import { DecorateTree } from "./games/decorateTree";
+import { DoneList } from "./games/doneList";
 import { GameTypes } from "./types";
 
 export function saveSettings(prop: string, value: string | boolean) {
@@ -15,31 +15,32 @@ export function saveSettings(prop: string, value: string | boolean) {
 }
 
 const gameDefault = {
-  music: false,
-  snow: false,
+  isMusicPlaying: false,
+  isSnowing: false,
   bg: "bg1",
   tree: "1",
-  garland: false,
+  isGarlandEnabled: false,
   garlandType: "5",
 };
 
 export class Game {
   snow: Snow;
   music: Music;
-  bg: Bg;
+  bg: Background;
   garland: Garland;
   tree: Tree;
   decorateTree: DecorateTree;
-  constructor(game = gameDefault) {
-    this.snow = new Snow(game);
-    this.music = new Music(game);
-    this.bg = new Bg(game);
-    this.garland = new Garland(game);
-    this.tree = new Tree(game);
+
+  constructor(gameOptions = gameDefault) {
+    this.snow = new Snow(gameOptions);
+    this.music = new Music(gameOptions);
+    this.bg = new Background(gameOptions);
+    this.garland = new Garland(gameOptions);
+    this.tree = new Tree(gameOptions);
     this.decorateTree = new DecorateTree();
 
     this.decorateTree.printSelection();
-    this.restoreSettings(game);
+    this.restoreSettings(gameOptions);
 
     document.querySelector(".reset-storage")?.addEventListener("click", () => {
       this.restoreSettings(gameDefault);
@@ -47,12 +48,12 @@ export class Game {
     });
   }
 
-  restoreSettings(game: GameTypes) {
-    this.bg.changeBg(game.bg);
-    this.snow.changeSnow(game.snow);
-    this.garland.changeGarland(game.garland, game.garlandType);
-    this.tree.changeTree(game.tree);
-    this.music.changeMusic(game.music);
+  restoreSettings(gameOptions: GameTypes) {
+    this.bg.changeBg(gameOptions.bg);
+    this.snow.changeSnow(gameOptions.isSnowing);
+    this.garland.changeGarland(gameOptions.isGarlandEnabled, gameOptions.garlandType);
+    this.tree.changeTree(gameOptions.tree);
+    this.music.changeMusic(gameOptions.isMusicPlaying);
   }
 }
 
