@@ -4,6 +4,14 @@ export class DoneList {
   doneList: HTMLUListElement;
   constructor() {
     this.doneList = document.querySelector(".done-list");
+
+    if (window.localStorage.getItem("savedTrees")) {
+      const savedTrees = JSON.parse(window.localStorage.getItem("savedTrees")) as GameTypes[];
+      savedTrees.forEach((element) => {
+        this.makeSavedTree(element);
+      });
+    }
+
     document.querySelector(".clear-tree")?.addEventListener("click", () => {
       window.localStorage.removeItem("savedTrees");
       this.doneList.innerHTML = "";
@@ -11,10 +19,7 @@ export class DoneList {
 
     document.querySelector(".save-tree")?.addEventListener("click", () => {
       const gameSettings = JSON.parse(window.localStorage.getItem("gameSettings")) as GameTypes;
-      const savedTree = document.createElement("li");
-      savedTree.className = `bg ${gameSettings.bg}`;
-      savedTree.setAttribute("data-num", `${this.doneList.children.length}`);
-      this.doneList.append(savedTree);
+      this.makeSavedTree(gameSettings);
 
       if (window.localStorage.getItem("savedTrees")) {
         const savedTrees = JSON.parse(window.localStorage.getItem("savedTrees"));
@@ -23,28 +28,20 @@ export class DoneList {
       } else {
         window.localStorage.setItem("savedTrees", JSON.stringify([gameSettings]));
       }
-
-      savedTree.addEventListener("click", () => {
+    });
+    document.addEventListener("click", (event) => {
+      if ((event.target as HTMLElement).parentElement.classList.contains("done-list")) {
         const savedTrees = JSON.parse(window.localStorage.getItem("savedTrees"));
-        const num = savedTree.getAttribute("data-num");
+        const num = (event.target as HTMLElement).getAttribute("data-num");
         const data = savedTrees[Number(num)];
         new Game(data);
-      });
-    });
-
-    if (window.localStorage.getItem("savedTrees")) {
-      const savedTrees = JSON.parse(window.localStorage.getItem("savedTrees")) as GameTypes[];
-      for (let i = 0; i <= savedTrees.length - 1; i++) {
-        const savedTree = document.createElement("li");
-        savedTree.className = `bg ${savedTrees[i].bg}`;
-        savedTree.setAttribute("data-num", `${this.doneList.children.length}`);
-        this.doneList.append(savedTree);
-        savedTree.addEventListener("click", () => {
-          const num = savedTree.getAttribute("data-num");
-          const data = savedTrees[Number(num)];
-          new Game(data);
-        });
       }
-    }
+    });
+  }
+  makeSavedTree(settings: GameTypes) {
+    const savedTree = document.createElement("li");
+    savedTree.className = `bg ${settings.bg}`;
+    savedTree.setAttribute("data-num", `${this.doneList.children.length}`);
+    this.doneList.append(savedTree);
   }
 }

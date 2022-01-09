@@ -15,13 +15,13 @@ export class Garland {
       this.changeGarland(this.checkboxGarland.checked, this.garlandType);
     });
 
-    this.garlandButtons.forEach((element) => {
-      element.addEventListener("click", () => {
+    document.addEventListener("click", (event) => {
+      if ((event.target as HTMLElement).getAttribute("name") === "garland") {
         this.changeGarland(
           this.checkboxGarland.checked,
           (document.querySelector('input[name="garland"]:checked') as HTMLInputElement).value,
         );
-      });
+      }
     });
   }
   changeGarland(value: boolean, index: string) {
@@ -54,25 +54,18 @@ export class Garland {
   printGarland(className: string) {
     return `<ul id="garland-block-first" class="garland-block">
     ${`<li class=${className}></li>`.repeat(8)}
-    
   </ul>
   <ul id="garland-block-second" class="garland-block">
   ${`<li class=${className}></li>`.repeat(8)}
-  
   </ul>
   <ul id="garland-block-third" class="garland-block">
   ${`<li class=${className}></li>`.repeat(8)}
-  
   </ul>
   <ul id="garland-block-fourth" class="garland-block">
  ${`<li class=${className}></li>`.repeat(8)}
-    
   </ul>
   <ul id="garland-block-fifth" class="garland-block">
   ${`<li class=${className}></li>`.repeat(8)}
-    
-  </ul>
-  
-  `;
+  </ul>`;
   }
 }

@@ -3,14 +3,14 @@ import { GameTypes } from "./types";
 
 export class Bg {
   bg: string;
-  bgCollection: NodeListOf<Element>;
+
   constructor(game: GameTypes) {
     this.bg = game.bg;
-    this.bgCollection = document.querySelectorAll("input[name='bg']");
-    this.bgCollection.forEach((element) => {
-      element.addEventListener("click", (e: Event) => {
-        this.changeBg((e.target as HTMLInputElement).value);
-      });
+
+    document.addEventListener("click", (event) => {
+      if ((event.target as HTMLElement).getAttribute("name") === "bg") {
+        this.changeBg((event.target as HTMLInputElement).value);
+      }
     });
   }
   changeBg(value: string) {
