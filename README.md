@@ -7,7 +7,7 @@ An application that will allow you to sort Christmas decorations by name and num
 ### task: 
 https://github.com/rolling-scopes-school/tasks/blob/master/tasks/christmas-task/christmas-task.md
 ### deploy: 
-https://rolling-scopes-school.github.io/savitskayakseniya22-JSFE2021Q3/christmas-task-part-two/
+https://savitskayakseniya22.github.io/christmas-tree/
 ### screenshots: 
 ![изображение](https://user-images.githubusercontent.com/77901301/174842144-fe252766-c783-4a63-8e85-d40390d80a25.png)
 ![изображение](https://user-images.githubusercontent.com/77901301/174842460-abebb48f-3977-422d-a3bd-d8d7ae72a372.png)
