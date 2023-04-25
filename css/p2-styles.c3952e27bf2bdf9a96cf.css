@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Jura:wght@300;400;500;600;700&display=swap");
-@import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css");
+@import url(https://fonts.googleapis.com/css2?family=Jura:wght@300;400;500;600;700&display=swap);
+@import url(https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css);
 html {
   font-size: 16px;
   font-family: "Jura", sans-serif;
@@ -179,3 +179,5 @@ label[for="favorite"] img {
   border-radius: 0.2em;
   border: 2px solid #567d30;
 }
+
+.start-window{background-image:url(../assets/3080543.jpg);background-repeat:no-repeat;background-size:cover;background-position:100% 30%}.start-window .main{background-color:rgba(53,88,41,.1)}.start-window .header,.start-window .footer{background-color:rgba(142,177,78,.9)}.start-game{padding:1.5rem;font-size:3rem;margin:auto;border:none;font-weight:bold;background-color:transparent}.start-game a{color:#ceb31e}.start-game a:hover{color:gold}.header nav{text-align:left}
