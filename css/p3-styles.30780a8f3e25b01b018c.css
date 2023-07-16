@@ -1,0 +1,183 @@
+@import url(https://fonts.googleapis.com/css2?family=Jura:wght@300;400;500;600;700&display=swap);
+@import url(https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css);
+html {
+  font-size: 16px;
+  font-family: "Jura", sans-serif;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #355829;
+  min-height: 100vh;
+}
+
+a {
+  color: #355829;
+  text-decoration: none;
+  transition: 0.5s;
+}
+a:hover {
+  color: #ffd700;
+}
+a:active {
+  color: #ceb31e;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+label,
+button,
+select,
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.header {
+  padding: 1em;
+  text-align: center;
+  background-color: #8fb14e;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.current-title {
+  color: #ffd700;
+}
+
+.big-title {
+  font-size: 2rem;
+}
+
+.middle-title {
+  font-size: 1.5rem;
+}
+
+.small-title {
+  font-size: 1.2rem;
+}
+
+h3,
+h4 {
+  padding: 0;
+  margin: 0;
+  margin-right: auto;
+}
+.back-button {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  display: block;
+  top: calc(50% - 15px);
+  left: 1rem;
+}
+.back-button img {
+  width: 100%;
+  height: 100%;
+}
+.footer {
+  display: flex;
+  justify-content: space-around;
+  padding: 1em;
+  align-items: center;
+  background-color: #8fb14e;
+}
+
+.main {
+  display: flex;
+  flex-grow: 1;
+}
+input[type="checkbox"],
+input[type="radio"] {
+  display: none;
+}
+
+label {
+  opacity: 0.5;
+  display: block;
+  transition: 0.5s;
+  width: 100%;
+  height: 100%;
+}
+input[type="checkbox"] ~ label:hover,
+input[type="radio"] ~ label:hover {
+  opacity: 1;
+}
+
+input[type="checkbox"]:checked + label,
+input[type="radio"]:checked + label {
+  transition: 0.5s;
+  opacity: 1;
+  padding: 0.3rem;
+  border-radius: 50%;
+}
+
+.small-item-container li,
+label[for="favorite"] {
+  width: 50px;
+  height: 50px;
+}
+.small-item-container label img,
+label[for="favorite"] img {
+  width: 100%;
+  height: 100%;
+}
+
+.middle-item-container li {
+  width: 75px;
+  height: 75px;
+  padding: 0.2rem;
+}
+.middle-item-container label img {
+  width: 100%;
+  height: 100%;
+}
+.big-item-container li {
+  width: 100px;
+  height: 100px;
+  padding: 0.5rem;
+}
+.big-item-container label img {
+  width: 100%;
+  height: 100%;
+}
+
+.color_white {
+  background-color: white;
+}
+.color_multy {
+  background-color: white;
+}
+.color_yellow {
+  background-color: yellow;
+}
+
+.color_red {
+  background-color: red;
+}
+
+.color_blue {
+  background-color: blue;
+}
+
+.color_green {
+  background-color: green;
+}
+.default-button {
+  min-width: 270px;
+  height: 40px;
+  padding: 0.5em;
+  border-radius: 0.2em;
+  border: 2px solid #567d30;
+}
+
+.main{background-color:#567d30}.settings{width:350px;padding:1.5em;display:flex;flex-direction:column;background-color:#ceb31e;row-gap:2em;flex-shrink:0}.settings section{display:flex;flex-direction:column;row-gap:1rem}.settings section .label-title{width:100%;opacity:1}.settings section .inner-section{padding:1em;row-gap:1em}.settings section .inner-section ul{display:flex;column-gap:.5em;justify-content:center}.settings section .inner-section .size-label_middle img{width:80%}.settings section .inner-section .size-label_small img{width:50%}.settings .search-section{position:relative}.selection-warning,.search-warning{color:#fff;font-size:1.5em;transition:.5s}.selection-warning.active,.search-warning.active{color:red}.remove-selection,.selection__close,.clear-search{padding:0;margin:0;width:20px;height:20px;border:none;background-color:transparent;position:absolute;right:1rem;top:3.4rem;opacity:.5}.remove-selection img,.selection__close img,.clear-search img{width:100%}.remove-selection:hover,.selection__close:hover,.clear-search:hover{opacity:1}.toys-container{display:flex;flex-wrap:wrap;padding:2rem;column-gap:1rem;row-gap:1rem;align-self:flex-start}.toys-container .toy-item{width:280px;height:200px;padding:1rem;display:flex;flex-direction:column;row-gap:1rem;position:relative;background-color:#355829;color:#fff;cursor:pointer;overflow:hidden;transition:.5s}.toys-container .toy-item.active{background-color:red}.toys-container .toy-item:hover .toy-image{width:250px;opacity:.8;top:-5%;left:20%;transition:1s}.toys-container .toy-item .toy-image{position:absolute;width:200px;opacity:.3;top:-10%;left:55%;transition:1s}.toys-container .toy-item .star-image{position:absolute;width:20px;opacity:.7;bottom:1rem;right:1rem;transition:.5s;transform:scale(1)}.toys-container .toy-item .star-image.scale{transform:scale(2)}.toys-container .toy-item .golden-star-image{background-image:url(../assets/svg/star-full.svg);background-repeat:no-repeat;background-size:contain}div.noUi-horizontal{height:10px;font-size:.9rem}.noUi-base{background-color:#8fb14e}.noUi-horizontal div.noUi-handle{height:20px;width:30px}div.noUi-handle::before,div.noUi-handle::after{display:none}div.noUi-connect{background-color:#567d30}div.noUi-touch-area{cursor:grab}.noUi-horizontal div.noUi-tooltip{background-color:rgba(255,255,255,.5);border:none;border-radius:0;bottom:-200%}.selection-container{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);opacity:0;pointer-events:none;transition:.5s all;z-index:2}.selection-container .small-title{font-size:1.1rem}.selection-container.active{opacity:1;pointer-events:all;transition:.5s all}.selection-container .selection__close{width:30px;height:30px;top:2rem;right:2rem}.selection-container .selection-inner{z-index:3;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%) scale(0);background:#ceb31e;padding:2rem;transition:.5s all;display:flex;column-gap:1rem;row-gap:1rem;flex-wrap:wrap}.selection-container .selection-inner.active{transform:translate(-50%, -50%) scale(1);transition:.5s all}.selection-container .selection-inner .toy-item{width:250px;height:100px;overflow:hidden;justify-content:space-between;padding:1rem;display:flex;flex-direction:column;row-gap:1rem;position:relative;background-color:#355829;color:#fff;overflow:hidden;transition:.5s}.selection-container .selection-inner .toy-item .toy-image{position:absolute;width:200px;height:200px;top:-30%;left:20%;opacity:.4}.selection-container .selection-inner .toy-item .remove-selection{top:unset;right:.5rem;bottom:.5rem}
