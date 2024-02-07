@@ -1,4 +1,4 @@
-import { data as toys } from "../data";
+import toys from "../assets/toys.json";
 import { mainContainer, storage, uncheck } from "./defaultData";
 import { filterAndRender } from "./render";
 import { Filters } from "../types";

@@ -1,4 +1,4 @@
-import data from "../data";
+import toys from "../assets/toys.json";
 import { filterAndRender } from "./render";
 import { Filters } from "../types";
 
@@ -84,7 +84,7 @@ export function uncheck() {
 // установить дефолтные значения и применить их/вывести на страницу
 export function setDefaultSettings() {
   if (!storage.getItem("data")) {
-    storage.setItem("data", JSON.stringify(data));
+    storage.setItem("data", JSON.stringify(toys));
   }
   if (!storage.getItem("filters")) {
     storage.setItem("filters", JSON.stringify(filtersSource));

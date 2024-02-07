@@ -15,8 +15,13 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
-    "strictNullChecks": false
   },
-  "exclude": ["node_modules", "/"],
-  "include": ["src/**/*", "modules.d.ts"]
+  "exclude": [
+    "node_modules",
+    "/"
+  ],
+  "include": [
+    "src/**/*",
+    "modules.d.ts"
+  ]
 }

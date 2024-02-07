@@ -1,6 +1,6 @@
 import { storage } from "./defaultData";
 import { ToyCard } from "../toyCard";
-import data from "../data";
+import toys from "../assets/toys.json";
 
 const selectionCount = document.querySelector(".selection-count") as HTMLSpanElement;
 const selectionRest = document.querySelector(".selection-rest") as HTMLSpanElement;
@@ -73,7 +73,7 @@ document.addEventListener("click", (e: Event) => {
     const collection = JSON.parse(storage.getItem("selection")) as number[];
     if (collection && collection.length > 0) {
       collection.forEach((element) => {
-        containerInner.innerHTML += new ToyCard(data[element - 1]).renderSelectionHTML();
+        containerInner.innerHTML += new ToyCard(toys[element - 1]).renderSelectionHTML();
       });
     } else {
       containerInner.textContent = "Нет игрушек, добавленных в избранное";

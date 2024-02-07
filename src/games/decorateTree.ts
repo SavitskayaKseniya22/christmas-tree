@@ -1,5 +1,5 @@
 import { ToyCard } from "../toyCard";
-import { data } from "../data";
+import toys from "../assets/toys.json";
 
 export class DecorateTree {
   constructor() {
@@ -52,12 +52,12 @@ export class DecorateTree {
 
     if (collection && collection.length > 0) {
       collection.forEach((element) => {
-        collectionList.innerHTML += new ToyCard(data[element - 1]).renderPreview();
+        collectionList.innerHTML += new ToyCard(toys[element - 1]).renderPreview();
       });
     } else {
       let i = 0;
       while (i < 20) {
-        collectionList.innerHTML += new ToyCard(data[i]).renderPreview();
+        collectionList.innerHTML += new ToyCard(toys[i]).renderPreview();
         i++;
       }
     }

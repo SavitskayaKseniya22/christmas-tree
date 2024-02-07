@@ -15,10 +15,12 @@ interface Filter {
     name: string;
   };
 }
+
 interface Limit {
   min: number;
   max: number;
 }
+
 export interface Filters {
   color: Filter;
   shape: Filter;
