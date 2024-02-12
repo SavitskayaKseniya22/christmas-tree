@@ -4,13 +4,14 @@
         "es2021": true
     },
     "extends": [
-        "airbnb-base",
+        "standard-with-typescript",
         "prettier",
         "plugin:prettier/recommended"
     ],
     "parserOptions": {
         "ecmaVersion": "latest",
-        "sourceType": "module"
+        "sourceType": "module",
+        "project": "./tsconfig.json"
     },
     "rules": {
         "prettier/prettier": [
@@ -23,5 +24,10 @@
     },
     "plugins": [
         "prettier"
+    ],
+    "ignorePatterns": [
+        "*.config.js",
+        "dist/",
+        "declaration.d.ts"
     ]
 }

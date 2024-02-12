@@ -18,10 +18,10 @@
   },
   "exclude": [
     "node_modules",
-    "/"
+    "/",
   ],
   "include": [
-    "src/**/*",
-    "modules.d.ts"
-  ]
+    "src",
+    "declaration.d.ts",
+  ],
 }
