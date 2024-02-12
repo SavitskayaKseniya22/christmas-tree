@@ -1,0 +1,12 @@
+.header {
+  padding: 1em;
+  background-color: #87c38f;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .nav_link.active {
+    color: #f4f0bb;
+  }
+}
