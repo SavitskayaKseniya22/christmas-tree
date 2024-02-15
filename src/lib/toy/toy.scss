@@ -1,0 +1,139 @@
+.toy-item {
+  width: 280px;
+  height: 200px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  row-gap: 1rem;
+  position: relative;
+  background-color: white;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 1rem;
+  color: black;
+  cursor: pointer;
+  overflow: hidden;
+  transition: 0.5s;
+
+  &:hover {
+    .toy-image {
+      width: 250px;
+      opacity: 0.8;
+      top: -5%;
+      left: 20%;
+      transition: 1s;
+    }
+  }
+
+  .toy-image {
+    position: absolute;
+    width: 200px;
+    opacity: 0.5;
+    top: -10%;
+    left: 55%;
+    transition: 1s;
+  }
+
+  .toy__status {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    bottom: 1rem;
+    right: 1rem;
+
+    img {
+      width: 20px;
+      height: 20px;
+
+      &.star-image {
+        opacity: 0.7;
+
+        animation-name: star-scale;
+        animation-duration: 0.25s;
+
+        @keyframes star-scale {
+          0% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.5);
+            opacity: 0.7;
+          }
+          100% {
+            transform: scale(1);
+          }
+        }
+      }
+    }
+  }
+}
+
+.toy-item_selected {
+  width: 250px;
+  height: 100px;
+  overflow: hidden;
+  justify-content: space-between;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  position: relative;
+  background-color: #355829;
+  color: white;
+  overflow: hidden;
+  transition: 0.5s;
+
+  .toy-image {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    top: -30%;
+    left: 20%;
+    opacity: 0.4;
+  }
+
+  .remove-selection {
+    top: unset;
+    right: 0.5rem;
+    bottom: 0.5rem;
+  }
+}
+
+.toy-preview {
+  position: relative;
+  cursor: move;
+
+  .count-toy {
+    display: block;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    background-color: transparent;
+    border: 3px solid #ffd700;
+    border-radius: 50%;
+    top: 0;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  .toy-image {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.toy__features {
+  display: flex;
+  gap: 1rem;
+}
+
+.toy__feature {
+  height: 2rem;
+  background-color: rgb(232, 232, 232);
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

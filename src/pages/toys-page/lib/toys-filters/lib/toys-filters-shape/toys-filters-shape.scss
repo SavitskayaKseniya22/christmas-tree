@@ -1,0 +1,35 @@
+.shape-list {
+  display: flex;
+  gap: 0.5rem;
+
+  input {
+    display: none;
+  }
+
+  li {
+    background-color: #87c38f;
+    border-radius: 1rem;
+
+    label {
+      display: block;
+      padding: 0.5rem;
+      opacity: 0.5;
+      transition: 0.5s;
+    }
+
+    img {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+
+  input[type='checkbox'] ~ label {
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  input[type='checkbox']:checked ~ label {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,50 @@
+.color-list {
+  display: flex;
+  gap: 0.5rem;
+
+  input {
+    display: none;
+  }
+
+  li {
+    padding: 0.5rem;
+    border-radius: 1rem;
+    background-color: rgb(232, 232, 232);
+  }
+
+  input[type='checkbox'] ~ label {
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  input[type='checkbox']:checked ~ label {
+    opacity: 1;
+  }
+
+  label {
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    opacity: 0.25;
+    transition: 0.5s;
+    border-radius: 0.75rem;
+
+    &[for='white'] {
+      background-color: white;
+    }
+
+    &[for='yellow'] {
+      background-color: yellow;
+    }
+    &[for='red'] {
+      background-color: red;
+    }
+    &[for='blue'] {
+      background-color: blue;
+    }
+    &[for='green'] {
+      background-color: green;
+    }
+  }
+}

@@ -1,0 +1,54 @@
+.size-list {
+  display: flex;
+  gap: 0.5rem;
+
+  input {
+    display: none;
+  }
+
+  li {
+    padding: 0.5rem;
+    border-radius: 1rem;
+    background-color: #87c38f;
+  }
+
+  input[type='checkbox'] ~ label {
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  input[type='checkbox']:checked ~ label {
+    opacity: 1;
+  }
+
+  label {
+    width: 2rem;
+    height: 2rem;
+    opacity: 0.25;
+    transition: 0.5s;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.size-label_big {
+      img {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+    }
+    &.size-label_medium {
+      img {
+        width: 1.1rem;
+        height: 1.1rem;
+      }
+    }
+    &.size-label_small {
+      img {
+        width: 0.7rem;
+        height: 0.7rem;
+      }
+    }
+  }
+}

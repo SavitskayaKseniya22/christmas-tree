@@ -1,0 +1,63 @@
+.toy-ref {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(232, 232, 232);
+  border-radius: 1rem;
+  padding: 0.5rem;
+  position: relative;
+  &::after {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+    content: '';
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+  }
+
+  &.color_white {
+    &::after {
+      background-color: white;
+    }
+  }
+
+  &.color_yellow {
+    &::after {
+      background-color: yellow;
+    }
+  }
+  &.color_red {
+    &::after {
+      background-color: red;
+    }
+  }
+  &.color_blue {
+    &::after {
+      background-color: blue;
+    }
+  }
+  &.color_green {
+    &::after {
+      background-color: green;
+    }
+  }
+
+  img {
+    &.size_big {
+      width: 3rem;
+      height: 3rem;
+    }
+    &.size_medium {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    &.size_small {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+}

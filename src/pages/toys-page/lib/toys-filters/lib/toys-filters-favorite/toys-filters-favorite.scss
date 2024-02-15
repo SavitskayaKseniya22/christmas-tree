@@ -1,0 +1,39 @@
+.filter_favorite {
+  input {
+    display: none;
+  }
+
+  input[type='checkbox'] ~ .favorite-label {
+    &:hover {
+      img {
+        opacity: 1;
+      }
+    }
+  }
+
+  input[type='checkbox']:checked ~ .favorite-label {
+    img {
+      opacity: 1;
+    }
+  }
+
+  .favorite-label {
+    padding: 0.5rem;
+    border-radius: 1rem;
+    background-color: #87c38f;
+
+    width: 3rem;
+    height: 3rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      opacity: 0.5;
+      transition: 0.5s;
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+}

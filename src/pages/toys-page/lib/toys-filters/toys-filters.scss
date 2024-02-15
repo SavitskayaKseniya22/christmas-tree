@@ -1,0 +1,23 @@
+.filters {
+  width: 350px;
+  background-color: white;
+  flex-shrink: 0;
+  position: relative;
+
+  .filters__container {
+    position: sticky;
+    top: 0;
+    left: 0;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: space-between;
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
