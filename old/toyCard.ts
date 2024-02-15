@@ -1,19 +1,21 @@
-import { Toy } from "./types";
+import { type ToyType } from '../src/types';
+
 export class ToyCard {
-  src: string;
-  element: string;
   favoriteString: string;
   selection: boolean;
-  toyData: Toy;
+  toyData: ToyType;
 
-  constructor(toy: Toy) {
+  constructor(toy: ToyType) {
     this.selection = false;
     this.toyData = toy;
-    this.toyData.favorite ? (this.favoriteString = "да") : (this.favoriteString = "нет");
+    this.toyData.favorite
+      ? (this.favoriteString = 'да')
+      : (this.favoriteString = 'нет');
   }
+
   renderHTML() {
     return `<li class="toy-item" data-num=${this.toyData.num} data-selection=${this.selection}>
-    <h4 class="small-title">${this.toyData.name}</h4>
+    <h4>${this.toyData.name}</h4>
     <img class="toy-image" src=../assets/toys/${this.toyData.num}.png alt="toy" />
     <ul>
       <li>Количество: <span class="count-toy">${this.toyData.count}</span></li>
@@ -26,14 +28,16 @@ export class ToyCard {
     <img class="star-image" src="../assets/svg/star-empty.svg" alt="star" />
   </li>`;
   }
+
   renderSelectionHTML() {
     return `<li class="toy-item toy-item_selected" data-num=${this.toyData.num}>
-    <h4 class="small-title">${this.toyData.name}</h4>
+    <h4 >${this.toyData.name}</h4>
     <img class="toy-image" src=../assets/toys/${this.toyData.num}.png alt="toy" />
     <span class="count-toy">${this.toyData.count}</span>
     <button class="remove-selection"><img src="../assets/svg/close-white.svg" alt="close" /></button>
   </li>`;
   }
+
   renderPreview() {
     return `<li class="toy-preview" draggable="true" data-num=${this.toyData.num}>
     <span class="count-toy">${this.toyData.count}</span>

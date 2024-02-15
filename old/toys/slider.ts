@@ -2,7 +2,12 @@ import * as noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';
 import { filterAndRender } from './render';
 import { storage } from './defaultData';
-import { Filters } from '../types';
+import { type FiltersType } from '../types';
+
+function getFiltersTypeFromStorage(): FiltersType {
+  const filters = storage.getItem('filters');
+  return filters ? JSON.parse(filters) : ({} as FiltersType);
+}
 
 export const sliderAmount = document.getElementById(
   'amount'
@@ -31,6 +36,7 @@ noUiSlider.create(sliderAmount, {
 export const sliderYear = document.getElementById(
   'year-of-manufacture'
 ) as noUiSlider.target;
+
 noUiSlider.create(sliderYear, {
   start: restoreSliderPosYear(),
   step: 20,
@@ -53,7 +59,7 @@ noUiSlider.create(sliderYear, {
 
 sliderYear.noUiSlider?.on('change', function () {
   const sliderYearValues = sliderYear.noUiSlider?.get() as number[];
-  const filters = JSON.parse(storage.getItem('filters')) as Filters;
+  const filters = JSON.parse(storage.getItem('filters')) as FiltersType;
   filters.year.min = sliderYearValues[0];
   filters.year.max = sliderYearValues[1];
   storage.setItem('filters', JSON.stringify(filters));
@@ -62,7 +68,7 @@ sliderYear.noUiSlider?.on('change', function () {
 
 sliderAmount.noUiSlider?.on('change', function () {
   const sliderAmountValues = sliderAmount.noUiSlider.get() as number[];
-  const filters = JSON.parse(storage.getItem('filters')) as Filters;
+  const filters = JSON.parse(storage.getItem('filters')) as FiltersType;
   filters.count.min = sliderAmountValues[0];
   filters.count.max = sliderAmountValues[1];
   storage.setItem('filters', JSON.stringify(filters));
@@ -73,7 +79,7 @@ function restoreSliderPosYear() {
   if (!storage.getItem('filters')) {
     return [1940, 2020];
   } else {
-    const filters = JSON.parse(storage.getItem('filters')) as Filters;
+    const filters = JSON.parse(storage.getItem('filters')) as FiltersType;
     const sliderYearStart = [filters.year.min, filters.year.max];
     return sliderYearStart;
   }
@@ -82,7 +88,7 @@ function restoreSliderPosAmount() {
   if (!storage.getItem('filters')) {
     return [1, 12];
   } else {
-    const filters = JSON.parse(storage.getItem('filters')) as Filters;
+    const filters = JSON.parse(storage.getItem('filters')) as FiltersType;
     const sliderAmountStart = [filters.count.min, filters.count.max];
     return sliderAmountStart;
   }

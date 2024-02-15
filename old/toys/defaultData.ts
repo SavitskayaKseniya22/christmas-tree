@@ -1,67 +1,67 @@
-import toys from "../assets/toys.json";
-import { filterAndRender } from "./render";
-import { Filters } from "../types";
+import toys from '../assets/toys.json';
+import { filterAndRender } from './render';
 
-export const mainContainer = document.querySelector(".toys-container");
+export const mainContainer = document.querySelector('.toys-container');
 export const storage = window.localStorage;
-export const filtersSource: Filters = {
+console.log();
+export const filtersSource = {
   color: {
     white: {
       value: false,
-      name: "белый",
+      name: 'белый',
     },
     yellow: {
       value: false,
-      name: "желтый",
+      name: 'желтый',
     },
     red: {
       value: false,
-      name: "красный",
+      name: 'красный',
     },
     blue: {
       value: false,
-      name: "синий",
+      name: 'синий',
     },
     green: {
       value: false,
-      name: "зелёный",
+      name: 'зелёный',
     },
   },
   shape: {
     round: {
       value: false,
-      name: "шар",
+      name: 'шар',
     },
     bell: {
       value: false,
-      name: "колокольчик",
+      name: 'колокольчик',
     },
     cone: {
       value: false,
-      name: "шишка",
+      name: 'шишка',
     },
     snowflake: {
       value: false,
-      name: "снежинка",
+      name: 'снежинка',
     },
     custom: {
       value: false,
-      name: "фигурка",
+      name: 'фигурка',
     },
   },
 
   size: {
     big: {
       value: false,
-      name: "большой",
+      name: 'большой',
     },
     middle: {
       value: false,
-      name: "средний",
+      name: 'средний',
     },
     small: {
       value: false,
-      name: "малый",
+      name: 'малый',
     },
   },
   favorite: false,
@@ -75,24 +75,25 @@ export const filtersSource: Filters = {
   },
 };
 
-//сброс чекбоксов
-export function uncheck() {
+// сброс чекбоксов
+export function uncheck(): void {
   document.querySelectorAll("input[type='checkbox']").forEach((element) => {
     (element as HTMLInputElement).checked = false;
   });
 }
 // установить дефолтные значения и применить их/вывести на страницу
-export function setDefaultSettings() {
-  if (!storage.getItem("data")) {
-    storage.setItem("data", JSON.stringify(toys));
+export function setDefaultSettings(): void {
+  if (storage.getItem('data') == null) {
+    storage.setItem('data', JSON.stringify(toys));
   }
-  if (!storage.getItem("filters")) {
-    storage.setItem("filters", JSON.stringify(filtersSource));
+  if (storage.getItem('filters') == null) {
+    storage.setItem('filters', JSON.stringify(filtersSource));
   }
-  if (!storage.getItem("order")) {
-    storage.setItem("order", "nameUp");
+  if (storage.getItem('order') == null) {
+    storage.setItem('order', 'nameUp');
   }
 
   filterAndRender();
 }
+
 setDefaultSettings();
