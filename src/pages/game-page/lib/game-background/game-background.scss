@@ -1,0 +1,33 @@
+.game__background {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+.background__container {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+
+  li {
+    input {
+      display: none;
+    }
+
+    label {
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-self: center;
+      justify-content: center;
+      flex-shrink: 0;
+      cursor: pointer;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+}

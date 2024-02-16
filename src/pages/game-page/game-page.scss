@@ -1,0 +1,13 @@
+.game__field {
+  background-color: rgb(232, 232, 232);
+  flex-grow: 2;
+}
+
+.game__column_left,
+.game__column_right {
+  width: 370px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

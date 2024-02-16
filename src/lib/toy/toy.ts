@@ -2,10 +2,10 @@ import { ToyViewType, type ToyType } from '../../types';
 import icon__star_empty from './assets/icon-star-empty.svg';
 import icon__star_full from './assets/icon-star-full.svg';
 import icon__heart from './assets/icon-heart.svg';
-import img_toy from '../../assets/toys/1.png';
-import './toy.scss';
+
 import AppStore from '../../store';
 import './lib/toy-ref/toy-ref';
+import './toy.scss';
 
 export class Toy {
   data: ToyType & { selected: boolean };
@@ -19,10 +19,10 @@ export class Toy {
       case ToyViewType.full:
         return `
     <h4>${this.data.title}</h4>
-    <img class="toy-image" src=${img_toy} alt="${this.data.title}" />
+    <img class="toy-image" src="https://raw.githubusercontent.com/SavitskayaKseniya22/christmas-tree/5be0f234ea6fa4b689ad2752d11deafecf0897ee/src/assets/toys/${this.data.num}.png" alt="${this.data.title}" />
     <ul class="toy__features">
-      <li class="toy__feature">${this.data.quantity}</li>
-    <li class="toy__feature">${this.data.year}</li>
+    <li class="toy__feature">Quantity: ${this.data.quantity}</li>
+    <li class="toy__feature">Year of manufacture: ${this.data.year}</li>
     </ul>
     
     <div is="toy-ref-custom" size='${this.data.size}' color="${this.data.color}" shape='${this.data.shape}'></div>
@@ -36,7 +36,7 @@ export class Toy {
       case ToyViewType.preview:
         return `<li class="toy-preview" draggable="true" data-num=${this.data.num}>
     <span class="count-toy">${this.data.quantity}</span>
-    <img class="toy-image" data-count=${this.data.quantity} data-num=${this.data.num} src=./assets/toys/${this.data.num}.png alt=${this.data.title} /></li>`;
+    <img class="toy-image" data-count=${this.data.quantity} data-num=${this.data.num} src="https://raw.githubusercontent.com/SavitskayaKseniya22/christmas-tree/5be0f234ea6fa4b689ad2752d11deafecf0897ee/src/assets/toys/${this.data.num}.png" alt=${this.data.title} /></li>`;
     }
   }
 }

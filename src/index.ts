@@ -4,6 +4,7 @@ import './lib/header/header';
 import './lib/footer/footer';
 import './pages/main-page/main-page';
 import './pages/toys-page/toys-page';
+import './pages/game-page/game-page';
 
 const routes: Record<
   string,
@@ -24,7 +25,7 @@ const routes: Record<
     description: 'Christmas tree',
   },
   game: {
-    content: `<main>1</main>`,
+    content: `<main is="game-page-custom"></main>`,
     title: 'Game',
     description: 'Decorate the tree',
   },

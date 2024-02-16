@@ -1,0 +1,69 @@
+.game__garland {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+.garland__container {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+
+  li {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    background-color: rgb(232, 232, 232);
+
+    input {
+      display: none;
+
+      &:checked + label {
+        opacity: 1;
+      }
+    }
+
+    label {
+      opacity: 0.5;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 0.75rem;
+
+      &:hover {
+        opacity: 0.5;
+      }
+
+      &.garland_white {
+        background-color: white;
+      }
+
+      &.garland_yellow {
+        background-color: yellow;
+      }
+
+      &.garland_red {
+        background-color: red;
+      }
+
+      &.garland_blue {
+        background-color: blue;
+      }
+
+      &.garland_green {
+        background-color: green;
+      }
+      &.garland_none {
+        opacity: 1;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+}

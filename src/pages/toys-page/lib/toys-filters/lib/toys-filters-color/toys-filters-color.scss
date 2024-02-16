@@ -12,13 +12,7 @@
     background-color: rgb(232, 232, 232);
   }
 
-  input[type='checkbox'] ~ label {
-    &:hover {
-      opacity: 1;
-    }
-  }
-
-  input[type='checkbox']:checked ~ label {
+  input:checked ~ label {
     opacity: 1;
   }
 

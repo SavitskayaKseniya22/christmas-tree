@@ -12,7 +12,6 @@ export class ToysFiltersOrder extends HTMLElement {
     this.insertAdjacentHTML(
       'afterbegin',
       `
-          <h3>Sort</h3>
           <select size="1" id="filter_order" class="default-button">
             <option value=${OrderType.titleUp}>By title &uarr;</option>
             <option value=${OrderType.titleDown}>By title &darr;</option>

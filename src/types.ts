@@ -57,10 +57,10 @@ export interface FiltersType {
 export interface GameSettingsType {
   isMusicPlaying: boolean;
   isSnowing: boolean;
-  tree: string;
-  bg: string;
-  isGarlandEnabled: boolean;
-  garlandType: string;
+  tree: string | null;
+  bg: string | null;
+
+  garlandType: string | null;
 }
 
 export enum ToyViewType {

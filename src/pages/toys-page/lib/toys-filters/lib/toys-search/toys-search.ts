@@ -1,5 +1,6 @@
 import AppStore from '../../../../../../store';
 import './toys-search.scss';
+import img_cross from '../../../../../../assets/svg/close.svg';
 
 export class ToysSearch extends HTMLElement {
   constructor() {
@@ -11,21 +12,22 @@ export class ToysSearch extends HTMLElement {
     this.insertAdjacentHTML(
       'afterbegin',
       `
-       <label for="search" class="label-title">
-          <h3>Search</h3>
-          </label>
+       
+          <div class="default-button search__input-container">
           <input
             type="text"
             name="search"
-            class="default-button"
+           
             id="search"
             placeholder="Search"
             autocomplete="off"
             autofocus
           />
-          <button class="default-button button_search-clear">
-              Clear the search
-      </button>
+          <button class="button_search-clear">
+              <img src=${img_cross} alt="cross">
+        </button>
+          </div>
+          
          
     `
     );

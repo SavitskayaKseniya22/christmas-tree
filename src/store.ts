@@ -9,6 +9,7 @@ import {
   ArrayOfFeaturesType,
   BooleanFeaturesType,
   SliderType,
+  type GameSettingsType,
 } from './types';
 
 export const initStoreData = {
@@ -26,7 +27,15 @@ export const initStoreData = {
 class AppStore {
   static filters: FiltersType = JSON.parse(JSON.stringify(initStoreData));
 
-  // static gameSettings: GameSettingsType = {};
+  static gameSettings: GameSettingsType = {
+    isMusicPlaying: false,
+    isSnowing: false,
+    tree: null,
+    bg: null,
+
+    garlandType: null,
+  };
+
   // static savedTrees: GameSettingsType[] = [];
   static selection: number[] = [];
   static data: ToyType[] = toys as ToyType[];
