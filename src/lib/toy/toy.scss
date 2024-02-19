@@ -108,7 +108,7 @@
   flex-shrink: 0;
   border-radius: 1rem;
   position: relative;
-  cursor: move;
+
   width: 70px;
   height: 70px;
   padding: 0.5rem;
@@ -133,5 +133,14 @@
   .toy-image {
     width: 100%;
     height: 100%;
+    cursor: move;
   }
+}
+
+.toy-image__separate {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  z-index: 6;
+  cursor: move;
 }

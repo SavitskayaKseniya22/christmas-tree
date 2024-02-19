@@ -41,7 +41,14 @@ export class DecorateTree {
 
     document.addEventListener('dragstart', (event) => {
       if ((event.target as HTMLElement).className === 'toy-image') {
-        this.onDragStart(event);
+        event.dataTransfer.effectAllowed = 'copy';
+        const parent = (event.target as HTMLElement).parentElement.className;
+        event.dataTransfer.setData(
+          'text/plain',
+          `.${parent} [data-num='${(event.target as HTMLImageElement).dataset.num}'][data-count='${
+            (event.target as HTMLImageElement).dataset.count
+          }']`
+        );
       }
     });
   }
@@ -81,16 +88,5 @@ export class DecorateTree {
     const { pageX, pageY } = e as MouseEvent;
     element.style.left = ` ${pageX - (block.getBoundingClientRect().left + 20 + window.pageXOffset)}px`;
     element.style.top = `${pageY - (block.getBoundingClientRect().top + 20 + window.pageYOffset)}px`;
-  }
-
-  onDragStart(event: DragEvent) {
-    event.dataTransfer.effectAllowed = 'copy';
-    const parent = (event.target as HTMLElement).parentElement.className;
-    event.dataTransfer.setData(
-      'text/plain',
-      `.${parent} [data-num='${(event.target as HTMLImageElement).dataset.num}'][data-count='${
-        (event.target as HTMLImageElement).dataset.count
-      }']`
-    );
   }
 }

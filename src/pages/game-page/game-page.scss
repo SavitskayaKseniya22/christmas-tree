@@ -13,3 +13,13 @@
   gap: 1rem;
   overflow: hidden;
 }
+
+.game-field-container {
+  width: 450px;
+  height: 650px;
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 5;
+}
