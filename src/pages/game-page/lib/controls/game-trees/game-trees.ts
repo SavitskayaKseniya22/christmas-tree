@@ -6,7 +6,7 @@ import img_3 from './assets/3.png';
 import img_4 from './assets/4.png';
 import img_5 from './assets/5.png';
 import img_6 from './assets/6.png';
-import AppStore from '../../../../store';
+import AppStore from '../../../../../store';
 
 export class GameTrees extends HTMLDivElement {
   constructor() {
@@ -70,7 +70,7 @@ export class GameTrees extends HTMLDivElement {
         if (e.target !== null) {
           const src = (e.target as HTMLElement).dataset.src;
           if (src !== undefined) {
-            AppStore.gameSettings.tree = src;
+            AppStore.updateTree({ src });
           }
         }
       });

@@ -1,0 +1,20 @@
+.tree-container {
+  width: 450px;
+  height: 650px;
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 3;
+}
+
+.map-tree {
+  display: block;
+  width: 450px;
+  height: 650px;
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 4;
+}

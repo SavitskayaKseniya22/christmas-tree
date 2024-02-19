@@ -12,6 +12,9 @@ import {
   type GameSettingsType,
 } from './types';
 
+import img_bg from './pages/game-page/lib/controls/game-background/assets/1.jpg';
+import img_tree from './pages/game-page/lib/controls/game-trees/assets/1.png';
+
 export const initStoreData = {
   color: [],
   shape: [],
@@ -24,17 +27,21 @@ export const initStoreData = {
   search: '',
 };
 
+export const initSettingsData = {
+  isMusicPlaying: false,
+  isSnowing: false,
+  tree: img_tree,
+  bg: img_bg,
+
+  garlandType: null,
+};
+
 class AppStore {
   static filters: FiltersType = JSON.parse(JSON.stringify(initStoreData));
 
-  static gameSettings: GameSettingsType = {
-    isMusicPlaying: false,
-    isSnowing: false,
-    tree: null,
-    bg: null,
-
-    garlandType: null,
-  };
+  static gameSettings: GameSettingsType = JSON.parse(
+    JSON.stringify(initSettingsData)
+  );
 
   // static savedTrees: GameSettingsType[] = [];
   static selection: number[] = [];
@@ -45,6 +52,51 @@ class AppStore {
   });
 
   static filteredToys: Toy[] = this.filter({ data: this.toys });
+
+  static updateGarland({ color }: { color: string }): void {
+    if (color !== 'none') {
+      AppStore.gameSettings.garlandType = color;
+    } else {
+      AppStore.gameSettings.garlandType = null;
+    }
+    document
+      .querySelector('.garland-container')
+      ?.setAttribute('rerender', 'true');
+  }
+
+  static updateSnow({ checked }: { checked: boolean }): void {
+    AppStore.gameSettings.isSnowing = checked;
+    document
+      .querySelector('.game__snowfall')
+      ?.setAttribute('rerender', checked.toString());
+  }
+
+  static updateBackground({ src }: { src: string }): void {
+    AppStore.gameSettings.bg = src;
+
+    document
+      .querySelector('.game-field__background')
+      ?.setAttribute('rerender', 'true');
+  }
+
+  static updateTree({ src }: { src: string }): void {
+    AppStore.gameSettings.tree = src;
+
+    document.querySelector('.tree-container')?.setAttribute('rerender', 'true');
+  }
+
+  static getSelectedToys(): Toy[] {
+    /*
+    return this.toys.filter((toy) => {
+      return toy.data.selected;
+    }); */
+    return this.toys;
+  }
+
+  static clearSettings(): void {
+    this.gameSettings = JSON.parse(JSON.stringify(initSettingsData));
+    document.querySelector('.game-page')?.setAttribute('rerender', 'true');
+  }
 
   static clearFilters(): void {
     this.filters = JSON.parse(JSON.stringify(initStoreData));

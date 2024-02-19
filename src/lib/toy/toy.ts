@@ -35,7 +35,7 @@ export class Toy {
 
       case ToyViewType.preview:
         return `<li class="toy-preview" draggable="true" data-num=${this.data.num}>
-    <span class="count-toy">${this.data.quantity}</span>
+    <div class="count-toy">${this.data.quantity}</div>
     <img class="toy-image" data-count=${this.data.quantity} data-num=${this.data.num} src="https://raw.githubusercontent.com/SavitskayaKseniya22/christmas-tree/5be0f234ea6fa4b689ad2752d11deafecf0897ee/src/assets/toys/${this.data.num}.png" alt=${this.data.title} /></li>`;
     }
   }
