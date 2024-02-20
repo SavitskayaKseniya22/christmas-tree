@@ -8,7 +8,6 @@ import './lib/containers/game-background-image/game-background-image';
 import './lib/containers/game-tree-image/game-tree-image';
 import './lib/containers/game-garland-container/game-garland-container';
 import AppStore from '../../store';
-import { ToyViewType } from '../../types';
 
 export class GameField extends HTMLDivElement {
   constructor() {
@@ -27,7 +26,7 @@ export class GameField extends HTMLDivElement {
         <div class="game-field-container">
         <img is="game-tree-image-custom" />
         <div is="game-garland-container-custom"></div>
-        <div class="game-toy-container"></div>
+        
         </div>
           
         <map name="image-map" class="map-tree">
@@ -73,7 +72,7 @@ export class GamePage extends HTMLElement {
       
       ${AppStore.getSelectedToys()
         .map((toy) => {
-          return toy.getView({ type: ToyViewType.preview });
+          return `<li is="toys-element-preview-custom" data-num=${toy.data.num}></li>`;
         })
         .join(' ')}
       </ul>
@@ -81,6 +80,12 @@ export class GamePage extends HTMLElement {
       </div>
       
     `;
+  }
+
+  setCoords(element: HTMLElement, e: Event, block: Element): void {
+    const { pageX, pageY } = e as MouseEvent;
+    element.style.left = ` ${pageX - (block.getBoundingClientRect().left + 20 + window.pageXOffset)}px`;
+    element.style.top = `${pageY - (block.getBoundingClientRect().top + 20 + window.pageYOffset)}px`;
   }
 
   attributeChangedCallback(): void {
@@ -104,15 +109,26 @@ export class GamePage extends HTMLElement {
     });
 
     this.addEventListener('dragstart', (event) => {
-      if (event.target !== null && event.dataTransfer !== null) {
+      if (
+        event.target !== null &&
+        (event.target as HTMLElement).classList.contains('toy-image') &&
+        event.dataTransfer !== null
+      ) {
         event.dataTransfer.clearData();
+        const element = event.target as HTMLImageElement;
+        const num = element.dataset.num;
 
-        const num = (event.target as HTMLElement).dataset.num;
         event.dataTransfer.effectAllowed = 'copy';
         if (num !== undefined) {
-          event.dataTransfer.setData('text/plain', num);
+          event.dataTransfer.setData(
+            'text/plain',
+            JSON.stringify({
+              num,
+              parent: element.parentElement?.className,
+            })
+          );
 
-          const img = event.target as HTMLImageElement;
+          const img = element;
 
           const canvas = document.createElement('canvas');
           const ctx = canvas.getContext('2d');
@@ -129,49 +145,62 @@ export class GamePage extends HTMLElement {
 
     document.addEventListener('drop', (event) => {
       const target = event.target as HTMLElement;
-      if (target.tagName === 'AREA' && event.dataTransfer !== null) {
-        const targetNum = event.dataTransfer.getData('text');
 
-        console.log(event.target, targetNum);
+      if (
+        target.tagName === 'AREA' &&
+        event.dataTransfer !== null &&
+        event.dataTransfer.effectAllowed !== 'uninitialized'
+      ) {
+        const { num, parent } = JSON.parse(event.dataTransfer.getData('text'));
 
         const draggableElement = document.querySelector(
-          `img[data-num="${targetNum}"]`
+          `.${parent} img[data-num="${num}"]`
         );
-        const dropzone = this.querySelector('.game-toy-container');
+        const dropzone = this.querySelector('.game-field-container');
 
-        console.log(draggableElement, dropzone);
         if (draggableElement !== null && dropzone !== null) {
-          const draggableElementDup =
-            draggableElement.cloneNode() as HTMLElement;
-          draggableElementDup.classList.add('toy-image__separate');
-          dropzone.append(draggableElementDup);
-          const { pageX, pageY } = event as MouseEvent;
-          draggableElementDup.style.left = ` ${pageX - (dropzone.getBoundingClientRect().left + 20 + window.scrollY)}px`;
-          draggableElementDup.style.top = `${pageY - (dropzone.getBoundingClientRect().top + 20 + window.scrollY)}px`;
-          draggableElementDup.addEventListener('dblclick', () => {
-            draggableElementDup.remove();
-          });
-        }
+          if (parent === 'toy-preview') {
+            const draggableElementDup =
+              draggableElement.cloneNode() as HTMLElement;
+            draggableElementDup.classList.add('toy-image__separate');
 
-        /*
-        let count = draggableElement.dataset.count;
-        if (targetSelector.includes('toy-preview') && +count > 0) {
-         
-          count = String(+count - 1);
-          draggableElement.dataset.count = count;
-          draggableElementDup.dataset.count = count;
-          draggableElement.previousElementSibling.textContent = count;
-          draggableElement.parentNode.append(draggableElement);
-          dropzone.append(draggableElementDup);
-          this.setCoords(draggableElementDup, event, dropzone as HTMLElement);
-          draggableElementDup.addEventListener('dblclick', () => {
-            this.returnToy(draggableElementDup);
-          });
-          event.dataTransfer.clearData();
-        } else if (targetSelector.includes('tree-container')) {
-          dropzone.append(draggableElement);
-          this.setCoords(draggableElement, event, dropzone as HTMLElement);
-        } */
+            this.setCoords(draggableElementDup, event, dropzone as HTMLElement);
+
+            dropzone.append(draggableElementDup);
+            const count = draggableElement.getAttribute('data-count');
+
+            if (count !== null && draggableElement.parentElement !== null) {
+              draggableElement.parentElement.setAttribute(
+                'data-count',
+                String(+count - 1)
+              );
+            }
+
+            draggableElementDup.addEventListener('dblclick', () => {
+              draggableElementDup.remove();
+
+              const parentElement = document.querySelector(
+                `.${parent}[data-num="${num}"]`
+              );
+
+              if (count !== null && parentElement !== null) {
+                const parentCount = parentElement.getAttribute('data-count');
+                if (parentCount !== null) {
+                  parentElement.setAttribute(
+                    'data-count',
+                    String(+parentCount + 1)
+                  );
+                }
+              }
+            });
+          } else if (parent === 'game-field-container') {
+            this.setCoords(
+              draggableElement as HTMLElement,
+              event,
+              dropzone as HTMLElement
+            );
+          }
+        }
       }
     });
   }
