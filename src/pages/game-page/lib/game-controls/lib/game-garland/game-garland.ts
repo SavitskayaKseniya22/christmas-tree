@@ -1,7 +1,7 @@
 import './game-garland.scss';
 
 import img_cross from './assets/close-white.svg';
-import AppStore from '../../../../../store';
+import AppStore from '../../../../../../store';
 
 export class GameGarland extends HTMLDivElement {
   constructor() {

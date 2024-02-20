@@ -1,7 +1,6 @@
-import AppStore from '../../../../../store';
+import AppStore from '../../../../../../store';
+import img_tree from '../../../../../../assets/trees/1.png';
 import './game-tree-image.scss';
-
-import img_tree from '../../controls/game-trees/assets/1.png';
 
 export class GameTreeImage extends HTMLImageElement {
   static observedAttributes = ['rerender'];

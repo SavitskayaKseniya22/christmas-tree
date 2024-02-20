@@ -1,6 +1,6 @@
-import AppStore from '../../../../../store';
 import './game-background-image.scss';
-import img_bg from '../../controls/game-background/assets/1.jpg';
+import img_bg from '../../../../../../assets/backgrounds/1.jpg';
+import AppStore from '../../../../../../store';
 
 export class GameBackgroundImage extends HTMLImageElement {
   static observedAttributes = ['rerender'];

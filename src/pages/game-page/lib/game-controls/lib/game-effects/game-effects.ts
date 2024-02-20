@@ -4,7 +4,7 @@ import './game-effects.scss';
 import img_snow from './assets/snow.svg';
 import img_audio from './assets/audio.svg';
 import track_audio from './assets/audio.mp3';
-import AppStore from '../../../../../store';
+import AppStore from '../../../../../../store';
 
 export class GameEffects extends HTMLDivElement {
   constructor() {

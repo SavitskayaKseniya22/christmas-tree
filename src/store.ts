@@ -12,8 +12,8 @@ import {
   type GameSettingsType,
 } from './types';
 
-import img_bg from './pages/game-page/lib/controls/game-background/assets/1.jpg';
-import img_tree from './pages/game-page/lib/controls/game-trees/assets/1.png';
+import img_bg from './assets/backgrounds/1.jpg';
+import img_tree from './assets/trees/1.png';
 
 export const initStoreData = {
   color: [],

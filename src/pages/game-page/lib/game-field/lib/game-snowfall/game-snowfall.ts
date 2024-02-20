@@ -1,5 +1,5 @@
 import './game-snowfall.scss';
-import img_snow from '../../controls/game-effects/assets/snow.svg';
+import img_snow from '../../../game-controls/lib/game-effects/assets/snow.svg';
 
 export class GameSnow extends HTMLDivElement {
   static observedAttributes = ['rerender'];

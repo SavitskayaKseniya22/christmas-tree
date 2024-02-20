@@ -1,14 +1,14 @@
 import './game-background.scss';
 
-import img_1 from './assets/1.jpg';
-import img_2 from './assets/2.jpg';
-import img_3 from './assets/3.jpg';
-import img_4 from './assets/4.jpg';
-import img_5 from './assets/5.jpg';
-import img_6 from './assets/6.jpg';
-import img_7 from './assets/7.jpg';
-import img_8 from './assets/8.jpg';
-import AppStore from '../../../../../store';
+import img_1 from '../../../../../../assets/backgrounds/1.jpg';
+import img_2 from '../../../../../../assets/backgrounds/2.jpg';
+import img_3 from '../../../../../../assets/backgrounds/3.jpg';
+import img_4 from '../../../../../../assets/backgrounds/4.jpg';
+import img_5 from '../../../../../../assets/backgrounds/5.jpg';
+import img_6 from '../../../../../../assets/backgrounds/6.jpg';
+import img_7 from '../../../../../../assets/backgrounds/7.jpg';
+import img_8 from '../../../../../../assets/backgrounds/8.jpg';
+import AppStore from '../../../../../../store';
 
 export class GameBackground extends HTMLDivElement {
   constructor() {

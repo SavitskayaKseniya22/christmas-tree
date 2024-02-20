@@ -1,4 +1,4 @@
-import AppStore from '../../../../../store';
+import AppStore from '../../../../../../store';
 import './game-garland-container.scss';
 
 export class GameGarlandContainer extends HTMLDivElement {

@@ -1,4 +1,4 @@
-import { ToyViewType, type ToyType, SliderType } from '../../types';
+import { ToyViewType, type ToyType } from '../../types';
 import icon__star_empty from './assets/icon-star-empty.svg';
 import icon__star_full from './assets/icon-star-full.svg';
 import icon__heart from './assets/icon-heart.svg';
@@ -9,15 +9,21 @@ import './toy.scss';
 
 export class Toy {
   data: ToyType & { selected: boolean };
-  count: number;
 
   constructor(toy: ToyType) {
     this.data = { ...toy, selected: false };
-    this.count = this.data[SliderType.QUANTITY];
   }
 
-  getView({ type, toy }: { type: ToyViewType; toy: Toy }): string {
-    const { count, data } = toy;
+  getView({
+    type,
+    toy,
+    count,
+  }: {
+    type: ToyViewType;
+    toy: Toy;
+    count: string;
+  }): string {
+    const { data } = toy;
     const {
       num,
       size,
@@ -72,7 +78,7 @@ export class ToyElement extends HTMLLIElement {
 
   render(): void {
     this.innerHTML = `
-      ${this.toy.getView({ type: ToyViewType.full, toy: this.toy })}
+      ${this.toy.getView({ type: ToyViewType.full, toy: this.toy, count: '0' })}
     `;
   }
 
@@ -109,12 +115,12 @@ export class ToyElementPreview extends HTMLLIElement {
             return toy.data.num === +num;
           }) ?? AppStore.toys[0];
     this.className = 'toy-preview';
-    this.dataset.count = String(this.toy.count);
+    this.dataset.count = String(this.toy.data.quantity);
   }
 
   render(): void {
     this.innerHTML = `
-      ${this.toy.getView({ type: ToyViewType.preview, toy: this.toy })}
+      ${this.toy.getView({ type: ToyViewType.preview, toy: this.toy, count: this.dataset.count ?? '0' })}
     `;
   }
 
@@ -123,7 +129,6 @@ export class ToyElementPreview extends HTMLLIElement {
     oldValue: string,
     newValue: string
   ): void {
-    this.toy.count = +newValue;
     this.render();
   }
 

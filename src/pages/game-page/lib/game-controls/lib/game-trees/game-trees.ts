@@ -1,12 +1,12 @@
 import './game-trees.scss';
 
-import img_1 from './assets/1.png';
-import img_2 from './assets/2.png';
-import img_3 from './assets/3.png';
-import img_4 from './assets/4.png';
-import img_5 from './assets/5.png';
-import img_6 from './assets/6.png';
-import AppStore from '../../../../../store';
+import img_1 from '../../../../../../assets/trees/1.png';
+import img_2 from '../../../../../../assets/trees/2.png';
+import img_3 from '../../../../../../assets/trees/3.png';
+import img_4 from '../../../../../../assets/trees/4.png';
+import img_5 from '../../../../../../assets/trees/5.png';
+import img_6 from '../../../../../../assets/trees/6.png';
+import AppStore from '../../../../../../store';
 
 export class GameTrees extends HTMLDivElement {
   constructor() {
