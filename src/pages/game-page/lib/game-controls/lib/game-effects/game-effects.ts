@@ -9,7 +9,7 @@ import AppStore from '../../../../../../store';
 export class GameEffects extends HTMLDivElement {
   constructor() {
     super();
-    this.className = 'game__effects';
+    this.className = 'game-controls__effects';
   }
 
   render(): void {
@@ -17,17 +17,17 @@ export class GameEffects extends HTMLDivElement {
       'afterbegin',
       `
       <h4>Choose effects</h4>
-<ul class="effects__container">
-  <li data-effect="music" class="effects_music">
-    <input id="effects_music" type="checkbox" />
-    <label for="effects_music">
+<ul class="game-controls__effects-container">
+  <li data-effect="music" class="game-controls__effects-music">
+    <input id="game-controls__effects-music" type="checkbox" />
+    <label for="game-controls__effects-music">
       <audio class="effects-music__audio" src="${track_audio}"></audio>
       <img src="${img_audio}" alt="audio icon" />
     </label>
   </li>
-  <li data-effect="snow" class="effects_snow">
-    <input id="effects_snow" type="checkbox" />
-    <label for="effects_snow">
+  <li data-effect="snow" class="game-controls__effects-snow">
+    <input id="game-controls__effects-snow" type="checkbox" />
+    <label for="game-controls__effects-snow">
       <img src="${img_snow}" alt="snow icon" />
     </label>
   </li>
@@ -38,25 +38,33 @@ export class GameEffects extends HTMLDivElement {
 
   connectedCallback(): void {
     this.render();
-    this.querySelector('#effects_music')?.addEventListener('change', (e) => {
-      const checked = (e.target as HTMLInputElement).checked;
+    this.querySelector('#game-controls__effects-music')?.addEventListener(
+      'change',
+      (e) => {
+        const checked = (e.target as HTMLInputElement).checked;
 
-      AppStore.gameSettings.isMusicPlaying = checked;
+        AppStore.settings.isMusicPlaying = checked;
 
-      const audio = this.querySelector('.effects-music__audio');
+        const audio = this.querySelector('.effects-music__audio');
 
-      if (audio !== null) {
-        if (checked) {
-          (audio as HTMLAudioElement).play();
-        } else {
-          (audio as HTMLAudioElement).pause();
+        if (audio !== null) {
+          if (checked) {
+            (audio as HTMLAudioElement).play();
+          } else {
+            (audio as HTMLAudioElement).pause();
+          }
         }
       }
-    });
+    );
 
-    this.querySelector('#effects_snow')?.addEventListener('change', (e) => {
-      AppStore.updateSnow({ checked: (e.target as HTMLInputElement).checked });
-    });
+    this.querySelector('#game-controls__effects-snow')?.addEventListener(
+      'change',
+      (e) => {
+        AppStore.updateSnow({
+          checked: (e.target as HTMLInputElement).checked,
+        });
+      }
+    );
   }
 }
 

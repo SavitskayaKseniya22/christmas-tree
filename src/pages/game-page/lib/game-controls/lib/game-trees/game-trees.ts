@@ -11,7 +11,7 @@ import AppStore from '../../../../../../store';
 export class GameTrees extends HTMLDivElement {
   constructor() {
     super();
-    this.className = 'game__trees';
+    this.className = 'game-controls__tree';
   }
 
   render(): void {
@@ -19,7 +19,7 @@ export class GameTrees extends HTMLDivElement {
       'afterbegin',
       `
       <h4>Choose a tree</h4>
-      <ul class="trees__container">
+      <ul class="game-controls__trees-container">
 
       <li data-src=${img_1}>
       <label for="tree-1">

@@ -1,5 +1,4 @@
 import './game-background.scss';
-
 import img_1 from '../../../../../../assets/backgrounds/1.jpg';
 import img_2 from '../../../../../../assets/backgrounds/2.jpg';
 import img_3 from '../../../../../../assets/backgrounds/3.jpg';
@@ -13,7 +12,7 @@ import AppStore from '../../../../../../store';
 export class GameBackground extends HTMLDivElement {
   constructor() {
     super();
-    this.className = 'game__background';
+    this.className = 'game-controls__background';
   }
 
   render(): void {
@@ -21,7 +20,7 @@ export class GameBackground extends HTMLDivElement {
       'afterbegin',
       `
 <h4>Choose a background</h4>
-<ul class="background__container">
+<ul class="game-controls__backgrounds-container">
   <li>
     <label for="background-1">
       <img src="${img_1}" alt="Background" />

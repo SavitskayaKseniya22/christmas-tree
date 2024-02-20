@@ -17,12 +17,12 @@ export class GameField extends HTMLDivElement {
         <div is="game-snow-custom"></div>
         <img is="game-background-image-custom" />
         
-        <div class="game-field-container">
+        <div class="game-field__container">
           <img is="game-tree-image-custom" />
           <div is="game-garland-container-custom"></div>
         </div>
           
-        <map name="image-map" class="map-tree">
+        <map name="image-map" class="game-field__drop-map">
             <area
               target=""
               alt="tree"

@@ -14,7 +14,7 @@ export class GamePage extends HTMLElement {
     this.innerHTML = `
       <div is="game-controls-custom"></div>
       <div is="game-field-custom"></div>
-      <div class="game__column_right">
+      <div class="game__toys-container">
       <ul class="game__toys-list">
       
       ${AppStore.getSelectedToys()
@@ -99,10 +99,10 @@ export class GamePage extends HTMLElement {
         const draggableElement = document.querySelector(
           `.${parent} img[data-num="${num}"]`
         );
-        const dropzone = this.querySelector('.game-field-container');
+        const dropzone = this.querySelector('.game-field__container');
 
         if (draggableElement !== null && dropzone !== null) {
-          if (parent === 'toy-preview') {
+          if (parent === 'toy_preview') {
             const draggableElementDup =
               draggableElement.cloneNode() as HTMLElement;
             draggableElementDup.classList.add('toy-image__separate');
@@ -136,7 +136,7 @@ export class GamePage extends HTMLElement {
                 }
               }
             });
-          } else if (parent === 'game-field-container') {
+          } else if (parent === 'game-field__container') {
             this.setCoords(
               draggableElement as HTMLElement,
               event,

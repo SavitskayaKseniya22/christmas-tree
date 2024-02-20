@@ -45,9 +45,9 @@ export function restoreSelection() {
 
 document.addEventListener('click', (e: Event) => {
   const targetElement = e.target as HTMLElement;
-  if (targetElement.closest('.toys-container .toy-item')) {
+  if (targetElement.closest('.toys-container .toy_full')) {
     let selection: string[] = [];
-    const toy = targetElement.closest('.toy-item');
+    const toy = targetElement.closest('.toy_full');
     if (storage.getItem('selection')) {
       selection = JSON.parse(storage.getItem('selection'));
     }

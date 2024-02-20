@@ -6,7 +6,7 @@ export class GameSnow extends HTMLDivElement {
   content: string;
   constructor() {
     super();
-    this.className = 'game__snowfall';
+    this.className = 'game-field__snowfall';
     this.content = `
       <ul class="snowfall">${`<li><img src=${img_snow} alt="snowflake" /></li>`.repeat(5)}</ul>
       <ul class="snowfall">${`<li><img src=${img_snow} alt="snowflake" /></li>`.repeat(5)}</ul>

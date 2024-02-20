@@ -14,7 +14,7 @@ export class ToyCard {
   }
 
   renderHTML() {
-    return `<li class="toy-item" data-num=${this.toyData.num} data-selection=${this.selection}>
+    return `<li class="toy_full" data-num=${this.toyData.num} data-selection=${this.selection}>
     <h4>${this.toyData.name}</h4>
     <img class="toy-image" src=../assets/toys/${this.toyData.num}.png alt="toy" />
     <ul>
@@ -30,7 +30,7 @@ export class ToyCard {
   }
 
   renderSelectionHTML() {
-    return `<li class="toy-item toy-item_selected" data-num=${this.toyData.num}>
+    return `<li class="toy_full toy-item_selected" data-num=${this.toyData.num}>
     <h4 >${this.toyData.name}</h4>
     <img class="toy-image" src=../assets/toys/${this.toyData.num}.png alt="toy" />
     <span class="count-toy">${this.toyData.count}</span>
@@ -39,7 +39,7 @@ export class ToyCard {
   }
 
   renderPreview() {
-    return `<li class="toy-preview" draggable="true" data-num=${this.toyData.num}>
+    return `<li class="toy_preview" draggable="true" data-num=${this.toyData.num}>
     <span class="count-toy">${this.toyData.count}</span>
     <img class="toy-image" data-count=${this.toyData.count} data-num=${this.toyData.num} src=./assets/toys/${this.toyData.num}.png alt="toy" />
     

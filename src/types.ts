@@ -57,8 +57,8 @@ export interface FiltersType {
 export interface GameSettingsType {
   isMusicPlaying: boolean;
   isSnowing: boolean;
-  tree: string | null;
-  bg: string | null;
+  tree: string;
+  bg: string;
 
   garlandType: string | null;
 }

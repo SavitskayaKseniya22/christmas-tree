@@ -6,7 +6,7 @@ import AppStore from '../../../../../../store';
 export class GameGarland extends HTMLDivElement {
   constructor() {
     super();
-    this.className = 'game__garland';
+    this.className = 'game-controls__garland';
   }
 
   render(): void {
@@ -14,7 +14,7 @@ export class GameGarland extends HTMLDivElement {
       'afterbegin',
       `
 <h4>Choose a garland's color</h4>
-<ul class="garland__container">
+<ul class="game-controls__garlands-container">
   <li>
     <input id="garland-1" type="radio" name="garland" data-color="white" />
     <label for="garland-1" class="garland_white"></label>

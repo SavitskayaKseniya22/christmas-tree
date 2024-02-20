@@ -8,8 +8,8 @@ export class GameGarlandContainer extends HTMLDivElement {
   constructor() {
     super();
 
-    this.className = 'garland-container';
-    this.color = AppStore.gameSettings.garlandType;
+    this.className = 'game-field__garland';
+    this.color = AppStore.settings.garlandType;
   }
 
   render(): void {
@@ -21,7 +21,7 @@ export class GameGarlandContainer extends HTMLDivElement {
   }
 
   attributeChangedCallback(): void {
-    this.color = AppStore.gameSettings.garlandType;
+    this.color = AppStore.settings.garlandType;
     if (this.color !== null) {
       this.innerHTML = `<ul class="garland-block garland-block_first">
     ${`<li class="garland_${this.color}"></li>`.repeat(8)}

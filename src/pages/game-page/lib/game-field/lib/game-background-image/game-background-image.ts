@@ -1,5 +1,4 @@
 import './game-background-image.scss';
-import img_bg from '../../../../../../assets/backgrounds/1.jpg';
 import AppStore from '../../../../../../store';
 
 export class GameBackgroundImage extends HTMLImageElement {
@@ -11,7 +10,7 @@ export class GameBackgroundImage extends HTMLImageElement {
   }
 
   render(): void {
-    this.src = AppStore.gameSettings.bg ?? img_bg;
+    this.src = AppStore.settings.bg;
   }
 
   connectedCallback(): void {

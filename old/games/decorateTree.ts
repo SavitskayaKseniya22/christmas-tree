@@ -18,7 +18,7 @@ export class DecorateTree {
         const draggableElement = document.querySelector(targetSelector);
         const dropzone = target.closest('.tree-container');
         let count = draggableElement.dataset.count;
-        if (targetSelector.includes('toy-preview') && +count > 0) {
+        if (targetSelector.includes('toy_preview') && +count > 0) {
           const draggableElementDup =
             draggableElement.cloneNode() as HTMLElement;
           count = String(+count - 1);
@@ -77,7 +77,7 @@ export class DecorateTree {
 
   returnToy(element: HTMLElement) {
     const num = element.getAttribute('data-num');
-    const target = document.querySelector(`.toy-preview [data-num='${num}']`);
+    const target = document.querySelector(`.toy_preview [data-num='${num}']`);
     element.remove();
     const count = String(+target.dataset.count + 1);
     target.previousElementSibling.textContent = count;

@@ -1,5 +1,4 @@
 import AppStore from '../../../../../../store';
-import img_tree from '../../../../../../assets/trees/1.png';
 import './game-tree-image.scss';
 
 export class GameTreeImage extends HTMLImageElement {
@@ -7,20 +6,13 @@ export class GameTreeImage extends HTMLImageElement {
   constructor() {
     super();
     this.alt = 'Tree';
-    this.className = 'tree-container';
+    this.className = 'game-field__tree';
     this.useMap = '#image-map';
-  }
-
-  render(): void {
-    this.src = AppStore.gameSettings.tree ?? img_tree;
-  }
-
-  connectedCallback(): void {
-    this.render();
+    this.src = AppStore.settings.tree;
   }
 
   attributeChangedCallback(): void {
-    this.connectedCallback();
+    this.src = AppStore.settings.tree;
   }
 }
 

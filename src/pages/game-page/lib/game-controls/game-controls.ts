@@ -8,7 +8,7 @@ import './game-controls.scss';
 export class GameControls extends HTMLDivElement {
   constructor() {
     super();
-    this.className = 'game__column_left';
+    this.className = 'game__controls';
   }
 
   render(): void {

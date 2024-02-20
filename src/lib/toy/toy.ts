@@ -73,7 +73,7 @@ export class ToyElement extends HTMLLIElement {
         : AppStore.filteredToys.find((toy) => {
             return toy.data.num === +num;
           }) ?? AppStore.toys[0];
-    this.className = 'toy-item';
+    this.className = 'toy_full';
   }
 
   render(): void {
@@ -114,7 +114,7 @@ export class ToyElementPreview extends HTMLLIElement {
         : AppStore.filteredToys.find((toy) => {
             return toy.data.num === +num;
           }) ?? AppStore.toys[0];
-    this.className = 'toy-preview';
+    this.className = 'toy_preview';
     this.dataset.count = String(this.toy.data.quantity);
   }
 

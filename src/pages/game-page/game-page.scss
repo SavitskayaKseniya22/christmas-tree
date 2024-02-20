@@ -4,8 +4,8 @@
   position: relative;
 }
 
-.game__column_left,
-.game__column_right {
+.game__controls,
+.game__toys-container {
   width: 400px;
   padding: 1rem;
   display: flex;
@@ -14,7 +14,7 @@
   overflow: hidden;
 }
 
-.game-field-container {
+.game-field__container {
   width: 450px;
   height: 650px;
   position: absolute;
