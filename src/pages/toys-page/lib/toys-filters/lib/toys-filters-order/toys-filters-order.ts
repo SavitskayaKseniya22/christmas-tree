@@ -12,11 +12,11 @@ export class ToysFiltersOrder extends HTMLElement {
     this.insertAdjacentHTML(
       'afterbegin',
       `
-          <select size="1" id="filter_order" class="default-button">
-            <option value=${OrderType.titleUp}>By title &uarr;</option>
-            <option value=${OrderType.titleDown}>By title &darr;</option>
-            <option value=${OrderType.yearUp}>By year &uarr;</option>
-            <option value=${OrderType.yearDown}>By year &darr;</option>
+          <select size="1" id="filter_order" class="btn_default">
+            <option value=${OrderType.TITLEUP}>By title &uarr;</option>
+            <option value=${OrderType.TITLEDOWN}>By title &darr;</option>
+            <option value=${OrderType.YEARUP}>By year &uarr;</option>
+            <option value=${OrderType.YEARDOWN}>By year &darr;</option>
             <option value=${OrderType.QUANTITYUP}>By quantity &uarr;</option>
             <option value=${OrderType.QUANTITYDOWN}>By quantity &darr;</option>
           </select>

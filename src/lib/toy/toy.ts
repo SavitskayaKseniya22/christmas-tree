@@ -36,7 +36,7 @@ export class Toy {
       selected,
     } = data;
     switch (type) {
-      case ToyViewType.full:
+      case ToyViewType.FULL:
         return `
     <h4>${title}</h4>
     <img class="toy-image" src="https://raw.githubusercontent.com/SavitskayaKseniya22/christmas-tree/5be0f234ea6fa4b689ad2752d11deafecf0897ee/src/assets/toys/${num}.png" alt="${title}" />
@@ -53,7 +53,7 @@ export class Toy {
    
   `;
 
-      case ToyViewType.preview:
+      case ToyViewType.PREVIEW:
         return `
     <div class="count-toy">${count}</div>
     <img draggable="true" class="toy-image" data-count=${count} data-num=${num} src="https://raw.githubusercontent.com/SavitskayaKseniya22/christmas-tree/5be0f234ea6fa4b689ad2752d11deafecf0897ee/src/assets/toys/${this.data.num}.png" alt="${this.data.title}" />`;
@@ -78,7 +78,7 @@ export class ToyElement extends HTMLLIElement {
 
   render(): void {
     this.innerHTML = `
-      ${this.toy.getView({ type: ToyViewType.full, toy: this.toy, count: '0' })}
+      ${this.toy.getView({ type: ToyViewType.FULL, toy: this.toy, count: '0' })}
     `;
   }
 
@@ -120,7 +120,7 @@ export class ToyElementPreview extends HTMLLIElement {
 
   render(): void {
     this.innerHTML = `
-      ${this.toy.getView({ type: ToyViewType.preview, toy: this.toy, count: this.dataset.count ?? '0' })}
+      ${this.toy.getView({ type: ToyViewType.PREVIEW, toy: this.toy, count: this.dataset.count ?? '0' })}
     `;
   }
 
@@ -129,7 +129,9 @@ export class ToyElementPreview extends HTMLLIElement {
     oldValue: string,
     newValue: string
   ): void {
-    this.render();
+    this.innerHTML = `
+      ${this.toy.getView({ type: ToyViewType.PREVIEW, toy: this.toy, count: newValue })}
+    `;
   }
 
   connectedCallback(): void {

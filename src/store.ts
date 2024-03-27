@@ -23,7 +23,7 @@ export const initStoreData = {
   selected: false,
   quantity: null,
   year: null,
-  order: OrderType.titleUp,
+  order: OrderType.TITLEUP,
   search: '',
 };
 
@@ -93,7 +93,7 @@ class AppStore {
 
   static clearSettings(): void {
     this.settings = JSON.parse(JSON.stringify(initSettingsData));
-    document.querySelector('.game-page')?.setAttribute('rerender', 'true');
+    document.querySelector('.page_game')?.setAttribute('rerender', 'true');
   }
 
   static clearFilters(): void {
@@ -118,22 +118,22 @@ class AppStore {
     orderType: OrderType;
   }): Toy[] {
     switch (orderType) {
-      case OrderType.titleUp:
+      case OrderType.TITLEUP:
         return toys.sort((a, b) => {
           return a.data.title.localeCompare(b.data.title);
         });
 
-      case OrderType.titleDown:
+      case OrderType.TITLEDOWN:
         return toys.sort((a, b) => {
           return b.data.title.localeCompare(a.data.title);
         });
 
-      case OrderType.yearUp:
+      case OrderType.YEARUP:
         return toys.sort((a, b) => {
           return a.data.year - b.data.year;
         });
 
-      case OrderType.yearDown:
+      case OrderType.YEARDOWN:
         return toys.sort((a, b) => {
           return b.data.year - a.data.year;
         });

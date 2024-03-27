@@ -21,10 +21,10 @@ export enum ToyShapeType {
 }
 
 export enum OrderType {
-  titleUp = 'titleUp',
-  titleDown = 'titleDown',
-  yearUp = 'yearUp',
-  yearDown = 'yearDown',
+  TITLEUP = 'titleUp',
+  TITLEDOWN = 'titleDown',
+  YEARUP = 'yearUp',
+  YEARDOWN = 'yearDown',
   QUANTITYUP = 'quantityUp',
   QUANTITYDOWN = 'quantityDown',
 }
@@ -64,8 +64,8 @@ export interface GameSettingsType {
 }
 
 export enum ToyViewType {
-  full = 'full',
-  preview = 'preview',
+  FULL = 'full',
+  PREVIEW = 'preview',
 }
 
 export interface ToyType {
