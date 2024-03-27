@@ -14,11 +14,8 @@ export class ToysFiltersSelected extends HTMLElement {
     this.insertAdjacentHTML(
       'afterbegin',
       `
-         
-            <input type="checkbox" id="selected" />
-                <label class="selected-label" for="selected">
-                  <img src=${img_star} alt="Star" />
-                </label>
+    <input type="checkbox" id="selected" />
+    <label class="selected-label" for="selected" title="Select all selected toys"><img src=${img_star} alt="Star" width="20" height="20" /></label>
     `
     );
   }

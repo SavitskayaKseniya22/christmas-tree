@@ -13,7 +13,7 @@ export class ToysFiltersYear extends HTMLElement {
       'afterbegin',
       `
           <h4>Year of manufacture</h4>
-          <div is="slider-custom" min="1940" max="2020" type=${SliderType.YEAR}></div>
+          <div is="slider-custom" min="1940" max="2020" type=${SliderType.YEAR} title="Limit the search period by year"></div>
     `
     );
   }

@@ -12,23 +12,20 @@ export class ToysSearch extends HTMLElement {
     this.insertAdjacentHTML(
       'afterbegin',
       `
-       
-          <div class="default-button search__input-container">
+        <div class="btn_default search__input-container">
           <input
             type="text"
             name="search"
-           
+            title="Search a toy by a name"
             id="search"
             placeholder="Search"
             autocomplete="off"
             autofocus
           />
-          <button class="button_search-clear">
+          <button class="btn_search-clear" title="Clear the search field">
               <img src=${img_cross} alt="cross">
-        </button>
-          </div>
-          
-         
+          </button>
+        </div>  
     `
     );
   }
@@ -41,7 +38,7 @@ export class ToysSearch extends HTMLElement {
         AppStore.filters.search = (e.target as HTMLInputElement).value;
         AppStore.renderData();
       });
-      this.querySelector('.button_search-clear')?.addEventListener(
+      this.querySelector('.btn_search-clear')?.addEventListener(
         'click',
         (e) => {
           (searchElem as HTMLInputElement).value = '';

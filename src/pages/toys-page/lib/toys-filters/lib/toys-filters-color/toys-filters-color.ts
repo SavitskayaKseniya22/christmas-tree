@@ -17,33 +17,23 @@ export class ToysFiltersColor extends HTMLElement {
             <ul class="color-list">
               <li>
                 <input type="checkbox" id=${ToyColorType.BLUE} class="color__input" />
-                <label class="color-label" for=${ToyColorType.BLUE}>
-                  
-                </label>
+                <label class="color-label" for=${ToyColorType.BLUE} title="Select all blue toys"></label>
               </li>
               <li>
                 <input type="checkbox" id=${ToyColorType.GREEN} class="color__input" />
-                <label class="color-label" for=${ToyColorType.GREEN}>
-                  
-                </label>
+                <label class="color-label" for=${ToyColorType.GREEN} title="Select all green toys"></label>
               </li>
               <li>
                 <input type="checkbox" id=${ToyColorType.RED} class="color__input" />
-                <label class="color-label" for=${ToyColorType.RED}>
-                  
-                </label>
+                <label class="color-label" for=${ToyColorType.RED} title="Select all red toys"></label>
               </li>
               <li>
                 <input type="checkbox" id=${ToyColorType.WHITE} class="color__input" />
-                <label class="color-label" for=${ToyColorType.WHITE}>
-                 
-                </label>
+                <label class="color-label" for=${ToyColorType.WHITE} title="Select all white toys"></label>
               </li>
               <li>
                 <input type="checkbox" id=${ToyColorType.YELLOW} class="color__input" />
-                <label class="color-label" for=${ToyColorType.YELLOW}>
-                  
-                </label>
+                <label class="color-label" for=${ToyColorType.YELLOW} title="Select all yellow toys"></label>
               </li>
             </ul>
     `

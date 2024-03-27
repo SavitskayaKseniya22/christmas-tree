@@ -18,38 +18,34 @@ export class ToysFiltersShape extends HTMLElement {
     this.insertAdjacentHTML(
       'afterbegin',
       `
-          
             <ul class="shape-list">
               <li>
                 <input type="checkbox" id=${ToyShapeType.BALL} class="shape__input" />
-                <label class="shape-label" for=${ToyShapeType.BALL}>
+                <label class="shape-label" for=${ToyShapeType.BALL} title="Select all balls">
                   <img src=${img_ball} alt="ball shape toy" />
                 </label>
               </li>
               <li>
                 <input type="checkbox" id=${ToyShapeType.BELL} class="shape__input" />
-                <label class="shape-label" for=${ToyShapeType.BELL}>
+                <label class="shape-label" for=${ToyShapeType.BELL} title="Select all bells">
                   <img src=${img_bell} alt="bell shape toy" />
                 </label>
               </li>
               <li>
                 <input type="checkbox" id=${ToyShapeType.CONE} class="shape__input" />
-                <label class="shape-label" for=${ToyShapeType.CONE}>
+                <label class="shape-label" for=${ToyShapeType.CONE} title="Select all cones">
                   <img src=${img_cone} alt="cone shapetoy" />
                 </label>
               </li>
               <li>
                 <input type="checkbox" id=${ToyShapeType.SNOWFLAKE} class="shape__input" />
-                <label class="shape-label" for=${ToyShapeType.SNOWFLAKE}>
-                  <img
-                    src=${img_snowflake}
-                    alt="snowflake shape toy"
-                  />
+                <label class="shape-label" for=${ToyShapeType.SNOWFLAKE} title="Select all snowflakes">
+                  <img src=${img_snowflake} alt="snowflake shape toy"/>
                 </label>
               </li>
               <li>
                 <input type="checkbox" id=${ToyShapeType.TOY} class="shape__input" />
-                <label class="shape-label" for=${ToyShapeType.TOY}>
+                <label class="shape-label" for=${ToyShapeType.TOY} title="Select all custom toys">
                   <img src=${img_toy} alt="custom shape toy" />
                 </label>
               </li>

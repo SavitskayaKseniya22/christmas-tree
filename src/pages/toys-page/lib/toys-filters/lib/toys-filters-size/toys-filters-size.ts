@@ -19,19 +19,19 @@ export class ToysFiltersSize extends HTMLElement {
             <ul class="size-list">
               <li>
                 <input type="checkbox" id=${ToySizeType.BIG} class="size__input" />
-                <label class="size-label size-label_big" for=${ToySizeType.BIG}>
+                <label class="size-label size-label_big" for=${ToySizeType.BIG} title="Select all big toys">
                   <img src=${img_ball} alt="ball size toy" />
                 </label>
               </li>
               <li>
                 <input type="checkbox" id=${ToySizeType.MEDIUM} class="size__input" />
-                <label class="size-label size-label_medium" for=${ToySizeType.MEDIUM}>
+                <label class="size-label size-label_medium" for=${ToySizeType.MEDIUM} title="Select all medium toys">
                   <img src=${img_ball} alt="ball size toy" />
                 </label>
               </li>
               <li>
                 <input type="checkbox" id=${ToySizeType.SMALL} class="size__input" />
-                <label class="size-label size-label_small" for=${ToySizeType.SMALL}>
+                <label class="size-label size-label_small" for=${ToySizeType.SMALL} title="Select all small toys">
                   <img src=${img_ball} alt="ball size toy" />
                 </label>
               </li>

@@ -17,14 +17,14 @@ export class GameControls extends HTMLDivElement {
         <div is="game-background-custom"></div>
         <div is="game-garland-custom"></div>
         <div is="game-effects-custom"></div>
-        <button class="default-button game__button_reset">Reset</button>  
+        <button class="btn_default btn_reset-settings" title="Reset the field">Reset</button>  
     `;
   }
 
   connectedCallback(): void {
     this.render();
 
-    this.querySelector('.game__button_reset')?.addEventListener('click', () => {
+    this.querySelector('.btn_reset-settings')?.addEventListener('click', () => {
       AppStore.clearSettings();
     });
   }

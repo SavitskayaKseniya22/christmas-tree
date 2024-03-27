@@ -16,14 +16,13 @@ export class ToysFilters extends HTMLDivElement {
   constructor() {
     super();
     this.className = 'filters';
-    this.setAttribute('rerender', 'false');
   }
 
   render(): void {
     this.innerHTML = `<div class="filters__container">
       <section is="toys-filters-search-custom"></section>
        <section is="toys-filters-order-custom"></section>
-<section class="filters_detailed">
+      <section class="filters_detailed">
        <h3>Filters</h3>
        <section is="toys-filters-shape-custom"></section>
        <section is="toys-filters-color-custom"></section>
@@ -32,13 +31,12 @@ export class ToysFilters extends HTMLDivElement {
        <section is="toys-filters-favorite-custom"></section>
        <section is="toys-filters-year-custom"></section>
        <section is="toys-filters-quantity-custom"></section>
-</section>
-      <section>
-      <button class="default-button button_drop-filters">Drop all filters</button>
       </section>
-
+      <section>
+      <button class="btn_default btn_drop-filters" title="Drop all filters">Drop all filters</button>
+      </section>
       <section >
-      <button class="default-button button_clear-selection">Clear the selection</button>
+      <button class="btn_default btn_clear-selection" title="Clear the selection">Clear the selection</button>
       </section>
       </div>`;
   }
@@ -46,14 +44,11 @@ export class ToysFilters extends HTMLDivElement {
   connectedCallback(): void {
     this.render();
 
-    this.querySelector('.button_drop-filters')?.addEventListener(
-      'click',
-      (e) => {
-        AppStore.clearFilters();
-      }
-    );
+    this.querySelector('.btn_drop-filters')?.addEventListener('click', (e) => {
+      AppStore.clearFilters();
+    });
 
-    this.querySelector('.button_clear-selection')?.addEventListener(
+    this.querySelector('.btn_clear-selection')?.addEventListener(
       'click',
       (e) => {
         AppStore.clearSelection();

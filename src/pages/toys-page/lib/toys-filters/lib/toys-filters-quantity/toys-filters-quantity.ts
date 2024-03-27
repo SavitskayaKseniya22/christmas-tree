@@ -12,8 +12,7 @@ export class ToysFiltersQuantity extends HTMLElement {
       'afterbegin',
       `
           <h4>Quantity</h4>
-          <div is="slider-custom" min="1" max="12" type=${SliderType.QUANTITY}></div>
-    `
+          <div is="slider-custom" min="1" max="12" type=${SliderType.QUANTITY} title="Limit the search period by quantity"></div>`
     );
   }
 

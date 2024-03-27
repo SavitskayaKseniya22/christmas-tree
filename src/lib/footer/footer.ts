@@ -11,7 +11,7 @@ export default class Footer extends HTMLElement {
     this.insertAdjacentHTML(
       'afterbegin',
       `
-        <a href="https://github.com/SavitskayaKseniya22" target="_blank">
+        <a href="https://github.com/SavitskayaKseniya22" target="_blank" title="Developer's github">
           <img src=${img_github} alt="GitHub" width="30" height="30" />
         </a>
       <span>2021-2024</span>
