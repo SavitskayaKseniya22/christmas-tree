@@ -1,18 +1,32 @@
 .header {
-  padding: 1em;
-  background-color: #87c38f;
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-
   padding: 1rem;
+  gap: 1rem;
 
   img {
     width: 3rem;
   }
 
-  .nav_link.active {
-    color: #f4f0bb;
+  .nav__link_active {
+    color: #f5af1c;
+    pointer-events: none;
+  }
+
+  &.header_main {
+    background-color: rgba(232, 232, 232, 0.5);
+    z-index: 2;
+    padding: 2rem;
+    gap: 2rem;
+
+    h2 {
+      font-size: 2.5rem;
+    }
+
+    img {
+      width: 4rem;
+      height: 5rem;
+    }
   }
 }

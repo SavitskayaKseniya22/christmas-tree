@@ -1,9 +1,3 @@
-.game__field {
-  background-color: rgb(232, 232, 232);
-  flex-grow: 2;
-  position: relative;
-}
-
 .game__controls,
 .game__toys-container {
   width: 400px;
@@ -14,12 +8,7 @@
   overflow: hidden;
 }
 
-.game-field__container {
-  width: 450px;
-  height: 650px;
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translate(-50%);
-  z-index: 5;
+.game__toys-container {
+  padding: 0;
+  height: 100%;
 }

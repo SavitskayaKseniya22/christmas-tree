@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Jura:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 * {
   box-sizing: border-box;
@@ -7,8 +7,10 @@
 }
 
 html {
-  font-size: 16px;
-  font-family: 'Jura', sans-serif;
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 ul,
@@ -33,7 +35,7 @@ a {
   font-family: inherit;
   font-size: inherit;
   line-height: 1;
-  color: #355829;
+  color: rgb(1, 16, 85);
   transition: 0.5s;
 
   &:hover {
@@ -41,7 +43,7 @@ a {
   }
 
   &:active {
-    color: #ceb31e;
+    color: #f5473e;
   }
 }
 
@@ -57,18 +59,22 @@ button {
 body {
   height: 100svh;
   width: 100%;
-  color: #355829;
+  color: rgb(1, 16, 85);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
+h2,
+h3,
+h4 {
+  font-family: 'Oswald', cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
 h2 {
   font-size: 2rem;
-
-  &.title_active {
-    color: #ffd700;
-  }
 }
 
 h3 {
@@ -85,10 +91,10 @@ h4 {
   min-height: 0;
 }
 
-.default-button {
+.btn_default {
   min-width: 270px;
   height: 40px;
   padding: 0.5em;
   border-radius: 0.2em;
-  border: 2px solid #567d30;
+  border: 2px solid rgb(1, 16, 85);
 }
