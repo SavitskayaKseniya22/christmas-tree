@@ -1,17 +1,50 @@
 import './game-snowfall.scss';
-import img_snow from '../../../game-controls/lib/game-effects/assets/snow.svg';
 
-export class GameSnow extends HTMLDivElement {
-  static observedAttributes = ['rerender'];
+export class GameSnow extends HTMLUListElement {
+  static observedAttributes = ['data-enabled'];
+
   content: string;
   constructor() {
     super();
     this.className = 'game-field__snowfall';
     this.content = `
-      <ul class="snowfall">${`<li><img src=${img_snow} alt="snowflake" /></li>`.repeat(5)}</ul>
-      <ul class="snowfall">${`<li><img src=${img_snow} alt="snowflake" /></li>`.repeat(5)}</ul>
-      <ul class="snowfall">${`<li><img src=${img_snow} alt="snowflake" /></li>`.repeat(5)}</ul>
-   
+      
+  <li class="snowflake">
+    <div class="inner">&#10052;</div>
+  </li>
+  <li class="snowflake">
+    <div class="inner">&#10052;</div>
+  </li>
+  <li class="snowflake">
+    <div class="inner">&#10052;</div>
+  </li>
+  <li class="snowflake">
+    <div class="inner">&#10052;</div>
+  </li>
+  <li class="snowflake">
+    <div class="inner">&#10052;</div>
+  </li>
+  <li class="snowflake">
+    <div class="inner">&#10052;</div>
+  </li>
+  <li class="snowflake">
+    <div class="inner">&#10052;</div>
+  </li>
+  <li class="snowflake">
+    <div class="inner">&#10052;</div>
+  </li>
+  <li class="snowflake">
+    <div class="inner">&#10052;</div>
+  </li>
+  <li class="snowflake">
+    <div class="inner">&#10052;</div>
+  </li>
+  <li class="snowflake">
+    <div class="inner">&#10052;</div>
+  </li>
+  <li class="snowflake">
+    <div class="inner">&#10052;</div>
+  </li>
     `;
   }
 
@@ -28,9 +61,10 @@ export class GameSnow extends HTMLDivElement {
     oldValue: string,
     newValue: string
   ): void {
-    this.innerHTML =
-      name === 'rerender' && newValue === 'true' ? this.content : '';
+    if (name === 'data-enabled') {
+      this.innerHTML = newValue === 'true' ? this.content : '';
+    }
   }
 }
 
-customElements.define('game-snow-custom', GameSnow, { extends: 'div' });
+customElements.define('game-snow-custom', GameSnow, { extends: 'ul' });

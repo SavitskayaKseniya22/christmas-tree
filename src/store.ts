@@ -65,7 +65,7 @@ class AppStore {
     AppStore.settings.isSnowing = checked;
     document
       .querySelector('.game-field__snowfall')
-      ?.setAttribute('rerender', checked.toString());
+      ?.setAttribute('data-enabled', checked.toString());
   }
 
   static updateBackground({ src }: { src: string }): void {

@@ -14,7 +14,7 @@ export class GameField extends HTMLDivElement {
     this.insertAdjacentHTML(
       'afterbegin',
       `
-        <div is="game-snow-custom"></div>
+        <ul is="game-snow-custom"></ul>
         <img is="game-background-image-custom" />
         
         <div class="game-field__container">
